@@ -1,0 +1,7 @@
+%ul
+  - fc = ""
+  - @records.each do |arec|
+    - if arec.name[0,1] != fc
+      %p
+      - fc = arec.name[0,1]
+    = link_to(arec.name, :action=>:lyrics, :lid=>arec.id) + " | "

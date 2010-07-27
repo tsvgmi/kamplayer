@@ -1,0 +1,10 @@
+= " | " + link_to('Next', :action=>:rcommand, :id=>'next')
+= " | " + link_to('Previous', :action=>:rcommand, :id=>'previous')
+= " | " + link_to_remote('Rewind', :url=>{:action=>:command, :id=>'rewind'})
+= " | " + link_to_remote('Voice', :url=>{:action=>:command, :id=>'voice'})
+= " | " + link_to_remote('Karaoke', :url=>{:action=>:command, :id=>'karaoke'})
+= " | " + link_to_remote('Pause', :url=>{:action=>:command, :id=>'pause'})
+= " | " + link_to('Reload', :action=>:rcommand, :id=>'reload')
+= " | " + link_to('Stop', :action=>:rcommand, :id=>'stop')
+= " | " + link_to('Start', :action=>:rcommand, :id=>'start')
+

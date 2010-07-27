@@ -11,7 +11,21 @@
     body
       :background-color #ffc
 
+= link_to("[Content]", :action=>:lyric_content)
+- @sameset.each do |lyric|
+  = "| " + link_to(lyric.author, :action=>:lyrics, :lid=>lyric.id)
+
+%form{:action=>'/karaoke/abcontent'}
+  %input{:type=>:hidden, :name=>'lid', :value=>@lyric.id}
+  %input{:type=>:textentry, :size=>100, :name=>'abcontent', :value=>@lyric.abcontent}
+
 %h2= @lyric.name
-%h3= @lyric.author
-.lyrics
-  = @lyric.content
+%h3= "#{@lyric.author} - #{@lyric.id}"
+- if @lyric.content && !@lyric.content.empty?
+  .lyrics
+    = @lyric.content
+- elsif @lyric.url
+  = @lyric.url
+  = link_to("[Cache]", :action=>:load_lyric, :id=>@lyric.id)
+  %iframe{:src=>@lyric.url, :width=>'100%', :height=>'1000'}
+

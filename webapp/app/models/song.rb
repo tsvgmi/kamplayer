@@ -94,8 +94,12 @@ class Song < ActiveRecord::Base
           v = "#{value}, #{v}"
         end
       end
-      k = :rate if (k == :rt)
-      self[k] = v
+      if k == :lyid
+        self.lyric = Lyric.find_by_id(v.to_i)
+      else
+        k = :rate if (k == :rt)
+        self[k] = v
+      end
     end
     self.save
   end

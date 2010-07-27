@@ -18,33 +18,31 @@ class KaraokeController < ApplicationController
     @ptn     = params[:ptn] || ""
     @records = []
     if alphabet != "-"
-      #@records = Song.find(:all, :conditions=>"song like '#{alphabet}%'")
       @ptn = "alphabet=#{alphabet}"
     elsif artist != "-"
-      #@records = Song.find(:all, :conditions=>"artist like '%#{artist}%'")
       @ptn = "artist=#{artist}"
     elsif tag != "-"
-      #@records = Song.find(:all, :conditions=>"tag like '%#{tag}%'")
       @ptn = "tag=#{tag}"
     elsif author != "-"
-      #@records = []
-      #conditions = "author like '%#{author}%'"
-      #Lyric.find(:all, :conditions=>conditions).each do |r|
-        #if r.songs.size > 0
-          #@records.concat(r.songs)
-        #end
-      #end
       @ptn = "author=#{author}"
     end
     if !@ptn.empty?
       @records = Song.ext_search(@ptn)
     end
+
+    @playlist = PlayList.find_by_name('mpshell')
+
     if (cid = params[:id]) != nil
       @cursong = Song.find(cid.to_i)
+      if (item = params[:item]) != nil
+        offset = item.to_i - @playlist.curplay
+        if offset != 0
+          @playlist.song_step(offset)
+        end
+      end
     else
       @cursong = @records.first
     end
-    @playlist = PlayList.find_by_name('mpshell')
     @artists  = Song.all_artists
     @tags     = Song.all_tags
     @authors  = Lyric.all_authors
@@ -80,7 +78,9 @@ class KaraokeController < ApplicationController
     when 'item'
       item   = params[:item]
       offset = item.to_i - playlist.curplay
-      playlist.song_step(offset)
+      if offset != 0
+        playlist.song_step(offset)
+      end
     # Mplayer lost everything when it goes to the end, so we need to reload
     when 'reload'
       playlist.reload_list
@@ -134,6 +134,30 @@ class KaraokeController < ApplicationController
         @lyric = Lyric.new(:author=>song.author, :content=>song.lyrics)
       end
     end
+    @sameset = Lyric.find(:all, :conditions=>['name=?', @lyric.name])
+  end
+
+  def load_lyric
+    lid = params[:id]
+    lyric = Lyric.find(lid.to_i)
+    lyric.load_content
+    redirect_to :action=>:lyrics, :lid=>lid
+  end
+
+  def lyric_content
+    @records = Lyric.unique_songs
+  end
+
+  def abcontent
+    #return render :text=>params.to_yaml
+    lid = params[:lid]
+    abcontent = params[:abcontent] || ""
+    if !abcontent.empty?
+      lyric = Lyric.find(lid.to_i)
+      lyric.abcontent = abcontent
+      lyric.save
+    end
+    redirect_to :action=>:lyrics, :lid=>lid
   end
 
   def cli

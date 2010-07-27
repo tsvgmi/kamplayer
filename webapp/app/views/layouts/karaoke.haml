@@ -1,0 +1,11 @@
+%html
+  %head
+    %title= @page_title
+    - if @page_refresh
+      = "<meta http-equiv='refresh' content='#{@page_refresh}'/>"
+    = javascript_include_tag "prototype"
+    %style{:type=>'text/css'}
+      = @content_for_page_style
+
+  %body
+    = yield

@@ -1,0 +1,17 @@
+- content_for "page_style" do
+  :sass
+    .lyrics
+      :font-size 2em
+      :text-align center
+    h2
+      :font-size 2.5em
+      :text-align center
+    h3
+      :text-align right
+    body
+      :background-color #ffc
+
+%h2= @lyric.name
+%h3= @lyric.author
+.lyrics
+  = @lyric.content

@@ -1,0 +1,42 @@
+- if @cursong
+  = render(:partial=>'cursong', :object=>@cursong)
+
+%form{:action=>'/karaoke/search'}
+  %input{:type=>'text', :name=>'ptn', :value=>@ptn}
+  %button Search
+  <b>Songs</b>:
+  = select_tag("alphabet", options_for_select(['-', '0'] + ('A'..'Z').to_a), :onchange=>'form.submit();')
+  <b>Artist</b>:
+  = select_tag("artist", options_for_select(['-'] + @artists), :onchange=>'form.submit();')
+  <b>Author</b>:
+  = select_tag("author", options_for_select(['-'] + @authors), :onchange=>'form.submit();')
+  <b>Tag</b>:
+  = select_tag("tag", options_for_select(['-']  + @tags), :onchange=>'form.submit();')
+
+- if true
+  %form{:action=>'/karaoke/cli'}
+    <b>Evaluate</b>:
+    %input{:type=>'hidden', :name=>'cid', :value=>(@cursong ? @cursong.id : 0)}
+    %input{:type=>'text', :name=>'command', :size=>80}
+
+%form{:action=>'mqueue', :ptn2=>@ptn}
+  %input{:type=>'hidden', :name=>'ptn', :value=>@ptn}
+  | <b>Clean</b>:
+  %input{:type=>'checkbox', :name=>'clean'}
+  | <b>All:</b>
+  %input{:type=>'checkbox', :name=>'all'}
+  %button Add
+  %table
+    - @records.each do |arec|
+      %tr
+        %td
+          %input{:type=>'checkbox', :name=>"rec_#{arec.id}", :value=>1}
+        %td= link_to_remote(arec.id, :url=>{:action=>:queue, :id=>arec.id})
+        %td= arec.song
+        %td= arec.artist
+        %td= "%03d%s" % [arec.size, arec.ksel]
+        %td= "*****"[0, arec.rate.to_i]
+        %td= arec.tag
+        %td= arec.lastplayed ? Time.at(arec.lastplayed).strftime("%m/%d/%y") : ""
+        %td= arec.lyrics || "..."
+

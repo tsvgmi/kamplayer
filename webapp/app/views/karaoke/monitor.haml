@@ -1,0 +1,60 @@
+:javascript
+  function alertmsg(evtobj){
+    var unicode=evtobj.charCode? evtobj.charCode : evtobj.keyCode
+    var actualkey=String.fromCharCode(unicode)
+    //alert(actualkey);
+    if ((actualkey=="n") || (actualkey=="j")) {
+      document.location = "/karaoke/rcommand/next";
+    } else if ((actualkey=="p") || (actualkey == "k")) {
+      document.location = "/karaoke/rcommand/previous";
+    }
+  }
+  document.onkeypress=alertmsg
+
+- if csong = @playlist.current_song
+  = render(:partial=>'cursong', :object=>csong)
+
+= " | " + link_to('Next', :action=>:rcommand, :id=>'next')
+= " | " + link_to('Previous', :action=>:rcommand, :id=>'previous')
+= " | " + link_to_remote('Rewind', :url=>{:action=>:command, :id=>'rewind'})
+= " | " + link_to_remote('Voice', :url=>{:action=>:command, :id=>'voice'})
+= " | " + link_to_remote('Karaoke', :url=>{:action=>:command, :id=>'karaoke'})
+= " | " + link_to_remote('Pause', :url=>{:action=>:command, :id=>'pause'})
+= " | " + link_to('Reload', :action=>:rcommand, :id=>'reload')
+= " | " + link_to('Stop', :action=>:rcommand, :id=>'stop')
+= " | " + link_to('Start', :action=>:rcommand, :id=>'start')
+
+%table
+  %tr
+    %th Pos
+    %th Rec
+    %th Song
+    %th Artist
+    %th Author
+    %th Rating
+    %th Tag
+    %th Played
+    %th Lyrics
+  - rcount = 0
+  - curplay = @playlist.curplay
+  - @playlist.songs.each do |arec|
+    - rtype = (rcount == curplay) ? "#ccccff" : ""
+    - author = arec.lyric ? arec.lyric.author : ""
+    %tr{:id=>"row_#{rcount}",:bgcolor=>rtype}
+      - plink = link_to(rcount, :action=>:rcommand, :id=>'item', :item=>rcount)
+      %td= plink
+      %td= arec.id
+      %td= link_to(arec.song, {:action=>:search, :id=>arec.id, :ptn=>arec.song}, :target=>'search')
+      %td= link_to(arec.artist, {:action=>:search, :ptn=>arec.artist}, :target=>'search')
+      %td= link_to(author, {:action=>:search, :ptn=>"author=#{author}"}, :target=>'search')
+      %td= "*****"[0, arec.rate.to_i]
+      %td= arec.tag ? link_to(arec.tag, :action=>:search, :ptn=>"tag=#{arec.tag}") : ""
+      %td= arec.lastplayed ? Time.at(arec.lastplayed).strftime("%m/%d/%y") : ""
+      - lyrics = arec.lyrics || "..."
+      - if arec.lyric
+        - lyrics += " " + link_to("[...]", {:action=>:lyrics, :id=>arec.id}, :target=>'lyrics')
+      %td= lyrics
+    - rcount += 1
+%script
+  $("row_#{curplay}").scrollTo();
+

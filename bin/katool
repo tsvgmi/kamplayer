@@ -1,0 +1,183 @@
+#!/bin/bash
+. ${0%/*}/../etc/tool.env
+#######################################################################
+# File: 	katool
+# Description:  Sysadmin tools
+# Created:	2002-06-23
+# $Id$
+#######################################################################
+KAR_DIR=/Volumes/movies/Karaoke
+
+PATH=$PATH:/sw/sbin:/opt/local/bin
+
+#------------------------------------------------------ Begin of script ---
+#------------------------------------------------------ Begin of script ---
+#------------------------------------------------------ Begin of script ---
+
+F_subCommand $*
+oper=$1; shift
+case $oper in
+#@Use: update-db -m. 
+#@Des: Update database (and move files to storage if needed)
+#=begin
+# This rebuilds the full song database from files in tne storage area
+#=over
+#=item -m
+# Move matching files to storage area before updating database
+#=back
+#=end
+  update-db)
+    move=
+    while getopts :m i; do
+      case $i in
+      m) move=yes ;;
+      *) F_usageOper $oper ;;
+      esac
+    done
+    let j=$OPTIND-1; shift $j; OPTIND=0
+    here=$PWD
+    if [ "$move" ]; then
+      F_logProgress "Moving files to $KAR_DIR"
+      F_system rsync -va --remove-source-files \
+	--include='*.VOB' --include='*.vob' --include='*.mp4' \
+	--include='*.mkv' --include='*.avi' --exclude='*' ./ \
+	$KAR_DIR/
+    fi
+    cd $KAR_DIR || exit 1
+
+    F_rbrun rename reorg_by_alpha . || exit 1
+    F_rbrun rename renumber . || exit 1
+    ;;
+
+  re-encode)
+    ifile=$1
+    bfile=${ifile##*/}
+    F_logProgress "Convert $ifile to $ofile"
+    fext=$(echo ${ifile##*.} | tr 'A-Z' 'a-z')
+    case $fext in
+    mpg)
+      ofile=${bfile%.*}.mp4
+      set -- $(ls -s "$ifile")
+      let msize="($1/2+999)/1000"
+      HandBrakeCLI -i "$ifile" -o "tmp-$ofile" --size ${msize}M \
+        --optimize --arate 48 --mixdown stereo
+      ;;
+    *)
+      ofile=${bfile%.*}.mkv
+      HandBrakeCLI -i "$ifile" -o "tmp-$ofile" -2 -T -b $brate \
+                  -O -T -B 192 -a 1,2 -R 48 --mixdown stereo \
+                  --width 720 --height 480
+      ;;
+    esac
+
+    [ -s "tmp-$ofile" ] || exit 1
+    mv "tmp-$ofile" "$ofile"
+    ;;
+
+  play-list)
+    doplay=yes number= popt= genfolder= ofile=
+    while getopts :fNno:s i; do
+      case $i in
+      f) genfolder=yes ;;
+      n) number=yes ;;
+      N) doplay= ;;
+      o) popt="$popt -o $(F_absPath $OPTARG)" ;;
+      s) popt="$popt -$i" ;;
+      *) F_usageOper $oper ;;
+      esac
+    done
+    let j=$OPTIND-1; shift $j; OPTIND=0
+    here=$PWD
+    cd ~/K3-N || exit 1
+    ptn=$(echo $* | sed 's/ /./g')
+    oname=$(echo $ptn | sed 's/[|*]//g')
+    if [ "$number" ]; then
+      ofile=$(F_rbrun rename gen_playlist_bynumber $popt "$ptn") || exit 1
+    else
+      if [ "$genfolder" ]; then
+        odir=~/KA/$oname
+        [ -d $odir ] && rm -rf $odir
+        popt="$popt -f $odir"
+      fi
+      #F_rbexec rename gen_playlist $popt "$ptn"
+      ofile=$(F_rbrun rename gen_playlist $popt "$ptn") || exit 1
+    fi
+    cd $here
+    F_logProgress "Playlist generated in $ofile"
+    if [ "$doplay" ]; then
+      F_exec open -a VLC $ofile
+    fi
+    ;;
+
+#@Use: mpshell [-C kbytes] [-o level ] [-s seconds] [-fkmSvr]
+#@Des: Running the mplayer shell
+#=begin
+# Command line shell to run mplayer for karaoke.
+#=over
+#=item -C kbytes
+# Specify the cache size for prefetch of video data
+#=item -f
+# Run in full screen
+#=item -k
+# Start at last session
+#=item -K
+# Start in karaoke mode
+#=item -m
+# Do not run the monitor thread (debug only)
+#=item -o level
+# Specify OSD level
+#=item -r
+# Enable readline mode
+#=item -s second
+# Enable sample mode (jump to middle and play a short)
+#=item -S
+# Enable simulation
+#=item -v
+# Run in verbose
+#=back
+#=end
+  mpshell)
+    ropt= rlmode=
+    while getopts :C:dfkKmo:rs:Sv i; do
+      case $i in
+      d)       export EM_RDEBUG=yes ;;
+      [Cos])   ropt="$ropt -$i $OPTARG" ;;
+      [fkKmSv]) ropt="$ropt -$i" ;;
+      r) ropt="$ropt -$i" rlmode=yes ;;
+      *) F_usageOper $oper ;;
+      esac
+    done
+    cd ~/KA || exit 1
+    F_rbexec mpshell -c $ropt run
+    ;;
+
+  #@Des: Independent monitor of mpshell output to control mplayer operation
+#=begin
+# This is normally run by mpshell directly.  However, in mpshell it is
+# difficult to debug (background thread), so this operation is used for
+# running it stand alone for debug.
+#=end
+  mpmonitor)
+    usedb= ropt=
+    while getopts :ksv i; do
+      case $i in
+      [kKsv]) ropt="$ropt -$i" ;;
+      *) F_usageOper $oper ;;
+      esac
+    done
+    cd ~/KA || exit 1
+    F_pkill ruby.*pmonitor
+    F_rbexec mpshell -c $ropt pmonitor
+    ;;
+
+  #@Des: Wrapper for rename.rb
+  rename)
+    F_rbrun rename $@
+    ;;
+
+  *)
+    F_usageOper $oper
+    ;;
+esac
+exit 0
+

@@ -1,43 +1,39 @@
 - content_for "page_style" do
   :sass
-    table
-      :border 3px solid #cccccc
-    th
-      :background-color #cccccc
-    td
-      :border-bottom 1px dotted #ccccff
-      :border-left   1px solid #ccccff
-      :padding 0 3px
-    tr
-      :border-bottom 1px solid
-    .l_direct
-    .l_indirect
-      :color #338f42
-      :font-style italic
     body
       :background-color #dddddd
+    #float_tool
+      :position fixed
+      :left 1%
+      :width 98%
+      :top  0px
+      :padding-top 5px
+      :background-color #cccccc
+      :border-bottom 2px solid
 
-= render(:partial=>'toolbar', :object=>{:role=>'search'})
-- if (@cursong ||= @records.first)
-  = render(:partial=>'cursong', :object=>@cursong)
+#float_tool
+  %form{:action=>'/karaoke/search'}
+    %input{:type=>'text', :name=>'ptn', :value=>@ptn}
+    %button Search
+    <b>Songs</b>:
+    = select_tag("alphabet", options_for_select(['', '0'] + ('A'..'Z').to_a), :onchange=>'form.submit();')
+    <b>Artist</b>:
+    = select_tag("artist", options_for_select([''] + Song.all_artists), :onchange=>'form.submit();')
+    <b>Author</b>:
+    = select_tag("author", options_for_select([''] + Lyric.all_authors), :onchange=>'form.submit();')
+    <b>Tag</b>:
+    = select_tag("tag", options_for_select(['']  + Song.all_tags), :onchange=>'form.submit();')
 
-%form{:action=>'/karaoke/search'}
-  %input{:type=>'text', :name=>'ptn', :value=>@ptn}
-  %button Search
-  <b>Songs</b>:
-  = select_tag("alphabet", options_for_select(['', '0'] + ('A'..'Z').to_a), :onchange=>'form.submit();')
-  <b>Artist</b>:
-  = select_tag("artist", options_for_select([''] + Song.all_artists), :onchange=>'form.submit();')
-  <b>Author</b>:
-  = select_tag("author", options_for_select([''] + Lyric.all_authors), :onchange=>'form.submit();')
-  <b>Tag</b>:
-  = select_tag("tag", options_for_select(['']  + Song.all_tags), :onchange=>'form.submit();')
+  - if session[:admin]
+    %form{:action=>'/karaoke/cli'}
+      <b>Evaluate</b>:
+      %input{:type=>'hidden', :name=>'cid', :value=>(@cursong ? @cursong.id : 0)}
+      %input{:type=>'text', :name=>'command', :size=>80}
 
 - if session[:admin]
-  %form{:action=>'/karaoke/cli'}
-    <b>Evaluate</b>:
-    %input{:type=>'hidden', :name=>'cid', :value=>(@cursong ? @cursong.id : 0)}
-    %input{:type=>'text', :name=>'command', :size=>80}
+  %div{:style=>'height:80'}
+- else
+  %div{:style=>'height:40'}
 
 %form{:action=>'mqueue', :ptn2=>@ptn}
   %input{:type=>'hidden', :name=>'ptn', :value=>@ptn}
@@ -45,7 +41,7 @@
   %input{:type=>'checkbox', :name=>'clean'}
   %input{:type=>:submit, :name=>'submit', :value=>'Add'}
   %input{:type=>:submit, :name=>'submit', :value=>'Add All'}
-  %table
+  %table{:width=>'100%'}
     - rcount = 0
     - @records.each do |arec|
       %tr

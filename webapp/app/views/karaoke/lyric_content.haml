@@ -1,7 +1,13 @@
+- content_for "page_style" do
+  :sass
+    .hozlist
+      li
+        :line-height 1.5em
+
 %ul
   - fc = ""
-  - Lyrics.unique_songs.each do |arec|
+  - Lyric.unique_songs.each do |arec|
     - if arec.name[0,1] != fc
-      %p
+      %hr/
       - fc = arec.name[0,1]
-    = link_to(arec.name, :action=>:lyrics, :lid=>arec.id) + " | "
+    %li= link_to(arec.name, :action=>:lyrics, :lid=>arec.id)

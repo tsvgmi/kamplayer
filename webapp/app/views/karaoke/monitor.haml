@@ -13,38 +13,21 @@
 
 - content_for "page_style" do
   :sass
-    table
-      :border 3px solid #cccccc
-    th
-      :background-color #cccccc
-    td
-      :border-bottom 1px solid
-    tr
-      :border-bottom 1px solid
-    .l_direct
-    .l_indirect
-      :color #338f42
-      :font-style italic
     #float_tool
       :position fixed
       :left 1%
       :width 98%
-      :top  10px
+      :bottom  0px
       :background-color #cccccc
+      :border-top 2px solid
     .hozlist
-      :padding 0 1em
       li
-        :display inline
-        :list-style-type none
-        :padding 3px 10px
-        :border 2px solid #ffff00
+        :border          1px solid #aaaaaa
 
 #float_tool
   %center= render(:partial=>'toolbar', :object=>{:role=>'monitor'})
   - if csong = @playlist.current_song
     = render(:partial=>'cursong', :object=>csong)
-
-%div{:style=>'height:85px'}
 
 %table
   %tr
@@ -65,4 +48,4 @@
     - rcount += 1
 %script
   $("row_#{curplay}").scrollTo();
-
+%div{:style=>'height:100'}

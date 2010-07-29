@@ -6,16 +6,29 @@
     = javascript_include_tag "prototype"
     %style{:type=>'text/css'}
       :sass
+        table
+          :border 3px solid #cccccc
+        th
+          :background-color #cccccc
+        td
+          :border-bottom 1px dotted #ccccff
+          :border-left   1px solid #ccccff
+          :padding 0 3px
+        tr
+          :border-bottom 1px solid
+        .l_direct
+        .l_indirect
+          :color #338f42
+          :font-style italic
         .cursong
-          :border 3px double #88ccff
-          :margin 5px 0
+          :border  3px double #88ccff
+          :margin  5px 0
           :padding 3px
         .hozlist
           li
-            :display inline
+            :display         inline
             :list-style-type none
-            :padding 3px 10px
-            :border 1px solid #aaaaaa
+            :padding         3px 10px
       = @content_for_page_style
 
   %body

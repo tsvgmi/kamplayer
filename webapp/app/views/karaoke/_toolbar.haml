@@ -1,3 +1,8 @@
+:javascript
+  function reload_all() {
+    window.location.reload();
+    parent.search.window.location.reload();
+  }
 %ul.hozlist
   - if toolbar[:role] == 'monitor'
     %li= link_to('Next', :action=>:command, :id=>'next')
@@ -6,10 +11,6 @@
   %li= link_to_remote('Voice', :url=>{:action=>:command, :id=>'voice'})
   %li= link_to_remote('Karaoke', :url=>{:action=>:command, :id=>'karaoke'})
   %li= link_to_remote('Pause', :url=>{:action=>:command, :id=>'pause'})
-  - if toolbar[:role] == 'monitor'
-    %li= link_to('Reload', :action=>:command, :id=>'reload')
-    %li= link_to('Stop', :action=>:command, :id=>'stop')
-    %li= link_to('Start', :action=>:command, :id=>'start')
-  - else
-    %li= link_to('Admin', {:action=>:command, :id=>'admin'})
-  %li= link_to('Refresh', "")
+  %li= link_to_remote('Reload', :url=>{:action=>:command, :id=>'reload'})
+  %li= link_to('Admin', {:action=>:command, :id=>'admin'}, :target=>'search')
+  %li= link_to_function('Refresh', "reload_all()")

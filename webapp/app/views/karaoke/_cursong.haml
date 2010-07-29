@@ -4,9 +4,8 @@
   | <b>Rating</b>: #{cursong.rate}
   | <b>Position</b>: #{@playlist.curplay}
   | <b>Counts</b>: #{cursong.playcount}
+  | <b>Size</b>: #{cursong.size}#{cursong.ksel}
   | <b>Last Played</b>: #{Time.at(cursong.lastplayed || 0).strftime('%m/%d/%y')}
   | <b>Tag</b>: #{cursong.tag}
   - if cursong.lyric
     | <b>Author</b>: #{cursong.lyric.author}
-    - if cursong.lyric.content
-      = link_to("[C]", {:action=>:lyrics, :id=>cursong.id}, :target=>'lyrics')

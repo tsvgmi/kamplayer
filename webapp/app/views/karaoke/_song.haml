@@ -1,9 +1,9 @@
 - author = song.lyric ? song.lyric.author : ""
 - if role == :search
-  %td.playnow= link_to_remote(song.id, :url=>{:action=>:command, :id=>:play_now, :item=>song.id}, :html=>{:title=>"Play #{song.song}"})
-  %td.playqueue= link_to_remote(song.song, :url=>{:action=>:queue, :id=>song.id}, :html=>{:title=>"Queue #{song.song}"})
+  %td.playnow= link_to(song.id, {:action=>:rcommand, :id=>:play_now, :item=>song.id}, {:title=>"Play '#{song.song}'", :target=>'monitor', :confirm=>"OK to clear list and replaced with '#{song.song}'?"})
+  %td.playqueue= link_to(song.song, {:action=>:queue, :id=>song.id}, {:title=>"Queue #{song.song}", :target=>'monitor'})
 - else
-  %td= song.id
+  %td.playnow= link_to(song.id, {:action=>:rcommand, :id=>:item, :item=>song.id}, {:title=>"Play #{song.song}"})
   %td.playnow= link_to(song.song, {:action=>:search, :id=>song.id, :item=>rcount, :ptn=>song.song}, :target=>'search')
 %td= link_to(song.artist, {:action=>:search, :ptn=>song.artist}, :target=>'search')
 %td= link_to(author, {:action=>:search, :ptn=>"author=#{author}"}, :target=>'search')
@@ -15,10 +15,11 @@
   - if lyrics
     - lyrics = link_to_remote("(---)", :url=>{:action=>:command, :id=>:kill_lyrics, :item=>song.id}) + lyrics
     - lclass = 'l_direct'
+    - lyrics += link_to("[...]", {:action=>:lyrics, :id=>song.id}, :target=>'lyrics')
   - else
     - lyrics = song.lyric.abcontent || ""
     - lclass = 'l_indirect'
-  - lyrics += " " + link_to("[...]", {:action=>:lyrics, :id=>song.id}, :target=>'lyrics')
+    - lyrics = link_to("#{lyrics} ...", {:action=>:lyrics, :id=>song.id}, :target=>'lyrics')
 - else
   - lclass = 'l_direct'
 %td{:class=>lclass}= lyrics || "&nbsp;"

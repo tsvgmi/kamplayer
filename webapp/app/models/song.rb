@@ -37,7 +37,7 @@ class Song < ActiveRecord::Base
     end
     conditions = "(" + wset.join(') and (') + ") and state='Y'"
     Song.find(:all, :conditions=>conditions,
-              :order=>'song,artist', :limit=>2000)
+              :order=>'song,artist', :limit=>2000, :include=>[:lyric])
   end
 
   # Extended search.  Look into lyrics also
@@ -87,6 +87,22 @@ class Song < ActiveRecord::Base
     Player.send "get_time_length"
   end
 
+  def self.translit(str)
+    require 'iconv'
+
+    begin
+      Iconv.iconv('ASCII//IGNORE//TRANSLIT', 'UTF-8', str).to_s
+    rescue Iconv::IllegalSequence => errmsg
+      aword.gsub(/[^&a-z._0-9 -]/i, "").tr(".", "_")
+    end
+  end
+
+  def self.capitalize(string)
+    translit(string).split.map do |word|
+      word.capitalize
+    end.join(" ")
+  end
+
   def change_rec(options)
     options.each do |k, v|
       if v =~ /^\s+/
@@ -99,11 +115,14 @@ class Song < ActiveRecord::Base
       else
         k = :rate if (k == :rt)
         self[k] = v
+        if k == :song
+          self.cfile = Song.capitalize(v)
+        end
       end
     end
+    p self
     self.save
   end
-
 
   @@artists = nil
   def self.all_artists
@@ -136,8 +155,8 @@ class Song < ActiveRecord::Base
   def self.cli_change(sids, cmds, cursong = nil)
     cmdset = []
     cmds.split(/\s*\|\s*/).each do |acmd|
-      var, val = acmd.split(/\s*=\s*/)
-      if val
+      if acmd =~ /=/
+        var, val = acmd.split(/\s*=\s*/)
         cmdset << [var.intern, val]
       else
         p "Change must use var=val"

@@ -10,6 +10,11 @@ class Player
     @@player
   end
 
+  @@pldisable = false
+  def self.disable
+    @@pldisable = true
+  end
+
   def initialize
     @wchan = nil
     unless test(?f, MOUTPUT)
@@ -17,11 +22,12 @@ class Player
     end
     @rchan = File.open(MOUTPUT)
     @rchan.seek(0, 2)
-    @aspect  = :normal
-    @pmode   = :sound
   end
 
   def send(acmd)
+    if @@pldisable
+      return
+    end
     unless @wchan
       @wchan = File.open(MINPUT, "w")
     end

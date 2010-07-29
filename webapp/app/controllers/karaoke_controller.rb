@@ -7,7 +7,7 @@ class KaraokeController < ApplicationController
 
   def monitor
     @page_refresh = 30
-    @playlist     = PlayList.find_by_name('mpshell')
+    @playlist     = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
   end
 
   def search
@@ -15,7 +15,7 @@ class KaraokeController < ApplicationController
     artist   = params[:artist] || "-"
     tag      = params[:tag] || "-"
     author   = params[:author] || "-"
-    @ptn     = params[:ptn] || ""
+    @ptn     = params[:ptn] || session[:search_ptn] || ""
     @records = []
     if alphabet != "-"
       @ptn = "alphabet=#{alphabet}"
@@ -28,21 +28,21 @@ class KaraokeController < ApplicationController
     end
     if !@ptn.empty?
       @records = Song.ext_search(@ptn)
+      session[:search_ptn] = @ptn
     end
 
     @playlist = PlayList.find_by_name('mpshell')
 
     if (cid = params[:id]) != nil
-      @cursong = Song.find(cid.to_i)
+      @cursong = Song.find_by_id(cid.to_i)
       if (item = params[:item]) != nil
         offset = item.to_i - @playlist.curplay
         if offset != 0
           @playlist.song_step(offset)
         end
       end
-    else
-      @cursong = @records.first
     end
+    @cursong ||= @records.first
     @artists  = Song.all_artists
     @tags     = Song.all_tags
     @authors  = Lyric.all_authors
@@ -63,6 +63,31 @@ class KaraokeController < ApplicationController
     when 'voice', 'karaoke'
       csong = playlist.current_song
       csong.normalize(cid.intern)
+    when 'kill_lyrics'
+      item  = params[:item]
+      song = Song.find_by_id(item.to_i)
+      if song
+        song.lyrics = nil
+        song.save
+      end
+    when 'play_now'
+      item  = params[:item]
+      song = Song.find_by_id(item.to_i)
+      if song
+        playlist.add_song(song, true)
+      end
+    when 'add_n_play'
+      item = params[:item]
+      song = Song.find_by_id(item.to_i)
+      if song
+        playlist.add_song(song, false)
+        lastpos = playlist.songs.size - 1
+        offset  = lastpos - playlist.curplay
+        if offset != 0
+          sleep(2)
+          playlist.song_step(offset)
+        end
+      end
     end
     render :text=>"OK"
   end
@@ -76,14 +101,33 @@ class KaraokeController < ApplicationController
     when 'previous'
       playlist.song_step(-1)
     when 'item'
-      item   = params[:item]
-      offset = item.to_i - playlist.curplay
-      if offset != 0
-        playlist.song_step(offset)
+      item = params[:item]
+      song = Song.find_by_id(item.to_i)
+      if song
+        index = 0
+        playlist.songs.each do |asong|
+          if asong.id == song.id
+            break
+          end
+          index += 1
+        end
+        offset = index - playlist.curplay
+        if offset != 0
+          playlist.song_step(offset)
+        end
       end
     # Mplayer lost everything when it goes to the end, so we need to reload
     when 'reload'
       playlist.reload_list
+    when 'admin'
+      session[:admin] = !session[:admin]
+      return redirect_to :action=>:search
+    when 'play_now'
+      item  = params[:item]
+      song = Song.find_by_id(item.to_i)
+      if song
+        playlist.add_song(song, true)
+      end
     end
     redirect_to :action=>:monitor
   end
@@ -93,14 +137,15 @@ class KaraokeController < ApplicationController
     @song = Song.find(cid.to_i)
     @playlist = PlayList.find_by_name('mpshell')
     @playlist.add_song(@song)
-    render :text=>@song.to_yaml
+    #render :text=>@song.to_yaml
+    redirect_to :action=>:monitor
   end
 
   def mqueue
     #return render :text=>params.to_yaml
     @playlist = PlayList.find_by_name('mpshell')
     clean = params[:clean]
-    if params[:all]
+    if params[:submit] == 'Add All'
       ptn = params[:ptn]
       songlist = Song.ext_search(ptn)
     else

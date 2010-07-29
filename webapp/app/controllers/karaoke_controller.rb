@@ -11,19 +11,19 @@ class KaraokeController < ApplicationController
   end
 
   def search
-    alphabet = params[:alphabet] || "-"
-    artist   = params[:artist] || "-"
-    tag      = params[:tag] || "-"
-    author   = params[:author] || "-"
+    alphabet = params[:alphabet] || ""
+    artist   = params[:artist]   || ""
+    tag      = params[:tag]      || ""
+    author   = params[:author]   || ""
     @ptn     = params[:ptn] || session[:search_ptn] || ""
     @records = []
-    if alphabet != "-"
+    if alphabet != ""
       @ptn = "alphabet=#{alphabet}"
-    elsif artist != "-"
+    elsif artist != ""
       @ptn = "artist=#{artist}"
-    elsif tag != "-"
+    elsif tag != ""
       @ptn = "tag=#{tag}"
-    elsif author != "-"
+    elsif author != ""
       @ptn = "author=#{author}"
     end
     if !@ptn.empty?
@@ -31,7 +31,7 @@ class KaraokeController < ApplicationController
       session[:search_ptn] = @ptn
     end
 
-    @playlist = PlayList.find_by_name('mpshell')
+    @playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
 
     if (cid = params[:id]) != nil
       @cursong = Song.find_by_id(cid.to_i)
@@ -42,64 +42,16 @@ class KaraokeController < ApplicationController
         end
       end
     end
-    @cursong ||= @records.first
-    @artists  = Song.all_artists
-    @tags     = Song.all_tags
-    @authors  = Lyric.all_authors
   end
 
   def command
     cid = params[:id]
-    playlist = PlayList.find_by_name('mpshell')
+    #playlist = PlayList.find_by_name('mpshell')
+    playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
     case cid
-    when 'next'
-      playlist.song_step(1)
-    when 'previous'
-      playlist.song_step(-1)
-    when 'rewind'
-      Player.send "seek 1 2"
-    when 'pause'
-      Player.send "pause"
-    when 'voice', 'karaoke'
-      csong = playlist.current_song
-      csong.normalize(cid.intern)
-    when 'kill_lyrics'
-      item  = params[:item]
-      song = Song.find_by_id(item.to_i)
-      if song
-        song.lyrics = nil
-        song.save
-      end
-    when 'play_now'
-      item  = params[:item]
-      song = Song.find_by_id(item.to_i)
-      if song
-        playlist.add_song(song, true)
-      end
-    when 'add_n_play'
-      item = params[:item]
-      song = Song.find_by_id(item.to_i)
-      if song
-        playlist.add_song(song, false)
-        lastpos = playlist.songs.size - 1
-        offset  = lastpos - playlist.curplay
-        if offset != 0
-          sleep(2)
-          playlist.song_step(offset)
-        end
-      end
-    end
-    render :text=>"OK"
-  end
-
-  def rcommand
-    cid = params[:id]
-    playlist = PlayList.find_by_name('mpshell')
-    case cid
-    when 'next'
-      playlist.song_step(1)
-    when 'previous'
-      playlist.song_step(-1)
+    when 'admin'
+      session[:admin] = !session[:admin]
+      return redirect_to :action=>:search
     when 'item'
       item = params[:item]
       song = Song.find_by_id(item.to_i)
@@ -116,34 +68,62 @@ class KaraokeController < ApplicationController
           playlist.song_step(offset)
         end
       end
-    # Mplayer lost everything when it goes to the end, so we need to reload
-    when 'reload'
-      playlist.reload_list
-    when 'admin'
-      session[:admin] = !session[:admin]
-      return redirect_to :action=>:search
+    when 'kill_lyrics'
+      item  = params[:item]
+      song = Song.find_by_id(item.to_i)
+      if song
+        song.lyrics = nil
+        song.save
+      end
+    when 'next'
+      playlist.song_step(1)
+    when 'pause'
+      Player.send "pause"
     when 'play_now'
       item  = params[:item]
       song = Song.find_by_id(item.to_i)
       if song
         playlist.add_song(song, true)
       end
+    when 'previous'
+      playlist.song_step(-1)
+    when 'rewind'
+      Player.send "seek 1 2"
+    when 'voice', 'karaoke'
+      csong = playlist.current_song
+      csong.normalize(cid.intern)
+    when 'play_now'
+      item  = params[:item]
+      song = Song.find_by_id(item.to_i)
+      if song
+        playlist.add_song(song, true)
+      end
+    when 'reload'
+      playlist.reload_list
     end
-    redirect_to :action=>:monitor
+    respond_to do |format|
+      format.html #
+        return redirect_to :action=>:monitor
+      format.xml
+        return render :xml=>playlist
+    end
   end
 
   def queue
     cid = params[:id]
     @song = Song.find(cid.to_i)
-    @playlist = PlayList.find_by_name('mpshell')
+    #@playlist = PlayList.find_by_name('mpshell')
+    @playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
     @playlist.add_song(@song)
     #render :text=>@song.to_yaml
     redirect_to :action=>:monitor
   end
 
+  # Queuing multiple songs
   def mqueue
     #return render :text=>params.to_yaml
-    @playlist = PlayList.find_by_name('mpshell')
+    @playlist  = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
+    #@playlist = PlayList.find_by_name('mpshell')
     clean = params[:clean]
     if params[:submit] == 'Add All'
       ptn = params[:ptn]
@@ -166,6 +146,7 @@ class KaraokeController < ApplicationController
     redirect_to :action=>:search,:ptn=>ptn
   end
 
+# Show the lyric page
   def lyrics
     cid = params[:id]
     lid = params[:lid]
@@ -182,6 +163,7 @@ class KaraokeController < ApplicationController
     @sameset = Lyric.find(:all, :conditions=>['name=?', @lyric.name])
   end
 
+# Util to load in the lyric content from remote (cache link)
   def load_lyric
     lid = params[:id]
     lyric = Lyric.find(lid.to_i)
@@ -189,12 +171,8 @@ class KaraokeController < ApplicationController
     redirect_to :action=>:lyrics, :lid=>lid
   end
 
-  def lyric_content
-    @records = Lyric.unique_songs
-  end
-
+# Set the abbrev content field from UI.  Maybe rails could do this better.
   def abcontent
-    #return render :text=>params.to_yaml
     lid = params[:lid]
     abcontent = params[:abcontent] || ""
     if !abcontent.empty?
@@ -205,6 +183,7 @@ class KaraokeController < ApplicationController
     redirect_to :action=>:lyrics, :lid=>lid
   end
 
+# Debug cli to run various runner/admin commands
   def cli
     command = params[:command]
 

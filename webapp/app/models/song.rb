@@ -1,5 +1,5 @@
 class Song < ActiveRecord::Base
-  belongs_to :lyric
+  belongs_to :lyric, :counter_cache=>true
 
   def self.search(ptns)
     wset = []
@@ -46,7 +46,7 @@ class Song < ActiveRecord::Base
       records    = []
       author     = $'
       conditions = "author like '%#{author}%'"
-      Lyric.find(:all, :conditions=>conditions).each do |r|
+      Lyric.find(:all, :conditions=>conditions, :include=>[:songs=>:lyric]).each do |r|
         if r.songs.size > 0
           records.concat(r.songs)
         end

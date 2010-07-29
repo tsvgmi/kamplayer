@@ -1,15 +1,15 @@
-- if toolbar[:role] == 'monitor'
-  = " | " + link_to('Next', :action=>:rcommand, :id=>'next')
-  = " | " + link_to('Previous', :action=>:rcommand, :id=>'previous')
-= " | " + link_to_remote('Rewind', :url=>{:action=>:command, :id=>'rewind'})
-= " | " + link_to_remote('Voice', :url=>{:action=>:command, :id=>'voice'})
-= " | " + link_to_remote('Karaoke', :url=>{:action=>:command, :id=>'karaoke'})
-= " | " + link_to_remote('Pause', :url=>{:action=>:command, :id=>'pause'})
-- if toolbar[:role] == 'monitor'
-  = " | " + link_to('Reload', :action=>:rcommand, :id=>'reload')
-  = " | " + link_to('Stop', :action=>:rcommand, :id=>'stop')
-  = " | " + link_to('Start', :action=>:rcommand, :id=>'start')
-- else
-  = " | " + link_to('Admin', {:action=>:rcommand, :id=>'admin'})
-= " | " + link_to('Refresh', "")
-
+%ul.hozlist
+  - if toolbar[:role] == 'monitor'
+    %li= link_to('Next', :action=>:command, :id=>'next')
+    %li= link_to('Previous', :action=>:command, :id=>'previous')
+  %li= link_to_remote('Rewind', :url=>{:action=>:command, :id=>'rewind'})
+  %li= link_to_remote('Voice', :url=>{:action=>:command, :id=>'voice'})
+  %li= link_to_remote('Karaoke', :url=>{:action=>:command, :id=>'karaoke'})
+  %li= link_to_remote('Pause', :url=>{:action=>:command, :id=>'pause'})
+  - if toolbar[:role] == 'monitor'
+    %li= link_to('Reload', :action=>:command, :id=>'reload')
+    %li= link_to('Stop', :action=>:command, :id=>'stop')
+    %li= link_to('Start', :action=>:command, :id=>'start')
+  - else
+    %li= link_to('Admin', {:action=>:command, :id=>'admin'})
+  %li= link_to('Refresh', "")

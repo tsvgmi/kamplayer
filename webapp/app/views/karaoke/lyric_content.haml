@@ -1,6 +1,6 @@
 %ul
   - fc = ""
-  - @records.each do |arec|
+  - Lyrics.unique_songs.each do |arec|
     - if arec.name[0,1] != fc
       %p
       - fc = arec.name[0,1]

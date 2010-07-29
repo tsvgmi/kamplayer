@@ -4,9 +4,9 @@
     var actualkey=String.fromCharCode(unicode)
     //alert(actualkey);
     if ((actualkey=="n") || (actualkey=="j")) {
-      document.location = "/karaoke/rcommand/next";
+      document.location = "/karaoke/command/next";
     } else if ((actualkey=="p") || (actualkey == "k")) {
-      document.location = "/karaoke/rcommand/previous";
+      document.location = "/karaoke/command/previous";
     }
   }
   document.onkeypress=alertmsg
@@ -25,11 +25,26 @@
     .l_indirect
       :color #338f42
       :font-style italic
+    #float_tool
+      :position fixed
+      :left 1%
+      :width 98%
+      :top  10px
+      :background-color #cccccc
+    .hozlist
+      :padding 0 1em
+      li
+        :display inline
+        :list-style-type none
+        :padding 3px 10px
+        :border 2px solid #ffff00
 
-- if csong = @playlist.current_song
-  = render(:partial=>'cursong', :object=>csong)
+#float_tool
+  %center= render(:partial=>'toolbar', :object=>{:role=>'monitor'})
+  - if csong = @playlist.current_song
+    = render(:partial=>'cursong', :object=>csong)
 
-= render(:partial=>'toolbar', :object=>{:role=>'monitor'})
+%div{:style=>'height:85px'}
 
 %table
   %tr

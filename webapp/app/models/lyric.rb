@@ -13,7 +13,7 @@ class Lyric < ActiveRecord::Base
   @@authors = nil
   def self.all_authors
     unless @@authors
-      sql = "select distinct author from lyrics where scount > 0"
+      sql = "select distinct author from lyrics where songs_count > 0"
       authorlist = []
       Song.find_by_sql(sql).each do |r|
         if r.author
@@ -31,5 +31,10 @@ class Lyric < ActiveRecord::Base
       @@unique_songs = find_by_sql("select id,name from lyrics where content is not null group by name order by name")
     end
     @@unique_songs
+  end
+
+  # Utilities to update the counter cache
+  def self.update_songs_count
+    Song.update_all("songs_count = (select count(*) from songs where songs.lyric_id=lyrics.id)")
   end
 end

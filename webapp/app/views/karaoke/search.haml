@@ -15,23 +15,23 @@
       :color #338f42
       :font-style italic
     body
-      :background-color #ffcc88
+      :background-color #dddddd
 
 = render(:partial=>'toolbar', :object=>{:role=>'search'})
-- if @cursong
+- if (@cursong ||= @records.first)
   = render(:partial=>'cursong', :object=>@cursong)
 
 %form{:action=>'/karaoke/search'}
   %input{:type=>'text', :name=>'ptn', :value=>@ptn}
   %button Search
   <b>Songs</b>:
-  = select_tag("alphabet", options_for_select(['-', '0'] + ('A'..'Z').to_a), :onchange=>'form.submit();')
+  = select_tag("alphabet", options_for_select(['', '0'] + ('A'..'Z').to_a), :onchange=>'form.submit();')
   <b>Artist</b>:
-  = select_tag("artist", options_for_select(['-'] + @artists), :onchange=>'form.submit();')
+  = select_tag("artist", options_for_select([''] + Song.all_artists), :onchange=>'form.submit();')
   <b>Author</b>:
-  = select_tag("author", options_for_select(['-'] + @authors), :onchange=>'form.submit();')
+  = select_tag("author", options_for_select([''] + Lyric.all_authors), :onchange=>'form.submit();')
   <b>Tag</b>:
-  = select_tag("tag", options_for_select(['-']  + @tags), :onchange=>'form.submit();')
+  = select_tag("tag", options_for_select(['']  + Song.all_tags), :onchange=>'form.submit();')
 
 - if session[:admin]
   %form{:action=>'/karaoke/cli'}

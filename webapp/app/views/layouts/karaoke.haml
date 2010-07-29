@@ -5,6 +5,17 @@
       = "<meta http-equiv='refresh' content='#{@page_refresh}'/>"
     = javascript_include_tag "prototype"
     %style{:type=>'text/css'}
+      :sass
+        .cursong
+          :border 3px double #88ccff
+          :margin 5px 0
+          :padding 3px
+        .hozlist
+          li
+            :display inline
+            :list-style-type none
+            :padding 3px 10px
+            :border 1px solid #aaaaaa
       = @content_for_page_style
 
   %body

@@ -9,6 +9,7 @@
 %td= link_to(author, {:action=>:search, :ptn=>"author=#{author}"}, :target=>'search')
 %td= "&nbsp;" + "*****"[0, song.rate.to_i]
 %td= song.tag ? link_to(song.tag, {:action=>:search, :ptn=>"tag=#{song.tag}"}, :target=>'search') : "&nbsp;"
+%td= "#{song.size}#{song.ksel}"
 %td= song.lastplayed ? Time.at(song.lastplayed).strftime("%m/%d/%y") : "&nbsp;"
 - lyrics = song.lyrics
 - if song.lyric

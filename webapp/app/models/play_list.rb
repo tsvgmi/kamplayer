@@ -58,10 +58,46 @@ class PlayList < ActiveRecord::Base
   end
 
   def song_step(step)
-    newpos = self.curplay + step
+
+    newpos = self.curplay
+    case step
+    when 1
+      curpos = self.curplay + 1
+      while true
+        if self.pl_songs[curpos].state == 0
+          break
+        end
+        curpos += 1
+        if curpos >= self.songs.size
+          break
+        end
+      end
+      #if curpos < self.songs.size
+        newpos = curpos
+      #end
+    when -1
+      curpos = self.curplay - 1
+      while true
+        if self.pl_songs[curpos].state == 0
+          break
+        end
+        curpos -= 1
+        if curpos < 0
+          break
+        end
+      end
+      #if curpos >= 0
+        newpos = curpos
+      #end
+    else
+      newpos = self.curplay + step
+    end
+
+    #newpos = self.curplay + step
     if (newpos >= 0) && (newpos < songs.size)
+      realstep = newpos - self.curplay
       self.curplay = newpos
-      Player.send "pt_step #{step}"
+      Player.send "pt_step #{realstep}"
       self.save
     else
       p "Oops: newpos out of range: #{newpos}, #{songs.size}"

@@ -1,6 +1,10 @@
 class KaraokeController < ApplicationController
   layout 'karaoke'
 
+  requires_authentication :using => Proc.new { |username, password|
+    password == 'ponies!' },
+                          :realm     => 'Happy Cloud'
+
   def index
     render :layout=>false
   end
@@ -89,6 +93,16 @@ class KaraokeController < ApplicationController
       playlist.song_step(-1)
     when 'rewind'
       Player.send "seek 1 2"
+    when 'toggle_state'
+      index     = params[:item].to_i
+      play_item = playlist.pl_songs[index]
+      if play_item.state == 0
+        play_item.state = 1
+      else
+        play_item.state = 0
+      end
+      p play_item
+      play_item.save
     when 'voice', 'karaoke'
       csong = playlist.current_song
       csong.normalize(cid.intern)

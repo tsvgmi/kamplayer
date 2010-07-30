@@ -16,6 +16,11 @@
           :padding 0 3px
         tr
           :border-bottom 1px solid
+        a:link
+          :text-decoration none
+        a:hover
+          :text-decoration underline
+          :color red
         .l_direct
         .l_indirect
           :color #338f42
@@ -29,6 +34,11 @@
             :display         inline
             :list-style-type none
             :padding         3px 10px
+        .disable
+          td
+            :color #ccc
+            a
+              :color #ccc
       = @content_for_page_style
 
   %body

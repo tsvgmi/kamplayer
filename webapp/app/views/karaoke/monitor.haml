@@ -31,19 +31,23 @@
 
 %table
   %tr
+    %th
     %th Rec
     %th Song
     %th Artist
     %th Author
     %th Rating
     %th Tag
+    %th Size
     %th Played
     %th Lyrics
   - rcount = 0
   - curplay = @playlist.curplay
-  - @playlist.songs.each do |arec|
+  - @playlist.songs.each_with_index do |arec, index|
     - rtype = (rcount == curplay) ? "#ccccff" : ""
-    %tr{:id=>"row_#{rcount}",:bgcolor=>rtype}
+    - rclass, symbol = (@playlist.pl_songs[index].state == 1) ? ["disable", "+"] : ["", "-"]
+    %tr{:class=>rclass, :id=>"row_#{rcount}",:bgcolor=>rtype}
+      %td= link_to("[#{symbol}]", {:action=>'command', :id=>'toggle_state', :item=>index})
       = render(:partial=>'song', :object=>arec, :locals=>{:rcount=>rcount, :role=>:monitor})
     - rcount += 1
 %script

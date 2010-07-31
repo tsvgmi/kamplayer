@@ -3,13 +3,13 @@
     body
       :background-color #dddddd
     #float_tool
-      :position fixed
-      :left 1%
-      :width 98%
-      :top  0px
-      :padding-top 5px
+      :position         fixed
+      :left             1%
+      :width            98%
+      :top              0px
+      :padding-top      5px
       :background-color #cccccc
-      :border-bottom 2px solid
+      :border-bottom    2px solid
 
 #float_tool
   %form{:action=>'/karaoke/search'}
@@ -26,8 +26,9 @@
 
   - if session[:admin]
     %form{:action=>'/karaoke/cli'}
-      <b>Evaluate</b>:
-      %input{:type=>'hidden', :name=>'cid', :value=>(@cursong ? @cursong.id : 0)}
+      - csid = (@cursong ? @cursong.id : 0)
+      %b= "Evaluate #{csid}:"
+      %input{:type=>'hidden', :name=>'cid', :value=>csid}
       %input{:type=>'text', :name=>'command', :size=>80}
 
 - if session[:admin]

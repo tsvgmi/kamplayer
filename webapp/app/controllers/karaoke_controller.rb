@@ -42,7 +42,7 @@ class KaraokeController < ApplicationController
       if (item = params[:item]) != nil
         offset = item.to_i - @playlist.curplay
         if offset != 0
-          @playlist.song_step(offset)
+          @playlist.song_step(offset, true)
         end
       end
     end
@@ -69,13 +69,19 @@ class KaraokeController < ApplicationController
         end
         offset = index - playlist.curplay
         if offset != 0
-          playlist.song_step(offset)
+          playlist.song_step(offset, true)
         end
       end
     when 'kill_lyrics'
-      item  = params[:item]
+      p "1111"
+      item = params[:item]
+      lid  = params[:lid]
       song = Song.find_by_id(item.to_i)
       if song
+        if lid
+          song.lyric = Lyric.find_by_id(lid.to_i)
+          p song.lyric
+        end
         song.lyrics = nil
         song.save
       end
@@ -101,7 +107,6 @@ class KaraokeController < ApplicationController
       else
         play_item.state = 0
       end
-      p play_item
       play_item.save
     when 'voice', 'karaoke'
       csong = playlist.current_song
@@ -114,6 +119,8 @@ class KaraokeController < ApplicationController
       end
     when 'reload'
       playlist.reload_list
+    when 'clear'
+      playlist.clear_list
     end
     respond_to do |format|
       format.html #

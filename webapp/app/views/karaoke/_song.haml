@@ -22,5 +22,9 @@
     - lclass = 'l_indirect'
     - lyrics = link_to("#{lyrics} ...", {:action=>:lyrics, :id=>song.id}, :target=>'lyrics')
 - else
+  - unless song.lyrics
+    - if (mlyric = Lyric.find_by_name(song.song)) != nil
+      - content = mlyric.abcontent || mlyric.url
+      - lyrics = link_to_remote("[#{mlyric.id}]", :url=>{:action=>:command, :id=>:kill_lyrics, :item=>song.id, :lid=>mlyric.id}) + mlyric.author + link_to("...", {:action=>:lyrics, :lid=>mlyric.id}, :target=>'lyrics')
   - lclass = 'l_direct'
 %td{:class=>lclass}= lyrics || "&nbsp;"

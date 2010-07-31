@@ -23,6 +23,10 @@
     .hozlist
       li
         :border          1px solid #aaaaaa
+    #body
+      :background-color #111
+    #td
+      :color #cc8
 
 #float_tool
   %center= render(:partial=>'toolbar', :object=>{:role=>'monitor'})
@@ -47,7 +51,7 @@
     - rtype = (rcount == curplay) ? "#ccccff" : ""
     - rclass, symbol = (@playlist.pl_songs[index].state == 1) ? ["disable", "+"] : ["", "-"]
     %tr{:class=>rclass, :id=>"row_#{rcount}",:bgcolor=>rtype}
-      %td= link_to("[#{symbol}]", {:action=>'command', :id=>'toggle_state', :item=>index})
+      %td= link_to("#{symbol}", {:action=>'command', :id=>'toggle_state', :item=>index})
       = render(:partial=>'song', :object=>arec, :locals=>{:rcount=>rcount, :role=>:monitor})
     - rcount += 1
 %script

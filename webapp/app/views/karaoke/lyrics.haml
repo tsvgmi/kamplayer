@@ -1,26 +1,45 @@
 - content_for "page_style" do
   :sass
     .lyrics
-      :font-size 1.5em
+      :font-size 1.2em
       :text-align center
     h2
-      :font-size 2em
+      :font-size 1.5em
       :text-align center
     h3
       :text-align right
     body
       :background-color #ffc
 
-= link_to("[Content]", :action=>:lyric_content)
-- @sameset.each do |lyric|
-  = "| " + link_to(lyric.author, :action=>:lyrics, :lid=>lyric.id)
+%div
+  = link_to("[Content]", :action=>:lyric_content)
+  - @sameset.each do |lyric|
+    = "| " + link_to(lyric.author, :action=>:lyrics, :lid=>lyric.id)
 
-%form{:action=>'/karaoke/abcontent'}
-  %input{:type=>:hidden, :name=>'lid', :value=>@lyric.id}
-  %input{:type=>:textentry, :size=>100, :name=>'abcontent', :value=>@lyric.abcontent}
+%div
+  %form{:action=>'/karaoke/abcontent', :style=>'float:left'}
+    %input{:type=>:hidden, :name=>'lid', :value=>@lyric.id}
+    %b Abbrev:
+    %input{:type=>:textentry, :size=>100, :name=>'abcontent', :value=>@lyric.abcontent, :onchange=>'form.submit()'}
+
+  %form{:action=>'/karaoke/youtubeset', :style=>'clear:right'}
+    %input{:type=>:hidden, :name=>'lid', :value=>@lyric.id}
+    %b YouTubes:
+    - cval = @lyric.youtubes.map{|r| r.video}.join(',')
+    %input{:type=>:textentry, :size=>40, :name=>'youtubes', :value=>cval, :onchange=>'form.submit()'}
 
 %h2= @lyric.name
 %h3= "#{@lyric.author} - #{@lyric.id}"
+
+%div{:style=>'float:right'}
+  = link_to("youtube search", "http://www.youtube.com/results?search_query=#{@lyric.name}&aq=f", :target=>'youtubes')
+  %br/
+  - @lyric.youtubes.each do |atube|
+    = render(:partial=>'utube', :object=>{:video=>atube.video})
+    %br/
+  -# render(:partial=>'utube', :object=>{:video=>'onsOIAPTm7g'})
+  -# render(:partial=>'utube', :object=>{:video=>'z_Zs2juS0BE'})
+
 - if @lyric.content && !@lyric.content.empty?
   .lyrics
     = @lyric.content

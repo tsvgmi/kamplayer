@@ -5,16 +5,21 @@
 - else
   %td.playnow= link_to(song.id, {:action=>:command, :id=>:item, :item=>song.id}, {:title=>"Play #{song.song}"})
   %td.playnow= link_to(song.song, {:action=>:search, :id=>song.id, :item=>rcount, :ptn=>song.song}, :target=>'search')
+
 %td= link_to(song.artist, {:action=>:search, :ptn=>song.artist}, :target=>'search')
 %td= link_to(author, {:action=>:search, :ptn=>"author=#{author}"}, :target=>'search')
 %td= "&nbsp;" + "*****"[0, song.rate.to_i]
 %td= song.tag ? link_to(song.tag, {:action=>:search, :ptn=>"tag=#{song.tag}"}, :target=>'search') : "&nbsp;"
-%td= "#{song.size}#{song.ksel}"
-%td= song.lastplayed ? Time.at(song.lastplayed).strftime("%m/%d/%y") : "&nbsp;"
+
+- if role == :search
+  %td= "#{song.size}#{song.ksel}"
+  %td= song.lastplayed ? Time.at(song.lastplayed).strftime("%m/%d/%y") : "&nbsp;"
+  %td= link_to("<img src=/images/youtube.jpg>", "http://www.youtube.com/results?search_query=#{song.song}&aq=f", :target=>'youtubes')
+
 - lyrics = song.lyrics
 - if song.lyric
   - if lyrics
-    - lyrics = link_to_remote("(---)", :url=>{:action=>:command, :id=>:kill_lyrics, :item=>song.id}) + lyrics
+    - lyrics = link_to_remote("(---)", :url=>{:action=>:command, :id=>:kill_lyrics, :item=>song.id}, :update=>"lyric_#{song.id}") + lyrics
     - lclass = 'l_direct'
     - lyrics += link_to("[...]", {:action=>:lyrics, :id=>song.id}, :target=>'lyrics')
   - else
@@ -25,6 +30,8 @@
   - unless song.lyrics
     - if (mlyric = Lyric.find_by_name(song.song)) != nil
       - content = mlyric.abcontent || mlyric.url
-      - lyrics = link_to_remote("[#{mlyric.id}]", :url=>{:action=>:command, :id=>:kill_lyrics, :item=>song.id, :lid=>mlyric.id}) + mlyric.author + link_to("...", {:action=>:lyrics, :lid=>mlyric.id}, :target=>'lyrics')
+      - lyrics = link_to_remote("[#{mlyric.id}]", :url=>{:action=>:command, :id=>:kill_lyrics, :item=>song.id, :lid=>mlyric.id}, :update=>"lyric_#{song.id}") + mlyric.author + link_to("...", {:action=>:lyrics, :lid=>mlyric.id}, :target=>'lyrics')
+    - else
+      - lyrics = link_to_remote("[Create]", :url=>{:action=>:command, :id=>:create_lyric, :item=>song.id}, :update=>"lyric_#{song.id}")
   - lclass = 'l_direct'
-%td{:class=>lclass}= lyrics || "&nbsp;"
+%td{:class=>lclass,:id=>"lyric_#{song.id}"}= lyrics || "&nbsp;"

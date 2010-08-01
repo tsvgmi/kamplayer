@@ -51,11 +51,24 @@ class KaraokeController < ApplicationController
   def command
     cid = params[:id]
     #playlist = PlayList.find_by_name('mpshell')
-    playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
+    
+    playlist   = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
+    ajx_return = "NG"
     case cid
     when 'admin'
       session[:admin] = !session[:admin]
       return redirect_to :action=>:search
+    when 'create_lyric'
+      item = params[:item]
+      song = Song.find_by_id(item.to_i)
+      if song
+        result = `emrun lyscanner.rb vid4scan #{song.song}`
+        p result
+        YAML.load(result).each do |song, author, href|
+          Lyric.update_content(:author=>author, :name=>song, :url=>href)
+        end
+        ajx_return = "OK"
+      end
     when 'item'
       item = params[:item]
       song = Song.find_by_id(item.to_i)
@@ -73,17 +86,16 @@ class KaraokeController < ApplicationController
         end
       end
     when 'kill_lyrics'
-      p "1111"
       item = params[:item]
       lid  = params[:lid]
       song = Song.find_by_id(item.to_i)
       if song
         if lid
           song.lyric = Lyric.find_by_id(lid.to_i)
-          p song.lyric
         end
         song.lyrics = nil
         song.save
+        ajx_return = song.lyric.abcontent
       end
     when 'next'
       playlist.song_step(1)
@@ -122,11 +134,10 @@ class KaraokeController < ApplicationController
     when 'clear'
       playlist.clear_list
     end
-    respond_to do |format|
-      format.html #
-        return redirect_to :action=>:monitor
-      format.xml
-        return render :xml=>playlist
+    if request.xhr?
+      return render :text=>ajx_return
+    else
+      return redirect_to :action=>:monitor
     end
   end
 
@@ -142,9 +153,7 @@ class KaraokeController < ApplicationController
 
   # Queuing multiple songs
   def mqueue
-    #return render :text=>params.to_yaml
     @playlist  = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
-    #@playlist = PlayList.find_by_name('mpshell')
     clean = params[:clean]
     if params[:submit] == 'Add All'
       ptn = params[:ptn]
@@ -156,6 +165,11 @@ class KaraokeController < ApplicationController
         songlist << Song.find(recid)
       end
     end
+    if params[:shuffle]
+      p "Sort list"
+      songlist = songlist.sort_by {|s| rand(100)}
+    end
+    #return render :text=>songlist.to_yaml
     songlist.each do |song|
       if clean
         @playlist.add_song(song, true)
@@ -194,12 +208,40 @@ class KaraokeController < ApplicationController
 
 # Set the abbrev content field from UI.  Maybe rails could do this better.
   def abcontent
-    lid = params[:lid]
+    lid       = params[:lid]
     abcontent = params[:abcontent] || ""
     if !abcontent.empty?
       lyric = Lyric.find(lid.to_i)
       lyric.abcontent = abcontent
       lyric.save
+    end
+    redirect_to :action=>:lyrics, :lid=>lid
+  end
+
+  def youtubeset
+    lid       = params[:lid]
+    newvideos = (params[:youtubes] || "").split(/\s*,\s*/).
+      map{|v| v.sub(/^.*=/, '')}
+    lyric     = Lyric.find(lid.to_i)
+    if lyric && newvideos.size > 0
+      cvideos = lyric.youtubes.map{|r| r.video}
+      if cvideos != newvideos
+        lyric.youtubes.each do |atube|
+          atube.destroy
+          atube.save
+        end
+        newvideos.each do |avideo|
+          # Escape hack to remove all entries
+          next if (avideo == '-')
+          if (atube = Youtube.find_by_video(avideo)) == nil
+            atube = Youtube.new(:video=>avideo)
+          end
+          lyric.youtubes << atube
+          atube.save
+        end
+      else
+        p "no change"
+      end
     end
     redirect_to :action=>:lyrics, :lid=>lid
   end
@@ -220,5 +262,11 @@ class KaraokeController < ApplicationController
       Song.cli_change(".", command, cursong)
     end
     redirect_to :action=>:search
+  end
+
+  def testtube
+    count = (params[:count] || 10).to_i
+    result = Lyric.load_utube(count)
+    render :text=>"<pre>" + result.to_yaml
   end
 end

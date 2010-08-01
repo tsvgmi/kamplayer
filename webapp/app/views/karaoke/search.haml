@@ -36,10 +36,12 @@
 - else
   %div{:style=>'height:40'}
 
-%form{:action=>'mqueue', :ptn2=>@ptn}
+%form{:action=>'/karaoke/mqueue', :ptn2=>@ptn}
   %input{:type=>'hidden', :name=>'ptn', :value=>@ptn}
   %b Reset List:
   %input{:type=>'checkbox', :name=>'clean'}
+  %b Shuffle:
+  %input{:type=>'checkbox', :name=>'shuffle'}
   %input{:type=>:submit, :name=>'submit', :value=>'Add'}
   %input{:type=>:submit, :name=>'submit', :value=>'Add All'}
   %table{:width=>'100%'}

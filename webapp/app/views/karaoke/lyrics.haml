@@ -14,7 +14,9 @@
 %div
   = link_to("[Content]", :action=>:lyric_content)
   - @sameset.each do |lyric|
-    = "| " + link_to(lyric.author, :action=>:lyrics, :lid=>lyric.id)
+    = "| "
+    = link_to(lyric.author, :action=>:lyrics, :lid=>lyric.id)
+    = link_to("(x)", :action=>:lyrics_del, :id=>lyric.id)
 
 %div
   %form{:action=>'/karaoke/abcontent', :style=>'float:left'}
@@ -32,7 +34,7 @@
 %h3= "#{@lyric.author} - #{@lyric.id}"
 
 %div{:style=>'float:right'}
-  = link_to("youtube search", "http://www.youtube.com/results?search_query=#{@lyric.name}&aq=f", :target=>'youtubes')
+  = link_to("youtube search", "http://www.youtube.com/results?search_category=10&search_query=#{@lyric.name}&search_type=videos&suggested_categories=10&uni=3", :target=>"youtubes")
   %br/
   - @lyric.youtubes.each do |atube|
     = render(:partial=>'utube', :object=>{:video=>atube.video})

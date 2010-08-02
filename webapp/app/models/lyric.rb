@@ -26,11 +26,52 @@ class Lyric < ActiveRecord::Base
     end
     if ltext
       self.content   = ltext
-      self.abcontent = atext[0..120].gsub(/<br *\/?>/i, '')
+      self.abcontent = atext[0..120].gsub(/<br *\/?>/i, ' ')
       self.save
-      true
+      self.abcontent
     else
-      false
+      nil
+    end
+  end
+ 
+  def state_change(event, *params)
+    case self.state
+    when 'noclue'
+      case event
+      when :find_url
+        irec = params[0]
+        self.content = irec[:content]
+        self.url     = irec[:url]
+        self.songs   = Song.find(:all, :conditions=>['song=?', irec[:name]])
+        self.save
+        state = :has_url
+      else
+        p "Invalid state/evt: #{self.state}/#{event}"
+      end
+    when 'has_url'
+      case event
+      when :load_url
+        self.load_content
+        state = :has_content
+      else
+        p "Invalid state/evt: #{self.state}/#{event}"
+      end
+    when 'has_content'
+      case event
+      when :link_song
+        link_song
+        state = :active
+      else
+        p "Invalid state/evt: #{self.state}/#{event}"
+      end
+    when 'active'
+      case event
+      when :unlink_song
+        unlink_song
+        state = :has_content
+      else
+        p "Invalid state/evt: #{self.state}/#{event}"
+      end
     end
   end
 
@@ -89,10 +130,12 @@ class Lyric < ActiveRecord::Base
                    irec[:name], irec[:author]])) == nil
       rec = new(:name=>irec[:name], :author=>irec[:author])
     end
+    rec.state_change(:load_url, irec)
     rec.content = irec[:content]
     rec.url     = irec[:url]
     rec.songs = Song.find(:all, :conditions=>['song=?', irec[:name]])
     rec.save
+    rec
   end
 
 end

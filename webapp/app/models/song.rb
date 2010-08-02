@@ -31,11 +31,14 @@ class Song < ActiveRecord::Base
         wset << "playcount #{$1} #{$'}"
       when /^(dur|duration)([=><])/
         wset << "duration #{$2} #{$'}"
+      when /^(size)([=><])/
+        wset << "size #{$2} #{$'}"
       else
         wset << "(cfile like '%#{clause}%') or (tag like '%#{clause}%')"
       end
     end
     conditions = "(" + wset.join(') and (') + ") and state='Y'"
+    p conditions
     Song.find(:all, :conditions=>conditions,
               :order=>'song,artist', :limit=>2000, :include=>[:lyric])
   end

@@ -9,6 +9,10 @@ class KaraokeController < ApplicationController
     render :layout=>false
   end
 
+  def index2
+    render :layout=>false
+  end
+
   def monitor
     @page_refresh = 30
     @playlist     = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
@@ -64,10 +68,12 @@ class KaraokeController < ApplicationController
       if song
         result = `emrun lyscanner.rb vid4scan #{song.song}`
         p result
-        YAML.load(result).each do |song, author, href|
-          Lyric.update_content(:author=>author, :name=>song, :url=>href)
-        end
         ajx_return = "OK"
+        YAML.load(result).each do |song, author, href|
+          lyric = Lyric.update_content(:author=>author,
+                                       :name=>song, :url=>href)
+          ajx_return = lyric.load_content
+        end
       end
     when 'item'
       item = params[:item]
@@ -181,21 +187,37 @@ class KaraokeController < ApplicationController
     redirect_to :action=>:search,:ptn=>ptn
   end
 
-# Show the lyric page
+  # Show the lyric page based on lyric id, song id, or song name
   def lyrics
-    cid = params[:id]
-    lid = params[:lid]
+    cid  = params[:id]
+    lid  = params[:lid]
+    name = params[:name]
     if lid
       @lyric = Lyric.find(lid.to_i)
-    else
+    elsif cid
       song = Song.find(cid.to_i)
       if song.lyric
         @lyric = song.lyric
       else
-        @lyric = Lyric.new(:author=>song.author, :content=>song.lyrics)
+        @lyric = Lyric.new(:author=>song.author, :name=>song.song)
+      end
+    elsif name
+      if (@lyric = Lyric.find_by_name(name)) == nil
+        @lyric = Lyric.new(:author=>"", :name=>name)
       end
     end
     @sameset = Lyric.find(:all, :conditions=>['name=?', @lyric.name])
+  end
+
+  # Delete the lyric specified by id
+  def lyrics_del
+    cid   = params[:id]
+    lyric = Lyric.find_by_id(cid.to_i)
+    if lyric
+      name  = lyric.name
+      lyric.destroy
+    end
+    redirect_to :action=>:lyrics, :name=>name
   end
 
 # Util to load in the lyric content from remote (cache link)

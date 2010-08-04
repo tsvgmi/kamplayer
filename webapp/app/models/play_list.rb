@@ -6,6 +6,10 @@ class PlayList < ActiveRecord::Base
     self.songs[self.curplay]
   end
 
+  def gen_m3u(outfile)
+    Song.gen_m3u(outfile, songs)
+  end
+
   def reload_list
     mysongs = self.songs.map {|r| r}
     oldplay = self.curplay

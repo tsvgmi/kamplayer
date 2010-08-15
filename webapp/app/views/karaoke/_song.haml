@@ -14,7 +14,7 @@
 - if role == :search
   %td= "#{song.size}#{song.ksel}"
   %td= song.lastplayed ? Time.at(song.lastplayed).strftime("%m/%d/%y") : "&nbsp;"
-  %td= link_to("<img src=/images/youtube.jpg>", "http://www.youtube.com/results?search_query=#{song.song}&aq=f", :target=>'youtubes')
+  %td= link_to("<img border=0 src=/images/youtube.jpg>", "http://www.youtube.com/results?search_query=#{song.song}&aq=f", :target=>'youtubes')
 
 - lyrics = song.lyrics
 - if song.lyric

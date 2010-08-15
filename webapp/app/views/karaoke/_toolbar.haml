@@ -13,4 +13,5 @@
   %li= link_to_remote('Reload', :url=>{:action=>:command, :id=>'reload'})
   %li= link_to('Admin', {:action=>:command, :id=>'admin'}, :target=>'search')
   %li= link_to('Clear', {:action=>:command, :id=>'clear'}, {:confirm=>'Clear list.  Are you sure?'})
+  %li= link_to_remote('Clap', :url=>{:action=>:command, :id=>'clap'})
   %li= link_to_function('Refresh', "reload_all()")

@@ -80,7 +80,9 @@ class Song < ActiveRecord::Base
       sql = "select distinct artist from songs where state != 'N'"
       authlist = []
       Song.find_by_sql(sql).each do |r|
-        authlist.concat(r.artist.split(/\s*[\&,]\s*/))
+        if r.artist
+          authlist.concat(r.artist.split(/\s*[\&,]\s*/))
+        end
       end
       @@artists = authlist.sort.uniq
     end

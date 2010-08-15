@@ -16,12 +16,14 @@
       :text-decoration underline
       :color red
 
-- fc = ""
+- ofc = ""
 - Lyric.unique_songs.each do |arec|
   - next if (arec.songs.size <= 0)
-  - if arec.name[0,1] != fc
+  - fc = arec.name[0,1]
+  - fc = '0' if (fc =~ /[0-9]/)
+  - if fc != ofc
     %hr/
-    - fc = arec.name[0,1]
+    - ofc = fc
   %br/
   = link_to(arec.name, {:action=>:lyrics, :lid=>arec.id}, {:target=>'lyrics'})
   %span.artlink

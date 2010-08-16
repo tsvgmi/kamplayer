@@ -1,0 +1,38 @@
+- content_for "page_style" do
+  :sass
+    .hozlist
+      li
+        :line-height 1.5em
+    .artlink
+      :color #cc0
+      :font-size 0.8em
+      a
+        :color #48c
+    body
+      :background-color #113
+      :color #ccc
+    a
+      :color #ee8
+    a:hover
+      :text-decoration underline
+      :color red
+    .small_content
+      font-size: 0.8em
+      a
+        :color #e8e
+
+- ofc = ""
+- cache do
+  - @lygroup.each do |grname, slist|
+    %a{:name=>grname}
+      %hr/
+    .small_content
+      - (['0'] + ('A'..'Z').to_a).each do |achar|
+        = link_to(achar, "##{achar}")
+    - slist.each do |arec|
+      %br/
+      -# link_to(arec.song, {:action=>:lyrics, :lid=>arec.id}, {:target=>'lyrics'})
+      %span.artlink
+        = arec.class
+        = arec.song
+        -#= link_to(arec.artist, {:action=>:queue, :id=>arec.id}, {:target=>'monitor'})

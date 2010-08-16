@@ -24,6 +24,8 @@ class Song < ActiveRecord::Base
       else
         Player.send 'balance -2'
       end
+    else
+      Player.send 'switch_audio'
     end
 
     case ksel[1,1]
@@ -104,6 +106,11 @@ class Song < ActiveRecord::Base
     @@tags
   end
 
+  def self.unique_songs
+    sql = "select distinct song from songs where state != 'N' order by song"
+    Song.find_by_sql(sql)
+  end
+
   def self.cli_change(sids, cmds, cursong = nil)
     cmdset = []
     cmds.split(/\s*\|\s*/).each do |acmd|
@@ -115,17 +122,28 @@ class Song < ActiveRecord::Base
       end
     end
 
+    sidlist = []
     sids.split(/,/).each do |sid|
       if sid == '.'
-        asong = cursong
+        sidlist << cursong.id
+      elsif sid =~ /-/
+        start, last = sid.split(/-/)
+        sidlist.concat((start..last).to_a)
       else
-        if (asong = Song.find(sid.to_i)) == nil
-          p "Song #{sid} not found"
-          next
-        end
+        sidlist << sid
+      end
+    end
+
+    real_sids = []
+    sidlist.each do |sid|
+      if (asong = Song.find(sid.to_i)) == nil
+        p "Song #{sid} not found"
+        next
       end
       asong.change_rec(cmdset)
+      real_sids << asong.id
     end
+    real_sids
   end
 
   def self.search(ptns)

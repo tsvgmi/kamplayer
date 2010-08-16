@@ -80,6 +80,15 @@ class KaraokeController < ApplicationController
                                        :name=>song, :url=>href)
           ajx_return = lyric.load_content
         end
+        expire_fragment(/song=song_#{song.id}/)
+      end
+    when 'delfile'
+      item  = params[:item]
+      asong = Song.find_by_id(item.to_i)
+      if asong
+        FileUtils.remove(asong.path, :verbose=>true)
+        asong.state = 'N'
+        asong.save
       end
     when 'item'
       item = params[:item]
@@ -107,6 +116,7 @@ class KaraokeController < ApplicationController
         end
         song.lyrics = nil
         song.save
+        expire_fragment(/song=song_#{song.id}/)
         ajx_return = song.lyric.abcontent
       end
     when 'next'
@@ -153,6 +163,24 @@ class KaraokeController < ApplicationController
     end
   end
 
+  def rating
+    ajx_return = "OK"
+    sid   = params[:id]
+    level = params[:level]
+    src   = params[:refer] || :search
+    @song  = Song.find_by_id(sid)
+    if @song && level
+      @song.rate = level.to_s
+      @song.save
+    end
+    return render :layout=>false
+    if request.xhr?
+      #return render :text=>ajx_return
+    else
+      return redirect_to :action=>src
+    end
+  end
+
   def queue
     cid = params[:id]
     @song = Song.find(cid.to_i)
@@ -165,11 +193,25 @@ class KaraokeController < ApplicationController
 
   # Queuing multiple songs
   def mqueue
+    require 'fileutils'
+
     @playlist  = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
     clean = params[:clean]
-    if params[:submit] == 'Add All'
+    case params[:submit]
+    when 'Add All'
       ptn = params[:ptn]
       songlist = Song.ext_search(ptn)
+    when 'Delete'
+      params.keys.grep(/^rec_/).each do |aparm|
+        recid = aparm.sub(/^rec_/, '').to_i
+        asong = Song.find_by_id(recid)
+        if asong
+          FileUtils.remove(asong.path, :verbose=>true)
+          asong.state = 'N'
+          asong.save
+        end
+      end
+      return redirect_to :action=>:search,:ptn=>ptn
     else
       songlist = []
       params.keys.grep(/^rec_/).each do |aparm|
@@ -178,10 +220,8 @@ class KaraokeController < ApplicationController
       end
     end
     if params[:shuffle]
-      p "Sort list"
       songlist = songlist.sort_by {|s| rand(100)}
     end
-    #return render :text=>songlist.to_yaml
     songlist.each do |song|
       if clean
         @playlist.add_song(song, true)
@@ -278,8 +318,8 @@ class KaraokeController < ApplicationController
   def cli
     command = params[:command]
 
-    if command =~ /^([0-9][0-9,]+)\s+/
-      Song.cli_change($1, $')
+    if command =~ /^([0-9][-0-9,]+)\s+/
+      sids = Song.cli_change($1, $')
     else
       cid = (params[:cid] || 0).to_i
       if cid > 0
@@ -287,14 +327,32 @@ class KaraokeController < ApplicationController
       else
         cursong = PlayList.find_by_name('mpshell').current_song
       end
-      Song.cli_change(".", command, cursong)
+      sids = Song.cli_change(".", command, cursong)
+    end
+    sids.each do |sid|
+      expire_fragment(/song=song_#{sid}/)
     end
     redirect_to :action=>:search
   end
 
-  def testtube
-    count = (params[:count] || 10).to_i
-    result = Lyric.load_utube(count)
-    render :text=>"<pre>" + result.to_yaml
+  def lyric_content
+    @lygroup = {}
+    Lyric.unique_songs.each do |arec|
+      fc = arec.name[0,1]
+      fc = '0' if (fc =~ /[0-9]/)
+      @lygroup[fc] ||= []
+      @lygroup[fc] << arec
+    end
+  end
+
+  def song_content
+    @lygroup = {}
+    Song.find(:all, :conditions=>"state!='N'", :order=>'song,artist', :select=>'id,song,artist', :limit=>30000).each do |arec|
+      fc = arec.song[0,1]
+      fc = '0' if (fc =~ /[0-9]/)
+      @lygroup[fc] ||= {}
+      @lygroup[fc][arec.song] ||= []
+      @lygroup[fc][arec.song] << arec
+    end
   end
 end

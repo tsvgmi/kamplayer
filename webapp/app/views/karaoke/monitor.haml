@@ -1,5 +1,5 @@
 :javascript
-  function alertmsg(evtobj){
+  function navigate_page(evtobj){
     var unicode=evtobj.charCode? evtobj.charCode : evtobj.keyCode
     var actualkey=String.fromCharCode(unicode)
     //alert(actualkey);
@@ -9,17 +9,18 @@
       document.location = "/karaoke/command/previous";
     }
   }
-  document.onkeypress=alertmsg
+  document.onkeypress=navigate_page
 
 - content_for "page_style" do
   :sass
     #float_tool
       :position fixed
-      :left 1%
-      :width 98%
+      :left 0%
+      :width 100%
       :bottom  0px
       :background-color #cccccc
-      :border-top 2px solid
+      :border-top 1px dotted
+      :padding-top 5px
     .hozlist
       li
         :border          1px solid #aaaaaa
@@ -30,8 +31,6 @@
 
 #float_tool
   %center= render(:partial=>'toolbar', :object=>{:role=>'monitor'})
-  - if csong = @playlist.current_song
-    = render(:partial=>'cursong', :object=>csong)
 
 %table
   %tr
@@ -55,3 +54,4 @@
 %script
   $("row_#{curplay}").scrollTo();
 %div{:style=>'height:100'}
+

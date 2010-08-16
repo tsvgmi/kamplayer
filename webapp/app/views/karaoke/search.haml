@@ -4,15 +4,27 @@
       :background-color #dddddd
     #float_tool
       :position         fixed
-      :left             1%
-      :width            98%
+      :left             0%
+      :width            100%
       :top              0px
-      :padding-top      5px
+      :padding          5px 15px 5px 15px
       :background-color #cccccc
-      :border-bottom    2px solid
+      :border-bottom    1px dotted
+      :font-size        .8em
+    form.small_form
+      :font-size .9em
+      :color     #333333
+      select
+        :font-size .9em
+        :background-color #ccffcc
+        option
+          :font-size .9em
+          :background-color #ccffcc
+      input
+        :background-color #ccffcc
 
 #float_tool
-  %form{:action=>'/karaoke/search'}
+  %form.small_form{:action=>'/karaoke/search'}
     <b>Songs</b>:
     = select_tag("alphabet", options_for_select(['', '0'] + ('A'..'Z').to_a), :onchange=>'form.submit();')
     <b>Artist</b>:
@@ -25,7 +37,7 @@
     %button Search
 
   - if session[:admin]
-    %form{:action=>'/karaoke/cli'}
+    %form.small_form{:action=>'/karaoke/cli'}
       - csid = (@cursong ? @cursong.id : 0)
       %b= "Evaluate #{csid}:"
       %input{:type=>'hidden', :name=>'cid', :value=>csid}
@@ -44,6 +56,8 @@
   %input{:type=>'checkbox', :name=>'shuffle'}
   %input{:type=>:submit, :name=>'submit', :value=>'Add'}
   %input{:type=>:submit, :name=>'submit', :value=>'Add All'}
+  - if session[:admin]
+    %input{:type=>:submit, :name=>'submit', :value=>'Delete'}
   %table{:width=>'100%'}
     - rcount = 0
     - @records.each do |arec|

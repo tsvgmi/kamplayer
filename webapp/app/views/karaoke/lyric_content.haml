@@ -9,22 +9,28 @@
       a
         :color #48c
     body
-      :background-color #111
+      :background-color #113
+      :color #ccc
     a
       :color #ee8
     a:hover
       :text-decoration underline
       :color red
+    .small_content
+      font-size: 0.8em
+      a
+        :color #e8e
 
 - ofc = ""
-- Lyric.unique_songs.each do |arec|
-  - next if (arec.songs.size <= 0)
-  - fc = arec.name[0,1]
-  - fc = '0' if (fc =~ /[0-9]/)
-  - if fc != ofc
-    %hr/
-    - ofc = fc
-  %br/
-  = link_to(arec.name, {:action=>:lyrics, :lid=>arec.id}, {:target=>'lyrics'})
-  %span.artlink
-    = ": " + arec.songs.map {|s| link_to(s.artist, {:action=>:queue, :id=>s.id}, {:target=>'monitor'})}.join(" | ")
+- cache do
+  - @lygroup.each do |grname, slist|
+    %a{:name=>grname}
+      %hr/
+    .small_content
+      - (['0'] + ('A'..'Z').to_a).each do |achar|
+        = link_to(achar, "##{achar}")
+    - slist.each do |arec|
+      %br/
+      = link_to(arec.name, {:action=>:lyrics, :lid=>arec.id}, {:target=>'lyrics'})
+      %span.artlink
+        = ": " + arec.songs.map {|s| link_to(s.artist, {:action=>:queue, :id=>s.id}, {:target=>'monitor'})}.join(" | ")

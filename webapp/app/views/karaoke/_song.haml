@@ -9,16 +9,18 @@
 
   %td= link_to(song.artist, {:action=>:search, :ptn=>"artist=#{song.artist}"}, :target=>'search')
   %td= link_to(author, {:action=>:search, :ptn=>"author=#{author}"}, :target=>'search')
-  -# For the rating star
-  -#%td= "&nbsp;" + "*****"[0, song.rate.to_i]
+
   - spid = "rt_#{song.id}"
   %td{:id=>spid}
     = render(:partial=>'rating', :object=>song)
+
   %td= song.tag ? link_to(song.tag, {:action=>:search, :ptn=>"tag=#{song.tag}"}, :target=>'search') : "&nbsp;"
 
   - if role == :search
     %td= "#{song.size}#{song.ksel}"
-    %td= song.lastplayed ? Time.at(song.lastplayed).strftime("%m/%d/%y") : "&nbsp;"
+    %td= song.path.sub(/^.*\./, '').downcase
+    %td= ((song.lastplayed || 0) > 0) ? Time.at(song.lastplayed).strftime("%m/%d/%y") : "&nbsp;"
+    %td= Time.at(song.mtime).strftime("%m/%d/%y")
     %td= link_to("<img border=0 src=/images/youtube.jpg>", "http://www.youtube.com/results?search_query=#{song.song}&aq=f", :target=>'youtubes')
 
   - lyrics = song.lyrics

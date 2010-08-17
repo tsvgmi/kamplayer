@@ -269,4 +269,61 @@ class Song < ActiveRecord::Base
     outfid.close
     outfile
   end
+
+  def re_encode(options = {})
+    require 'fileutils'
+
+    brate   = options[:brate] || 3000
+    width   = options[:width] ||  720
+    height  = options[:height] || 480
+    out_file   = self.path.sub(/\.[^\.]+$/, '.mkv')
+    if out_file == self.path
+      p "Cannot re_encode to same extension"
+      return false
+    end
+
+    tmpf     = File.dirname(self.path) + "/test.mkv"
+    out_file = self.path.sub(/\.[^\.]+$/, '.mkv')
+    achan    = (self.ksel == 'F') ? "2,1" : "1,2"
+    cmd      = "HandBrakeCLI -i \"#{self.path}\" -o \"#{tmpf}\" -2 -T \
+                -b #{brate} -O -T -B 192 -a #{achan} -R 48 --mixdown stereo \
+                --width 720 --height 480"
+    p "Writing to #{tmpf}"
+    unless system cmd
+      return false
+    end
+    if test(?f, tmpf)
+      if (osize = File.size(tmpf)) > (isize = File.size(self.path))
+        p "Warning.  output(#{osize}) larger than input(#{isize})"
+        FileUtils.remove(tmpf, :verbose=>true)
+        return false
+      end
+      p "Filesize reduced from #{isize/1000000} to #{osize/1000000}"
+      FileUtils.move(tmpf, out_file, :verbose=>true)
+      old_file  = self.path
+      self.path = out_file
+      self.size = (File.size(out_file) + 999_999)/100_0000
+      if self.ksel == 'F'
+        self.ksel = 'S'
+      end
+      self.mtime = Time.now
+      self.save
+      FileUtils.remove(old_file, :verbose=>true)
+      return true
+    else
+      p "Error converting self.path"
+      return false
+    end
+  end
+
+  def self.re_encode(sids, options = {})
+    if sids.class != Array
+      sids = [sids]
+    end
+    sids.each do |asid|
+      if (song = Song.find_by_id(asid)) != nil
+        song.re_encode(options)
+      end
+    end
+  end
 end

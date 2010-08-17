@@ -1,0 +1,14 @@
+- content_for "page_style" do
+  :sass
+    .hozlist
+      li
+        :border 1px solid
+
+%ul.hozlist
+  %li= link_to("Start MPlayer", :action=>:player, :id=>:start)
+  %li= link_to("Stop MPlayer",  {:action=>:player, :id=>:stop}, :confirm=>'Stopping player.  Are you sure?')
+  %li Update Database
+  %li= link_to("Monitor", "/karaoke/index")
+
+%pre
+  = `ps -ax`.grep(/(mplayer.*-slave|mpshell.*pmonitor)/)

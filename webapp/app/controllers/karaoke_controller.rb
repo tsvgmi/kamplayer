@@ -163,22 +163,17 @@ class KaraokeController < ApplicationController
     end
   end
 
+  # API to set rating
   def rating
-    ajx_return = "OK"
     sid   = params[:id]
     level = params[:level]
-    src   = params[:refer] || :search
     @song  = Song.find_by_id(sid)
     if @song && level
       @song.rate = level.to_s
       @song.save
+      expire_fragment(/song=song_#{@song.id}/)
     end
-    return render :layout=>false
-    if request.xhr?
-      #return render :text=>ajx_return
-    else
-      return redirect_to :action=>src
-    end
+    render :layout=>false
   end
 
   def queue
@@ -355,4 +350,17 @@ class KaraokeController < ApplicationController
       @lygroup[fc][arec.song] << arec
     end
   end
+
+  def player
+    playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
+    case params[:id]
+    when 'start'
+      Player.start
+      playlist.reload_list
+    when 'stop'
+      Player.stop
+    end
+    redirect_to :action=>:admin
+  end
+
 end

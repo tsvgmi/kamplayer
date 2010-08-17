@@ -60,6 +60,19 @@
     %input{:type=>:submit, :name=>'submit', :value=>'Delete'}
   %table{:width=>'100%'}
     - rcount = 0
+    %tr
+      %td
+      %th ID
+      %th Song
+      %th Artist
+      %th Author
+      %th Rate
+      %th Tag
+      %th Size
+      %th Played
+      %th Added
+      %td
+      %th Lyric
     - @records.each do |arec|
       %tr
         %td

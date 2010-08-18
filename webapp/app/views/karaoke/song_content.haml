@@ -31,6 +31,7 @@
     - lkeys.each do |achar|
       = link_to(achar, "##{achar}")
       %br/
+    = link_to("?", "")
   - lkeys.each do |grname|
     - namelist = @lygroup[grname]
     %a{:name=>grname}

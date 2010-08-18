@@ -1,15 +1,11 @@
 class KaraokeController < ApplicationController
   layout 'karaoke'
 
-  requires_authentication :using => Proc.new { |username, password|
-    password == 'ponies!' },
-                          :realm     => 'Happy Cloud'
+  #requires_authentication :using => Proc.new { |username, password|
+    #password == 'ponies!' },
+                          #:realm     => 'Happy Cloud'
 
   def index
-    render :layout=>false
-  end
-
-  def index2
     render :layout=>false
   end
 
@@ -54,8 +50,6 @@ class KaraokeController < ApplicationController
 
   def command
     cid = params[:id]
-    #playlist = PlayList.find_by_name('mpshell')
-    
     playlist   = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
     ajx_return = "NG"
     case cid
@@ -176,10 +170,29 @@ class KaraokeController < ApplicationController
     render :layout=>false
   end
 
+  def kselset
+    sid   = params[:id]
+    value = params[:value]
+    @song = Song.find_by_id(sid)
+
+    if @song && value
+      if @song.ksel != value.to_s
+        @song.ksel = value.to_s
+        @song.save
+
+        playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
+        if @song == playlist.current_song
+          @song.normalize(value.to_s)
+        end
+        expire_fragment(/song=song_#{@song.id}/)
+      end
+    end
+    render :layout=>false
+  end
+
   def queue
     cid = params[:id]
     @song = Song.find(cid.to_i)
-    #@playlist = PlayList.find_by_name('mpshell')
     @playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
     @playlist.add_song(@song)
     #render :text=>@song.to_yaml
@@ -361,6 +374,12 @@ class KaraokeController < ApplicationController
       Player.stop
     end
     redirect_to :action=>:admin
+  end
+  
+  def psend
+    cmd = params[:cmd]
+    Player.send cmd
+    render :text=>"OK"
   end
 
 end

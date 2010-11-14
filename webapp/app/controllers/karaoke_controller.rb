@@ -66,12 +66,11 @@ class KaraokeController < ApplicationController
       item = params[:item]
       song = Song.find_by_id(item.to_i)
       if song
-        result = `emrun lyscanner.rb vid4scan #{song.song}`
-        p result
-        ajx_return = "OK"
-        YAML.load(result).each do |song, author, href|
+        result     = `emrun lyscanner.rb vid4scan #{song.song}`
+        ajx_return = result
+        YAML.load(result).each do |asong, author, href|
           lyric = Lyric.update_content(:author=>author,
-                                       :name=>song, :url=>href)
+                                       :name=>asong, :url=>href)
           ajx_return = lyric.load_content
         end
         expire_fragment(/song=song_#{song.id}/)
@@ -194,8 +193,9 @@ class KaraokeController < ApplicationController
     cid = params[:id]
     @song = Song.find(cid.to_i)
     @playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
-    @playlist.add_song(@song)
-    #render :text=>@song.to_yaml
+    unless @playlist.add_song(@song)
+      flash[:error] = "Can't add '#{@song.song}' to playlist"
+    end
     redirect_to :action=>:monitor
   end
 
@@ -203,8 +203,8 @@ class KaraokeController < ApplicationController
   def mqueue
     require 'fileutils'
 
-    @playlist  = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
-    clean = params[:clean]
+    @playlist = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
+    clean     = params[:clean]
     case params[:submit]
     when 'Add All'
       ptn = params[:ptn]
@@ -380,6 +380,24 @@ class KaraokeController < ApplicationController
     cmd = params[:cmd]
     Player.send cmd
     render :text=>"OK"
+  end
+
+  # Test method
+  def create_lyric
+    item = params[:id]
+    song = Song.find_by_id(item.to_i)
+    if song
+      result = `emrun lyscanner.rb vid4scan #{song.song}`
+      #return render :text=>result
+      ajx_return = "OK"
+      YAML.load(result).each do |asong, author, href|
+        lyric = Lyric.update_content(:author=>author,
+                                     :name=>asong, :url=>href)
+        ajx_return = lyric.load_content
+      end
+      expire_fragment(/song=song_#{song.id}/)
+      render :text=>song.to_yaml
+    end
   end
 
 end

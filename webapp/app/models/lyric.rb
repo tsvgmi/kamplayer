@@ -92,7 +92,8 @@ class Lyric < ActiveRecord::Base
 
   def self.unique_songs
     idlist = []
-    find_by_sql("select id,name from lyrics where content is not null group by name").each do |arec|
+    #find_by_sql("select id,name from lyrics where content is not null group by name").each do |arec|
+    find_by_sql("select id,name from lyrics group by name").each do |arec|
       idlist << arec.id
     end
     Lyric.find(idlist, :order=>"name", :include=>[:songs])

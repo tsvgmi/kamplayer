@@ -1,5 +1,5 @@
 #!/bin/bash
-. ${0%/*}/../etc/tool.env
+. ${0%/*}/../etc/kamplayer.env
 #######################################################################
 # File: 	katool
 # Description:  Sysadmin tools
@@ -173,6 +173,16 @@ case $oper in
   #@Des: Wrapper for rename.rb
   rename)
     F_rbrun rename $@
+    ;;
+
+  webapp)
+    cd ${EM_APP_DIR}/webapp || exit 1
+    F_system script/server start -d
+    ;;
+
+  mon-weblog)
+    cd ${EM_APP_DIR}/webapp || exit 1
+    F_system tail -f log/*log &
     ;;
 
   *)

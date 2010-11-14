@@ -82,26 +82,112 @@ class CurrentSong
       raise "No method: #{symbol}"
     end
   end
-
 end
 
-class MPlayer
+# Remote controller for Mplayer via its RC interface.  Use the input pipe
+# to write command, and monitor output file for any status change.  Start
+# method should be used here to setup the matching interface.
+class MPlayerRC
   MINPUT     = "mp.input"
   MOUTPUT    = "mp.output"
 
-  attr_accessor :trace, :pmode, :cursong, :scan_mode, :playlist
+  attr_reader :rchan, :wchan
 
-  def initialize(playlist, options)
-    @wchan = nil
+  def initialize(options = {})
+    @options = options
+    @trace   = options[:trace]
+    @wchan   = nil
     unless test(?f, MOUTPUT)
       File.open(MOUTPUT, "w") {}
     end
     @rchan = File.open(MOUTPUT)
     @rchan.seek(0, 2)
+  end
+
+  def send(acmd, wait = 0)
+    if @trace
+      Plog.info "Sending #{acmd}"
+    end
+    return if @options[:sim]
+    unless @wchan
+      @wchan = File.open(MINPUT, "w")
+    end
+    @wchan.puts("#{acmd}")
+    @wchan.flush
+    if wait > 0
+      get_response(wait)
+    end
+  end
+
+  def get_response(timeout)
+    return if @options[:sim]
+    while timeout > 0
+      while line = @rchan.gets
+        if @trace
+          print line
+        end
+      end
+      sleep 1
+      timeout -= 1
+    end
+  end
+
+  def monitor_start
+    @rchan.seek(0, 2)
+  end
+
+  def monitor_for
+    # Loop and wait till event is detected.
+    lcnt = 0
+    while true
+      while line = @rchan.gets
+        if yield(line, lcnt)
+          return true
+        end
+        lcnt += 1
+      end
+      sleep 1
+    end
+    false
+  end
+
+  # Cannot start by object b/c object represent channel which cannot
+  # be opened till the process have been started.
+  def self.start(options)
+    return if options[:sim]
+    cache = options[:cache] || 8000
+    MPlayer.kill_process(/mplayer.*-slave/)
+    unless test(?p, MINPUT)
+      Pf.system("mkfifo #{MINPUT}", 1)
+    end
+    popt = "-autosync 30 -slave -quiet -framedrop -rootwin -vf yadif -nograbpointer -vf scale -idle -double"
+    if osd = options[:osd]
+      popt += " -osdlevel #{osd}"
+    end
+    if options[:fs]
+      popt += " -fs"
+    else
+      popt += " -geometry 0:0"
+    end
+    Pf.system("mplayer -idx -cache #{cache} #{popt} -xineramascreen 1 -input file=#{MINPUT} >>#{MOUTPUT} 2>&1 &", 1)
+  end
+
+  def self.setup
+    File.open(MOUTPUT, "w") {}
+  end
+end
+
+class MPlayer
+  attr_accessor :trace, :pmode, :cursong, :scan_mode, :playlist
+
+  def initialize(playlist, options)
+    @wchan   = nil
+    @rc      = MPlayerRC.new(options)
     @channel = :left
     @aspect  = :normal
     @pmode   = :sound
     @options = options
+    @volume  = options[:volume] || 50
     @trace   = @options[:verbose]
 
     @cursong   = CurrentSong.new(playlist)
@@ -128,27 +214,6 @@ class MPlayer
       add_songs(slist, true)
     end
     @cursong.refresh
-  end
-
-  # Cannot start by object b/c object represent channel which cannot
-  # be opened till the process have been started.
-  def self.start(options)
-    return if options[:sim]
-    cache = options[:cache] || 8000
-    kill_process(/mplayer.*-slave/)
-    unless test(?p, MINPUT)
-      Pf.system("mkfifo #{MINPUT}", 1)
-    end
-    popt = "-autosync 30 -slave -quiet -framedrop -rootwin -vf yadif -nograbpointer -vf scale -idle -double"
-    if osd = options[:osd]
-      popt += " -osdlevel #{osd}"
-    end
-    if options[:fs]
-      popt += " -fs"
-    else
-      popt += " -geometry 0:0"
-    end
-    Pf.system("mplayer -idx -cache #{cache} #{popt} -xineramascreen 1 -input file=#{MINPUT} >>#{MOUTPUT} 2>&1 &", 1)
   end
 
   # Start the stand-alone monitor
@@ -203,36 +268,12 @@ class MPlayer
     Plog.info "Scan mode is #{@scan_mode}"
   end
 
-  def send(acmd, wait = 0)
-    if @trace
-      Plog.info "Sending #{acmd}"
-    end
-    return if @options[:sim]
-    unless @wchan
-      @wchan = File.open(MINPUT, "w")
-    end
-    @wchan.puts("#{acmd}")
-    @wchan.flush
-    if wait > 0
-      get_response(wait)
-    end
-  end
-
-  def get_response(timeout)
-    return if @options[:sim]
-    while timeout > 0
-      while line = @rchan.gets
-        if @trace
-          print line
-        end
-      end
-      sleep 1
-      timeout -= 1
-    end
-  end
-
   def osd(msg)
     send("osd_show_text '#{msg}' 3000")
+  end
+
+  def send(msg, wait = 0)
+    @rc.send(msg, wait)
   end
 
   def add_songs(mset, renew)
@@ -304,7 +345,7 @@ class MPlayer
       send 'switch_ratio 1.3333'
     end
 
-    send "volume 80 1"
+    send "volume #{@volume} 1"
     send "get_time_length", 1
   end
 
@@ -359,7 +400,7 @@ class MPlayer
       send "balance -2"
       @channel = :left
     end
-    send "volume 80 1"
+    send "volume #{@volume} 1"
   end
 
   def switch_aspect
@@ -395,55 +436,32 @@ class MPlayer
 
   # Monitor the file being played.  When mplayer switch to new song,
   # it will be detected here.
-  def monitor_curfile(first = false)
+  def monitor_curfile
     file = nil
-    # First time in, we look for the last file then start from there.
-    if first
-      ofs = @rchan.tell - 10000
-      if ofs < 0
-        ofs = 0
-      end
-      @rchan.seek(ofs, 0)
-    end
     stopped = false
-    #
-    # Loop and wait till exit is detected.
-    while true
-      lcnt = 0
-      while line = @rchan.gets
-        if line =~ /^Playing\s+/
-          file = $'.chomp.sub(/\.$/, '')
-          next if file.empty?
+    @rc.monitor_for do |line, lcnt|
+      state = false
+      case line
+      when /^Playing\s+/
+        file = $'.chomp.sub(/\.$/, '')
+        unless file.empty?
           if @options[:verbose]
             Plog.info "Detect #{File.basename(file)}"
           end
-          unless first
-            @lastfile = file
-            return @lastfile
-          end
-        elsif line =~ /^Exiting\.\.\./
-          Plog.warn "#{lcnt}. Mplayer exit ******"
-        elsif line =~ /ANS_LENGTH=/
-          duration = $'.sub(/\..*$/, '')
-          #p "**** #{@lastfile}: #{duration}"
-          @cursong.set_duration(duration)
-        elsif line =~ /MPlayer interrupted by signal/
-          Plog.warn $line
-          stopped = true
+          @lastfile = file
+          state = true
         end
-        lcnt += 1
+      when /^Exiting\.\.\./
+        Plog.warn "#{lcnt}. Mplayer exit ******"
+      when /ANS_LENGTH=/
+        duration = $'.sub(/\..*$/, '')
+        #p "**** #{@lastfile}: #{duration}"
+        @cursong.set_duration(duration)
+      when /MPlayer interrupted by signal/
+        Plog.warn $line
+        stopped = true
       end
-      sleep 1
-      # 1st time seeding, we just return right away.  Otherwise, we
-      # wait for real change.
-      if first
-        @lastfile = file
-        return file
-      end
-      if stopped && (lcnt <= 0)
-        #Plog.warn "MPLAYER DEAD########"
-        #MPlayer.start(@options)
-      end
+      state
     end
   end
 end
@@ -497,7 +515,7 @@ class MPShell
       var, val = assign.split(/=/)
       @options[var.intern] = val
     end
-    MPlayer.start(@options)
+    MPlayerRC.start(@options)
     sleep(3)
     @player.run_init
   end
@@ -551,7 +569,7 @@ EOF
 
   # Main run loop.  Start with _ to hide from shell
   def _run
-    MPlayer.start(@options)
+    MPlayerRC.start(@options)
     sleep(3)
     @player.run_init
     if @options[:readline]
@@ -793,7 +811,7 @@ EOF
   def track
     Plog.info "Switch track"
     @player.send "switch_audio"
-    @player.send "volume 80 1"
+    @player.send "volume #{@volume} 1"
   end
 
   def voice
@@ -954,13 +972,13 @@ EOF
   end
 
   def _pmonitor(standalone = false)
-    @player.monitor_curfile(true)
+    @player.rc.monitor_start
     ftime = false
     sample_time = @options[:sample]
     mthread = nil
     while true
       # Get the next file
-      curfile = @player.monitor_curfile(false)
+      curfile = @player.monitor_curfile
 
       # Refresh the playlist - file changed.  This is to pickup any
       # changes from the foreground shell and sync it with this thread.
@@ -1033,26 +1051,19 @@ EOF
 
   def self.run
     DbAccess.instance
-    File.open(MPlayer::MOUTPUT, "w") {}
+    MPlayerRC.setup
+
+    # Override or preset config?
+    cf_file = getOption(:config) || "#{ENV['HOME']}/.mpshellrc"
+    if test(?f, cf_file)
+      MPShell.setOptions(YAML.load(File.read(cf_file)))
+    end
+
     ashell   = MPShell.new(getOption)
     mprocess = false
     unless getOption(:nomonitor)
       if getOption(:readline)
         MPlayer.start_monitor
-  def send(acmd, wait = 0)
-    if @trace
-      Plog.info "Sending #{acmd}"
-    end
-    return if @options[:sim]
-    unless @wchan
-      @wchan = File.open(MINPUT, "w")
-    end
-    @wchan.puts("#{acmd}")
-    @wchan.flush
-    if wait > 0
-      get_response(wait)
-    end
-  end
         mprocess = true
       else
         Thread.abort_on_exception = true
@@ -1094,11 +1105,12 @@ if ((__FILE__ == $0) && !defined?($mpshell_run))
     ['--keep',      '-k', 0],   # Use playlist from last play
     ['--karaoke',   '-K', 0],   # Set karaoke mode
     ['--nomonitor', '-m', 0],   # Disable monitor in shell
-    ['--config',    '-n', 1],
+    ['--config',    '-n', 1],   # Override default config
     ['--osd',       '-o', 1],
     ['--readline',  '-r', 0],
     ['--sample',    '-s', 1],
     ['--sim',       '-S', 0],
+    ['--volume',    '-V', 1],
     ['--verbose',   '-v', 0]
   )
 end

@@ -23,7 +23,7 @@
 
 - ofc = ""
 - cache do
-  - @lygroup.each do |grname, slist|
+  - @lygroup.sort.each do |grname, slist|
     %a{:name=>grname}
       %hr/
     .small_content

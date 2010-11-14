@@ -35,7 +35,7 @@ class Song < ActiveRecord::Base
       Player.send 'switch_ratio 1.3333'
     end
 
-    Player.send "volume 80 1"
+    Player.send "volume 50 1"
     Player.send "get_time_length"
   end
 

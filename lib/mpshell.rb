@@ -178,7 +178,7 @@ class MPlayerRC
 end
 
 class MPlayer
-  attr_accessor :trace, :pmode, :cursong, :scan_mode, :playlist
+  attr_accessor :trace, :pmode, :cursong, :scan_mode, :playlist, :rc
 
   def initialize(playlist, options)
     @wchan   = nil
@@ -188,12 +188,14 @@ class MPlayer
     @pmode   = :sound
     @options = options
     @volume  = options[:volume] || 50
-    @trace   = @options[:verbose]
 
     @cursong   = CurrentSong.new(playlist)
     @playlist  = playlist
     @scan_mode = false
     @listsize  = 20
+
+    @pmode = @options[:karaoke] ? :karaoke : :sound
+    @trace = @options[:verbose]
   end
 
 # This is _run after player has started
@@ -437,10 +439,9 @@ class MPlayer
   # Monitor the file being played.  When mplayer switch to new song,
   # it will be detected here.
   def monitor_curfile
-    file = nil
+    file    = nil
     stopped = false
     @rc.monitor_for do |line, lcnt|
-      state = false
       case line
       when /^Playing\s+/
         file = $'.chomp.sub(/\.$/, '')
@@ -449,7 +450,7 @@ class MPlayer
             Plog.info "Detect #{File.basename(file)}"
           end
           @lastfile = file
-          state = true
+          return @lastfile
         end
       when /^Exiting\.\.\./
         Plog.warn "#{lcnt}. Mplayer exit ******"
@@ -461,7 +462,7 @@ class MPlayer
         Plog.warn $line
         stopped = true
       end
-      state
+      false
     end
   end
 end
@@ -499,13 +500,7 @@ class MPShell
     @matchset  = []
     @scan_mode = false
     @cursong   = @player.cursong
-    if @options[:karaoke]
-      @player.pmode = :karaoke
-    end
-    if @options[:verbose]
-      @player.trace = true
-    end
-    @loadat = Time.now
+    @loadat    = Time.now
   end
 
   # Called from menu only

@@ -1,0 +1,7 @@
+PATH=$PATH:/Users/thienvuong/kamplayer/bin
+
+# For main screen
+katool mpshell -kfw -o3
+
+# For 2nd screen
+katool mpshell -kfw -o3 -e2

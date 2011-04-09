@@ -169,7 +169,10 @@ class MPlayerRC
     else
       popt += " -geometry 0:0"
     end
-    Pf.system("mplayer -idx -cache #{cache} #{popt} -xineramascreen 1 -input file=#{MINPUT} >>#{MOUTPUT} 2>&1 &", 1)
+    if screen = options[:screen]
+      popt += " -xineramascreen #{screen}"
+    end
+    Pf.system("mplayer -idx -cache #{cache} #{popt} -input file=#{MINPUT} >>#{MOUTPUT} 2>&1 &", 1)
   end
 
   def self.setup
@@ -252,9 +255,13 @@ class MPlayer
     MPlayer.kill_existing_players if killit
   end
 
-  def toggle_pmode
+  def toggle_pmode(newmode = nil)
     omode  = @pmode
-    @pmode = (@pmode == :sound) ? :karaoke : :sound
+    unless newmode
+      @pmode = (@pmode == :sound) ? :karaoke : :sound
+    else
+      @pmode = newmode.intern
+    end
     sound_normalize(nil, omode)
     self
   end
@@ -487,6 +494,7 @@ class MPShell
   extendCli __FILE__
 
   MaxInitListSize = 3000
+  ShellFifo       = "monrem.fifo"
 
   def initialize(options)
     @playlist = PlayListCore.new("mpshell")
@@ -821,8 +829,8 @@ EOF
     @player.toggle_trace
   end
 
-  def pmode
-    @player.toggle_pmode
+  def pmode(mode = nil)
+    @player.toggle_pmode(mode)
   end
 
   def trace
@@ -1013,6 +1021,29 @@ EOF
     end
   end
 
+  def remote_command(cpipe = ShellFifo)
+    unless test(?p, cpipe)
+      Pf.system("mkfifo ./#{cpipe}")
+    end
+    fid = File.open(cpipe)
+    while true
+      while line = fid.gets
+        cmd, oper = line.strip.sub(/^[-\+\/][\+]?/, '\& ').split(' ', 2)
+        begin
+          unless _run_a_line(cmd, oper)
+            done = true
+            break
+          end
+        rescue => errmsg
+          p errmsg
+          puts errmsg.backtrace
+        end
+      end
+      sleep 1
+    end
+    fid.close
+  end
+
   def _artists(*args)
     Song.find(:all, :select=>'*, count(*) as count',
         :group=>'artist', :order=>"artist",
@@ -1044,6 +1075,22 @@ EOF
     MPShell.new(getOption)._pmonitor(true)
   end
 
+  def self.pmonitor2
+    DbAccess.instance
+    options        = getOption
+    options[:keep] = true
+    Thread.abort_on_exception = true
+    ashell = MPShell.new(options)
+    monthread = Thread.new {
+      ashell._pmonitor(true)
+    }
+    cmdthread = Thread.new {
+      ashell.remote_command
+    }
+    monthread.join
+    cmdthread.join
+  end
+
   def self.run
     DbAccess.instance
     MPlayerRC.setup
@@ -1065,6 +1112,11 @@ EOF
         Thread.new {
           ashell._pmonitor
         }
+        if cpipe = getOption(:cpipe)
+          Thread.new {
+            ashell.remote_command(cpipe)
+          }
+        end
       end
     end
     ashell._run
@@ -1079,7 +1131,7 @@ EOF
     Song.find(:all, :conditions=>"duration<=60",
         :order=>"path", :limit=>limit).each do |rec|
       next unless test(?f, rec.path)
-      cmd = "mplayer -identify -frames 1 -xineramascreen 1 -nosound -nograbpointer '#{rec.path}' 2>&1"
+      cmd = "mplayer -identify -frames 1 -nosound -nograbpointer '#{rec.path}' 2>&1"
       result = `#{cmd}`
       output = result.grep(/ID_LENGTH/)[0]
       if output
@@ -1096,12 +1148,14 @@ if ((__FILE__ == $0) && !defined?($mpshell_run))
   $mpshell_run = true
   MPShell.handleCli(
     ['--cache',     '-C', 1],   # Set kbytes to cache for video data
+    ['--screen',    '-e', 1],   # Set screen number
     ['--fs',        '-f', 0],   # Set full screen
     ['--keep',      '-k', 0],   # Use playlist from last play
     ['--karaoke',   '-K', 0],   # Set karaoke mode
     ['--nomonitor', '-m', 0],   # Disable monitor in shell
     ['--config',    '-n', 1],   # Override default config
     ['--osd',       '-o', 1],
+    ['--cpipe',     '-p', 1],   # Disable monitor in shell
     ['--readline',  '-r', 0],
     ['--sample',    '-s', 1],
     ['--sim',       '-S', 0],

@@ -55,7 +55,7 @@ class Player
       @wchan = File.open(MINPUT, "w")
     end
     @wchan.puts("#{acmd}")
-    p "Player: #{acmd}"
+    Rails.logger.debug "Player: #{acmd}"
     @wchan.flush
   end
 

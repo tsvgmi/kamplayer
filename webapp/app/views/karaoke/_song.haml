@@ -1,9 +1,11 @@
 - cache(:song=>"song_#{song.id}") do
   - author = song.lyric ? song.lyric.author : ""
   - sid = "#{song.id}#{song.ksel}"
+
   - if role == :search
     %td.playnow= link_to(sid, {:action=>:command, :id=>:play_now, :item=>song.id}, {:title=>"Play '#{song.song}'", :target=>'monitor', :confirm=>"OK to clear list and replaced with '#{song.song}'?"})
     %td.playqueue= link_to(song.song, {:action=>:queue, :id=>song.id}, {:title=>"Queue #{song.song}", :target=>'monitor'})
+
   - else
     %td.playnow= link_to(sid, {:action=>:command, :id=>:item, :item=>song.id}, {:title=>"Play #{song.song}"})
     %td.playnow= link_to(song.song, {:action=>:search, :id=>song.id, :item=>rcount, :ptn=>"song=#{song.song}"}, :target=>'search')
@@ -14,6 +16,7 @@
   - spid = "rt_#{song.id}"
   %td{:id=>spid}
     = render(:partial=>'rating', :object=>song)
+
   - if role == :monitor
     - ksid = "ks_#{song.id}"
     %td{:id=>ksid}

@@ -14,6 +14,13 @@ class KaraokeController < ApplicationController
     @playlist     = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
   end
 
+  def imonitor
+    @page_refresh = 30
+    @playlist     = PlayList.find_by_name('mpshell', :include=>[:songs=>:lyric])
+    render :layout=>'ikaraoke'
+  end
+
+
   def search
     alphabet = params[:alphabet] || ""
     artist   = params[:artist]   || ""

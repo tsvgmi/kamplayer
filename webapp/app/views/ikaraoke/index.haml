@@ -1,0 +1,23 @@
+= iui_toolbar "iKaraoke", "#searchForm"
+- iphone_menu = []
+- iphone_menu << MenuEntry.new("Artist",    :action=>:artist)
+- iphone_menu << MenuEntry.new("Songs",     :action=>:songs)
+- iphone_menu << MenuEntry.new("Playlist",  :action=>:playlist)
+- iphone_menu << MenuEntry.new("Settings",  :action=>:settings)
+= iui_list iphone_menu
+ 
+%form#searchForm.panel{:action => "/ikaraoke/search", :method=>'post'}
+  %h2 Music Search
+  %fieldset
+    %input{:type=>'hidden', :name=>'authenticity_token', :value=>form_authenticity_token}
+    .row
+      %label Artist:
+      %input{:name => "artist", :type => "text"}/
+    .row
+      %label Song:
+      %input{:name => "song", :type => "text"}/
+    .row
+      %label Rating:
+      %input{:name => "rating", :type => "text"}/
+  %a.whiteButton{:type=>"submit", :href=>"#"} Search
+

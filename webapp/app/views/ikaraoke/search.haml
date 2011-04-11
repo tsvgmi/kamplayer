@@ -1,0 +1,18 @@
+- wset = []
+%ul#searchResult{:title=>'Search Result'}
+  - ids = @records.map{|r| r.id}.join(',')
+  - wset << MenuEntry.new("Add All",   :action=>:add_all, :ids=>ids, :reset=>true)
+  - wset << MenuEntry.new("Queue All", :action=>:add_all, :ids=>ids)
+  - @records.each_with_index do |song, index|
+    - item = MenuEntry.new("#{song.song} - #{song.artist}", "#song#{index}")
+    - wset << item
+= iui_list wset
+
+- @records.each_with_index do |song, index|
+  - logger.debug song.song
+  %ul{:id=>"song#{index}", :title=>song.song}
+    %li.group= "#{song.id}: #{song.song} - #{song.artist}"
+    %li= link_to("Play '#{song.song}' now",  :action=>:queue, :id=>song.id, :playnow=>true)
+    %li= link_to("Queue '#{song.song}' now", :action=>:queue, :id=>song.id)
+
+

@@ -144,6 +144,7 @@ case $oper in
     else
       if [ -f $lastoptf ]; then
         set -- $(<$lastoptf)
+        F_logProgress "Using last run options: $*"
       fi
     fi
     while getopts :C:de:fkKmo:p:rs:Svw i; do

@@ -28,11 +28,13 @@ class Song < ActiveRecord::Base
       Player.send 'switch_audio'
     end
 
+    if false
     case ksel[1,1]
     when 'W'
       Player.send 'switch_ratio 1.6667'
     when 'N'
       Player.send 'switch_ratio 1.3333'
+    end
     end
 
     Player.send "volume 50 1"
@@ -86,6 +88,7 @@ class Song < ActiveRecord::Base
           authlist.concat(r.artist.split(/\s*[\&,]\s*/))
         end
       end
+      authlist << "Unknown"
       @@artists = authlist.sort.uniq
     end
     @@artists

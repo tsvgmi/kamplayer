@@ -157,6 +157,7 @@ case $oper in
       *)        F_usageOper $oper ;;
       esac
     done
+    # This is my db and i/o location
     cd ~/KA || exit 1
     if [ "$runweb" ]; then
       F_system $EM_MYPROG webapp || exit

@@ -102,7 +102,7 @@ class IkaraokeController < ApplicationController
   def search
     wclause = []
     logger.debug params.inspect
-    [:artist, :song].each do |aparm|
+    [:artist, :song, :author].each do |aparm|
       if (value = params[aparm]) && !value.empty?
         if value == "Unknown"
           wclause << "#{aparm} is null"

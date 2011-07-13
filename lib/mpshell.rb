@@ -23,8 +23,9 @@ class CurrentSong
   end
 
   def set_play_file(path)
-    @playlist.set_curplay(path)
-    @info = Song.find(:first, :conditions=>"path='#{path}'")
+    Plog.info("Set playfile to #{path}")
+    fpath = @playlist.set_curplay(path)
+    @info = Song.find(:first, :conditions=>"path like '#{fpath}%'")
   end
 
   def position
@@ -83,6 +84,196 @@ class CurrentSong
     end
   end
 end
+
+class PlayListCore
+  attr_reader :data, :dbrec, :name
+
+  def initialize(name)
+    @name = name
+    if (rec = PlayList.find(:first, :conditions=>["name=?", name])) == nil
+      rec = PlayList.new(:name=>name)
+      rec.save_wait
+    end
+    @dbrec = rec
+    refresh
+  end
+
+  def concat(yrecs)
+    rec = PlSong.find(:first, :select=>"max(play_order)+1 as mporder",
+        :conditions=>["play_list_id=?", @dbrec.id])
+    if rec
+      order = rec.mporder.to_i
+    else
+      order = 0
+    end
+    yrecs.each do |yrec|
+      @dbrec.pl_songs.create(:play_list_id=>@dbrec.id, :song_id=>yrec.id,
+                             :play_order=>order)
+      order += 1
+    end
+  end
+
+  def reset
+    @dbrec.pl_songs.clear
+    @data = []
+  end
+
+  def refresh
+    @dbrec = PlayList.find(:first, :conditions=>["name=?", @name],
+                :include=>[:songs])
+    @data  = @dbrec.songs
+  end
+
+  def [](index)
+    @data[index]
+  end
+
+  def add_songs(mset, is_sort = false)
+    mset = if is_sort
+      mset.sort_by {|f| f.song + "-" + f.artist}
+    else
+      mset.sort_by {rand}
+    end
+    self.concat(mset)
+    refresh
+    mset
+  end
+
+  def gen_m3u(outfile = nil)
+    outfile ||= "#{@name}.m3u"
+    if @data.size <= 0
+      Plog.error "No matching song found"
+      return nil
+    end
+    Song.gen_m3u(outfile, @data)
+    outfile
+  end
+
+  def fmt_text(aset = nil, pos = 0, curpos = -1, limit = 300)
+    if aset
+      has_state = false
+    else
+      aset = @data
+      has_state = true
+    end
+    if aset.size <= 0
+      return
+    end
+    if pos >= aset.size
+      pos = aset.size - 1
+    end
+    pl_songs = has_state ? @dbrec.pl_songs : nil
+    puts "Playlist: #{@name} [#{@data.size}]"
+    @fmt_type = 1
+    case @fmt_type
+    when 1
+      afmt = "%3d. %s [%d/%3d] %s %s %s %-12.12s: %s - %s"
+    else
+      afmt = "%3d. %-20.20s - [%1s] %s %s"
+    end
+    aset[pos..-1].each do |rec|
+      case @fmt_type
+      when 1
+        times = "%2d:%02d" % [rec.duration/60, rec.duration%60]
+        prec = [rec.sid, rec.rate, rec.playcount,
+                Time.at(rec.lastplayed||0).strftime("%D"),
+                Time.at(rec.mtime).strftime("%D"),
+                times, rec.artist, rec.song, rec.tag]
+      else
+        prec = [rec.artist, rec.rate, rec.sid, rec.song]
+      end
+      if curpos && (curpos == pos)
+        fmt = "*#{afmt}"
+      else
+        if !pl_songs || (pl_songs[pos].state == 0)
+          fmt = " #{afmt}"
+        else
+          fmt = "-#{afmt}"
+        end
+      end
+      prec.unshift(pos)
+      puts fmt % prec
+      pos += 1
+      limit -= 1
+      if limit <= 0
+        break
+      end
+    end
+  end
+  
+  def truncate(maxsize)
+    # Truncate in db first
+    songs = @dbrec.pl_songs
+    if songs.size > maxsize
+      sofs  = songs.size - maxsize
+      Plog.info "Removing #{sofs} records"
+      begin
+        0.upto(sofs-1).each do |i|
+          srec = songs[0]
+          songs.delete(srec)
+          srec.destroy
+        end
+      rescue => errmsg
+        p errmsg
+      end
+      refresh
+    end
+    sofs
+  end
+
+  def disable_song(pos)
+    Plog.info("Disable #{pos}")
+    pos = pos.to_i
+    if (pos >= 0) && (pos < @data.size)
+      @dbrec.pl_songs[pos].state = 1
+      @dbrec.pl_songs[pos].save_wait
+    else
+      Plog.warn "Invalid position #{pos}"
+    end
+  end
+
+  def set_curplay(path, do_retry=true)
+    rindex = -1
+    
+    # Must search from the currently so song could appear at multiple location
+    startofs = @dbrec.curplay || 0
+    if (startofs > 0) && (startofs < @data.size)
+      walkset = (startofs..@data.size-1).to_a + (0..startofs-1).to_a
+    else
+      walkset = (0..@data.size-1).to_a
+    end
+    p "Searching for #{path} from #{walkset.first} of #{@data.size}"
+    bpath = File.basename(path)
+    walkset.each do |index|
+      entry = @data[index]
+      #p entry.path
+      # Bad - mplayer truncate the report file now ....
+      if File.basename(entry.path).index(bpath)
+        rindex = index
+        break
+      end
+    end
+    if (rindex >= 0) && (rindex <= @data.size)
+      p "Set curplay to #{rindex}"
+      @dbrec.curplay = rindex
+      @dbrec.save_wait
+    else
+      p "Out of bound: startofs=#{startofs}, size=#{@data.size}, #{rindex} - ignore"
+      refresh
+      # Retry it once more
+      if do_retry
+        set_curplay(path, false)
+      end
+    end
+    if @data[rindex]
+      @data[rindex].path
+    else
+      ""
+    end
+  end
+
+end
+
 
 # Remote controller for Mplayer via its RC interface.  Use the input pipe
 # to write command, and monitor output file for any status change.  Start
@@ -160,7 +351,8 @@ class MPlayerRC
     unless test(?p, MINPUT)
       Pf.system("mkfifo #{MINPUT}", 1)
     end
-    popt = "-autosync 30 -slave -quiet -framedrop -rootwin -vf yadif -nograbpointer -vf scale -idle -double"
+    #popt = "-autosync 30 -slave -quiet -framedrop -rootwin -vf yadif -nograbpointer -vf scale -idle -double"
+    popt = "-autosync 30 -slave -quiet -framedrop -rootwin -nograbpointer -idle"
     if osd = options[:osd]
       popt += " -osdlevel #{osd}"
     end
@@ -190,7 +382,7 @@ class MPlayer
     @aspect  = :normal
     @pmode   = :sound
     @options = options
-    @volume  = options[:volume] || 50
+    @volume  = (options[:volume] || 50).to_i
 
     @cursong   = CurrentSong.new(playlist)
     @playlist  = playlist
@@ -851,7 +1043,18 @@ EOF
   end
 
   def volume(data)
-    @player.send "volume #{data} 1"
+    case data
+    when /^\d+$/
+      @volume = data.to_i
+    when /^\+/
+      @volume += (10 * data.size)
+    when /^\-/
+      @volume -= (10 * data.size)
+    else
+      return
+    end
+    Plog.info "Setting volume level to #{@volume}"
+    @player.send "volume #{@volume} 1"
   end
 
   def wide
@@ -988,6 +1191,7 @@ EOF
       if standalone
         @playlist.refresh
       end
+      
       @cursong.set_play_file(curfile)
       @cursong.incr_playcount
 

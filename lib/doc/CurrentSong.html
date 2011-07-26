@@ -1,0 +1,733 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: CurrentSong</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (C)</a> &raquo; 
+    
+    
+    <span class="title">CurrentSong</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: CurrentSong
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">CurrentSong</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">mpshell.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#info-instance_method" title="#info (instance method)">- (Object) <strong>info</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute info.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#change-instance_method" title="#change (instance method)">- (Object) <strong>change</strong>(options) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#incr_playcount-instance_method" title="#incr_playcount (instance method)">- (Object) <strong>incr_playcount</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (CurrentSong) <strong>initialize</strong>(playlist) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Find by path: locate record, save it to file Sync front end: load if
+change, locate record.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method_missing-instance_method" title="#method_missing (instance method)">- (Object) <strong>method_missing</strong>(symbol, *args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#position-instance_method" title="#position (instance method)">- (Object) <strong>position</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#position%3D-instance_method" title="#position= (instance method)">- (Object) <strong>position=</strong>(value) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#refresh-instance_method" title="#refresh (instance method)">- (Object) <strong>refresh</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_duration-instance_method" title="#set_duration (instance method)">- (Object) <strong>set_duration</strong>(duration) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_play_file-instance_method" title="#set_play_file (instance method)">- (Object) <strong>set_play_file</strong>(path) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="CurrentSong (class)">CurrentSong</a></span></tt>) <strong>initialize</strong>(playlist) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Find by path: locate record, save it to file Sync front end: load if
+change, locate record
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 20</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='playlist identifier id'>playlist</span><span class='rparen token'>)</span>
+  <span class='@playlist ivar id'>@playlist</span> <span class='assign token'>=</span> <span class='playlist identifier id'>playlist</span>
+  <span class='refresh identifier id'>refresh</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice this">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+  </p>
+  
+    <div class="method_details first">
+  <p class="signature first" id="method_missing-instance_method">
+  
+    - (<tt>Object</tt>) <strong>method_missing</strong>(symbol, *args) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80
+81
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 78</span>
+
+<span class='def def kw'>def</span> <span class='method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='symbol identifier id'>symbol</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='@info ivar id'>@info</span>
+    <span class='@info ivar id'>@info</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='symbol identifier id'>symbol</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;No method: #{symbol}&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="info-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="info-instance_method">
+  
+    - (<tt>Object</tt>) <strong>info</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute info
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 15</span>
+
+<span class='def def kw'>def</span> <span class='info identifier id'>info</span>
+  <span class='@info ivar id'>@info</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="change-instance_method">
+  
+    - (<tt>Object</tt>) <strong>change</strong>(options) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 55</span>
+
+<span class='def def kw'>def</span> <span class='change identifier id'>change</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='@info ivar id'>@info</span><span class='dot token'>.</span><span class='change_rec identifier id'>change_rec</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="incr_playcount-instance_method">
+  
+    - (<tt>Object</tt>) <strong>incr_playcount</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 59</span>
+
+<span class='def def kw'>def</span> <span class='incr_playcount identifier id'>incr_playcount</span>
+  <span class='if if kw'>if</span> <span class='@info ivar id'>@info</span>
+    <span class='@info ivar id'>@info</span><span class='dot token'>.</span><span class='playcount identifier id'>playcount</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span>
+    <span class='@info ivar id'>@info</span><span class='dot token'>.</span><span class='lastplayed identifier id'>lastplayed</span> <span class='assign token'>=</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span>
+    <span class='@info ivar id'>@info</span><span class='dot token'>.</span><span class='save_wait identifier id'>save_wait</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="position-instance_method">
+  
+    - (<tt>Object</tt>) <strong>position</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 30</span>
+
+<span class='def def kw'>def</span> <span class='position identifier id'>position</span>
+  <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='dbrec identifier id'>dbrec</span><span class='dot token'>.</span><span class='curplay identifier id'>curplay</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="position=-instance_method">
+  
+    - (<tt>Object</tt>) <strong>position=</strong>(value) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 34</span>
+
+<span class='def def kw'>def</span> <span class='position= identifier id'>position=</span><span class='lparen token'>(</span><span class='value identifier id'>value</span><span class='rparen token'>)</span>
+  <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='info identifier id'>info</span> <span class='dstring node'>&quot;Set curplay to #{value}&quot;</span>
+  <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='dbrec identifier id'>dbrec</span><span class='dot token'>.</span><span class='curplay identifier id'>curplay</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span>
+  <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='dbrec identifier id'>dbrec</span><span class='dot token'>.</span><span class='save_wait identifier id'>save_wait</span>
+  <span class='refresh identifier id'>refresh</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="refresh-instance_method">
+  
+    - (<tt>Object</tt>) <strong>refresh</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 41</span>
+
+<span class='def def kw'>def</span> <span class='refresh identifier id'>refresh</span>
+  <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='refresh identifier id'>refresh</span>
+  <span class='curplay identifier id'>curplay</span> <span class='assign token'>=</span> <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='dbrec identifier id'>dbrec</span><span class='dot token'>.</span><span class='curplay identifier id'>curplay</span> <span class='orop op'>||</span> <span class='integer val'>0</span>
+  <span class='if if kw'>if</span> <span class='curplay identifier id'>curplay</span> <span class='geq op'>&gt;=</span> <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='dbrec identifier id'>dbrec</span><span class='dot token'>.</span><span class='pl_songs identifier id'>pl_songs</span><span class='dot token'>.</span><span class='size identifier id'>size</span>
+    <span class='curplay identifier id'>curplay</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='end end kw'>end</span>
+  <span class='begin begin kw'>begin</span>
+    <span class='@info ivar id'>@info</span> <span class='assign token'>=</span> <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='dbrec identifier id'>dbrec</span><span class='dot token'>.</span><span class='songs identifier id'>songs</span><span class='lbrack token'>[</span><span class='curplay identifier id'>curplay</span><span class='rbrack token'>]</span>
+  <span class='rescue rescue kw'>rescue</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='errmsg identifier id'>errmsg</span>
+    <span class='p identifier id'>p</span> <span class='errmsg identifier id'>errmsg</span>
+    <span class='@info ivar id'>@info</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_duration-instance_method">
+  
+    - (<tt>Object</tt>) <strong>set_duration</strong>(duration) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 67</span>
+
+<span class='def def kw'>def</span> <span class='set_duration identifier id'>set_duration</span><span class='lparen token'>(</span><span class='duration identifier id'>duration</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='@info ivar id'>@info</span>
+    <span class='duration identifier id'>duration</span> <span class='assign token'>=</span> <span class='duration identifier id'>duration</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+    <span class='if if kw'>if</span> <span class='@info ivar id'>@info</span><span class='dot token'>.</span><span class='duration identifier id'>duration</span> <span class='neq op'>!=</span> <span class='duration identifier id'>duration</span>
+      <span class='@info ivar id'>@info</span><span class='dot token'>.</span><span class='duration identifier id'>duration</span> <span class='assign token'>=</span> <span class='duration identifier id'>duration</span>
+      <span class='p identifier id'>p</span> <span class='@info ivar id'>@info</span>
+      <span class='@info ivar id'>@info</span><span class='dot token'>.</span><span class='save_wait identifier id'>save_wait</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_play_file-instance_method">
+  
+    - (<tt>Object</tt>) <strong>set_play_file</strong>(path) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 25</span>
+
+<span class='def def kw'>def</span> <span class='set_play_file identifier id'>set_play_file</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='set_curplay identifier id'>set_curplay</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='@info ivar id'>@info</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:first</span><span class='comma token'>,</span> <span class='symbol val'>:conditions=</span><span class='gt op'>&gt;</span><span class='dstring node'>&quot;path='#{path}'&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Sat Nov 13 19:11:25 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.6.1 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

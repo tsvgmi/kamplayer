@@ -1,0 +1,104 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+.DS_Store	.DS_Store	1;"	F
+CmdLine	lib/mpshell.rb	/^class CmdLine$/;"	c
+CurrentSong	lib/mpshell.rb	/^class CurrentSong$/;"	c
+MPShell	lib/mpshell.rb	/^class MPShell$/;"	c
+MPlayer	lib/mpshell.rb	/^class MPlayer$/;"	c
+MPlayerRC	lib/mpshell.rb	/^class MPlayerRC$/;"	c
+README	README	1;"	F
+SelectIO	lib/mpsio.rb	/^class SelectIO$/;"	c
+_artists	lib/mpshell.rb	/^  def _artists(*args)$/;"	f	class:MPShell
+_pmonitor	lib/mpshell.rb	/^  def _pmonitor(standalone = false)$/;"	f	class:MPShell
+_records	lib/mpshell.rb	/^  def _records(input)$/;"	f	class:MPShell
+_reload	lib/mpshell.rb	/^  def _reload(force = nil)$/;"	f	class:MPShell
+_rl_init	lib/mpshell.rb	/^  def _rl_init$/;"	f	class:MPShell
+_run	lib/mpshell.rb	/^  def _run$/;"	f	class:MPShell
+_run_a_line	lib/mpshell.rb	/^  def _run_a_line(cmd, oper)$/;"	f	class:MPShell
+_search	lib/mpshell.rb	/^  def _search(ptn, matchset = [])$/;"	f	class:MPShell
+_traceon	lib/mpshell.rb	/^  def _traceon$/;"	f	class:MPShell
+add	lib/mpshell.rb	/^  def add(*list)$/;"	f	class:MPShell
+add_duration	lib/mpshell.rb	/^  def self.add_duration(limit = 10)$/;"	F
+add_songs	lib/mpshell.rb	/^  def add_songs(mset, renew)$/;"	f	class:MPlayer
+chan	lib/mpshell.rb	/^  def chan$/;"	f	class:MPShell
+change	lib/mpshell.rb	/^  def change(options)$/;"	f	class:CurrentSong
+debug	lib/mpshell.rb	/^  def debug$/;"	f	class:MPShell
+delfile	lib/mpshell.rb	/^  def delfile(input)$/;"	f	class:MPShell
+disable	lib/mpshell.rb	/^  def disable(*ranges)$/;"	f	class:MPShell
+full	lib/mpshell.rb	/^  def full$/;"	f	class:MPShell
+get_response	lib/mpshell.rb	/^  def get_response(timeout)$/;"	f	class:MPlayerRC
+help	lib/mpshell.rb	/^  def help$/;"	f	class:MPShell
+incr_playcount	lib/mpshell.rb	/^  def incr_playcount$/;"	f	class:CurrentSong
+initialize	lib/mpshell.rb	/^  def initialize(options = {})$/;"	f	class:MPlayerRC
+initialize	lib/mpshell.rb	/^  def initialize(options)$/;"	f	class:MPShell
+initialize	lib/mpshell.rb	/^  def initialize(playlist)$/;"	f	class:CurrentSong
+initialize	lib/mpshell.rb	/^  def initialize(playlist, options)$/;"	f	class:MPlayer
+initialize	lib/mpsio.rb	/^  def initialize$/;"	f	class:SelectIO
+kamplayer.env	etc/kamplayer.env	1;"	F
+kamplayerenv.rb	etc/kamplayerenv.rb	1;"	F
+katool	bin/katool	1;"	F
+kill_process	lib/mpshell.rb	/^  def self.kill_process(ptn, sig = "HUP")$/;"	F	class:MPlayer
+list	lib/mpshell.rb	/^  def list(ptn = nil)$/;"	f	class:MPShell
+listnew	lib/mpshell.rb	/^  def listnew(*list)$/;"	f	class:MPShell
+method_missing	lib/mpshell.rb	/^  def method_missing(symbol, *args)$/;"	f	class:CurrentSong
+monitor_curfile	lib/mpshell.rb	/^  def monitor_curfile$/;"	f	class:MPlayer
+monitor_for	lib/mpshell.rb	/^  def monitor_for$/;"	f	class:MPlayerRC
+monitor_start	lib/mpshell.rb	/^  def monitor_start$/;"	f	class:MPlayerRC
+mplay	lib/mpshell.rb	/^  def mplay(*args)$/;"	f
+mpshell.rb	lib/mpshell.rb	1;"	F
+mpsio.rb	lib/mpsio.rb	1;"	F
+next_song	lib/mpshell.rb	/^  def next_song(pos = nil, start_at = nil)$/;"	f	class:MPShell
+ns	lib/mpshell.rb	/^  def ns(pos = nil)$/;"	f	class:MPShell
+osd	lib/mpshell.rb	/^  def osd(msg)$/;"	f	class:MPlayer
+parse_range	lib/mpshell.rb	/^  def self.parse_range(*input)$/;"	F	class:CmdLine
+playlist	lib/mpshell.rb	/^  def playlist(*list)$/;"	f	class:MPShell
+pmode	lib/mpshell.rb	/^  def pmode(mode = nil)$/;"	f	class:MPShell
+pmonitor	lib/mpshell.rb	/^  def self.pmonitor$/;"	F
+pmonitor2	lib/mpshell.rb	/^  def self.pmonitor2$/;"	F
+position	lib/mpshell.rb	/^  def position$/;"	f	class:CurrentSong
+position=	lib/mpshell.rb	/^  def position=(value)$/;"	f	class:CurrentSong
+prev_song	lib/mpshell.rb	/^  def prev_song$/;"	f	class:MPShell
+qset	lib/mpshell.rb	/^  def qset(newrate, tag=nil)$/;"	f	class:MPShell
+refresh	lib/mpshell.rb	/^  def refresh$/;"	f	class:CurrentSong
+register	lib/mpsio.rb	/^  def register(fid, mode, &handler)$/;"	f	class:SelectIO
+remote_command	lib/mpshell.rb	/^  def remote_command(cpipe = ShellFifo)$/;"	f	class:MPShell
+rewind	lib/mpshell.rb	/^  def rewind$/;"	f	class:MPShell
+run	lib/mpshell.rb	/^  def self.run$/;"	F
+run	lib/mpsio.rb	/^  def run$/;"	f	class:SelectIO
+run_init	lib/mpshell.rb	/^  def run_init$/;"	f	class:MPlayer
+scan	lib/mpshell.rb	/^  def scan$/;"	f	class:MPShell
+search	lib/mpshell.rb	/^  def search(data)$/;"	f	class:MPShell
+seek	lib/mpshell.rb	/^  def seek(*data)$/;"	f	class:MPShell
+send	lib/mpshell.rb	/^  def send(acmd, wait = 0)$/;"	f	class:MPlayerRC
+send	lib/mpshell.rb	/^  def send(msg, wait = 0)$/;"	f	class:MPlayer
+set_duration	lib/mpshell.rb	/^  def set_duration(duration)$/;"	f	class:CurrentSong
+set_play_file	lib/mpshell.rb	/^  def set_play_file(path)$/;"	f	class:CurrentSong
+setup	lib/mpshell.rb	/^  def self.setup$/;"	F	class:MPlayerRC
+show_playlist	lib/mpshell.rb	/^  def show_playlist(range = nil)$/;"	f	class:MPlayer
+song_change	lib/mpshell.rb	/^  def song_change(sids, cmds)$/;"	f	class:MPShell
+song_info	lib/mpshell.rb	/^  def song_info(*data)$/;"	f	class:MPShell
+song_jump	lib/mpshell.rb	/^  def song_jump(target)$/;"	f	class:MPlayer
+song_step	lib/mpshell.rb	/^  def song_step(step)$/;"	f	class:MPlayer
+sound_normalize	lib/mpshell.rb	/^  def sound_normalize(ksel = nil, omode = nil)$/;"	f	class:MPlayer
+start	lib/mpshell.rb	/^  def self.start(options)$/;"	F	class:MPlayerRC
+start	lib/mpshell.rb	/^  def start(oper = nil)$/;"	f	class:MPShell
+start_monitor	lib/mpshell.rb	/^  def self.start_monitor$/;"	F	class:MPlayer
+stop	lib/mpshell.rb	/^  def stop(killit = false)$/;"	f	class:MPlayer
+stop_monitor	lib/mpshell.rb	/^  def self.stop_monitor$/;"	F	class:MPlayer
+switch_aspect	lib/mpshell.rb	/^  def switch_aspect$/;"	f	class:MPlayer
+switch_channel	lib/mpshell.rb	/^  def switch_channel$/;"	f	class:MPlayer
+test.dmp	test.dmp	1;"	F
+toggle_pmode	lib/mpshell.rb	/^  def toggle_pmode(newmode = nil)$/;"	f	class:MPlayer
+toggle_scan	lib/mpshell.rb	/^  def toggle_scan$/;"	f	class:MPlayer
+toggle_trace	lib/mpshell.rb	/^  def toggle_trace$/;"	f	class:MPlayer
+trace	lib/mpshell.rb	/^  def trace$/;"	f	class:MPShell
+track	lib/mpshell.rb	/^  def track$/;"	f	class:MPShell
+unregister	lib/mpsio.rb	/^  def unregister(fid)$/;"	f	class:SelectIO
+vlc	lib/mpshell.rb	/^  def vlc(*args)$/;"	f
+voice	lib/mpshell.rb	/^  def voice$/;"	f	class:MPShell
+volume	lib/mpshell.rb	/^  def volume(data)$/;"	f	class:MPShell
+wide	lib/mpshell.rb	/^  def wide$/;"	f	class:MPShell

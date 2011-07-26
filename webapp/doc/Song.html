@@ -1,0 +1,1496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: Song</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (S)</a> &raquo; 
+    
+    
+    <span class="title">Song</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Song
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">ActiveRecord::Base</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::Base</li>
+          
+            <li class="next">Song</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">app/models/song.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="artists-classvariable" class="">@@artists =
+          
+        </dt>
+        <dd><pre class="code"><span class='nil nil kw'>nil</span>
+</pre></dd>
+      
+        <dt id="tags-classvariable" class="">@@tags =
+          
+        </dt>
+        <dd><pre class="code"><span class='nil nil kw'>nil</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+  
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#all_artists-class_method" title="all_artists (class method)">+ (Object) <strong>all_artists</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#all_tags-class_method" title="all_tags (class method)">+ (Object) <strong>all_tags</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#capitalize-class_method" title="capitalize (class method)">+ (Object) <strong>capitalize</strong>(string) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cli_change-class_method" title="cli_change (class method)">+ (Object) <strong>cli_change</strong>(sids, cmds, cursong = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_for_file-class_method" title="create_for_file (class method)">+ (Object) <strong>create_for_file</strong>(kfo) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Update or create song data record entry.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ext_search-class_method" title="ext_search (class method)">+ (Object) <strong>ext_search</strong>(ptn) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Extended search.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#gen_m3u-class_method" title="gen_m3u (class method)">+ (Object) <strong>gen_m3u</strong>(outfile, songs) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#print-class_method" title="print (class method)">+ (Object) <strong>print</strong>(ptn) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+----.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#re_encode-class_method" title="re_encode (class method)">+ (Object) <strong>re_encode</strong>(sids, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#search-class_method" title="search (class method)">+ (Object) <strong>search</strong>(ptns) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#translit-class_method" title="translit (class method)">+ (Object) <strong>translit</strong>(str) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unique_songs-class_method" title="unique_songs (class method)">+ (Object) <strong>unique_songs</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#change_rec-instance_method" title="#change_rec (instance method)">- (Object) <strong>change_rec</strong>(options) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#normalize-instance_method" title="#normalize (instance method)">- (Object) <strong>normalize</strong>(omode) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#re_encode-instance_method" title="#re_encode (instance method)">- (Object) <strong>re_encode</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sid-instance_method" title="#sid (instance method)">- (Object) <strong>sid</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="all_artists-class_method">
+  
+    + (<tt>Object</tt>) <strong>all_artists</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 80</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='all_artists identifier id'>all_artists</span>
+  <span class='unless unless kw'>unless</span> <span class='@@artists ivar id'>@@artists</span>
+    <span class='sql identifier id'>sql</span> <span class='assign token'>=</span> <span class='string val'>&quot;select distinct artist from songs where state != 'N'&quot;</span>
+    <span class='authlist identifier id'>authlist</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+    <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find_by_sql identifier id'>find_by_sql</span><span class='lparen token'>(</span><span class='sql identifier id'>sql</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='r identifier id'>r</span><span class='bitor op'>|</span>
+      <span class='if if kw'>if</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='artist identifier id'>artist</span>
+        <span class='authlist identifier id'>authlist</span><span class='dot token'>.</span><span class='concat identifier id'>concat</span><span class='lparen token'>(</span><span class='r identifier id'>r</span><span class='dot token'>.</span><span class='artist identifier id'>artist</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/\s*[\&amp;,]\s*/</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+    <span class='@@artists ivar id'>@@artists</span> <span class='assign token'>=</span> <span class='authlist identifier id'>authlist</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='uniq identifier id'>uniq</span>
+  <span class='end end kw'>end</span>
+  <span class='@@artists ivar id'>@@artists</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="all_tags-class_method">
+  
+    + (<tt>Object</tt>) <strong>all_tags</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 95</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='all_tags identifier id'>all_tags</span>
+  <span class='unless unless kw'>unless</span> <span class='@@tags ivar id'>@@tags</span>
+    <span class='sql identifier id'>sql</span> <span class='assign token'>=</span> <span class='string val'>&quot;select distinct tag from songs where state != 'N'&quot;</span>
+    <span class='taglist identifier id'>taglist</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+    <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find_by_sql identifier id'>find_by_sql</span><span class='lparen token'>(</span><span class='sql identifier id'>sql</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='r identifier id'>r</span><span class='bitor op'>|</span>
+      <span class='if if kw'>if</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='tag identifier id'>tag</span>
+        <span class='taglist identifier id'>taglist</span><span class='dot token'>.</span><span class='concat identifier id'>concat</span><span class='lparen token'>(</span><span class='r identifier id'>r</span><span class='dot token'>.</span><span class='tag identifier id'>tag</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/\s*,\s*/</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+    <span class='@@tags ivar id'>@@tags</span> <span class='assign token'>=</span> <span class='taglist identifier id'>taglist</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='uniq identifier id'>uniq</span>
+  <span class='end end kw'>end</span>
+  <span class='@@tags ivar id'>@@tags</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="capitalize-class_method">
+  
+    + (<tt>Object</tt>) <strong>capitalize</strong>(string) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 52</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='capitalize identifier id'>capitalize</span><span class='lparen token'>(</span><span class='string identifier id'>string</span><span class='rparen token'>)</span>
+  <span class='translit identifier id'>translit</span><span class='lparen token'>(</span><span class='string identifier id'>string</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='word identifier id'>word</span><span class='bitor op'>|</span>
+    <span class='word identifier id'>word</span><span class='dot token'>.</span><span class='capitalize identifier id'>capitalize</span>
+  <span class='end end kw'>end</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot; &quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="cli_change-class_method">
+  
+    + (<tt>Object</tt>) <strong>cli_change</strong>(sids, cmds, cursong = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 114</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='cli_change identifier id'>cli_change</span><span class='lparen token'>(</span><span class='sids identifier id'>sids</span><span class='comma token'>,</span> <span class='cmds identifier id'>cmds</span><span class='comma token'>,</span> <span class='cursong identifier id'>cursong</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='cmdset identifier id'>cmdset</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='cmds identifier id'>cmds</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/\s*\|\s*/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='acmd identifier id'>acmd</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='acmd identifier id'>acmd</span> <span class='match op'>=~</span> <span class='regexp val'>/=/</span>
+      <span class='var identifier id'>var</span><span class='comma token'>,</span> <span class='val identifier id'>val</span> <span class='assign token'>=</span> <span class='acmd identifier id'>acmd</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/\s*=\s*/</span><span class='rparen token'>)</span>
+      <span class='cmdset identifier id'>cmdset</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='var identifier id'>var</span><span class='dot token'>.</span><span class='intern identifier id'>intern</span><span class='comma token'>,</span> <span class='val identifier id'>val</span><span class='rbrack token'>]</span>
+    <span class='else else kw'>else</span>
+      <span class='p identifier id'>p</span> <span class='string val'>&quot;Change must use var=val&quot;</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+
+  <span class='sidlist identifier id'>sidlist</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='sids identifier id'>sids</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/,/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='sid identifier id'>sid</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='sid identifier id'>sid</span> <span class='eq op'>==</span> <span class='string val'>'.'</span>
+      <span class='sidlist identifier id'>sidlist</span> <span class='lshft op'>&lt;&lt;</span> <span class='cursong identifier id'>cursong</span><span class='dot token'>.</span><span class='id identifier id'>id</span>
+    <span class='elsif elsif kw'>elsif</span> <span class='sid identifier id'>sid</span> <span class='match op'>=~</span> <span class='regexp val'>/-/</span>
+      <span class='start identifier id'>start</span><span class='comma token'>,</span> <span class='last identifier id'>last</span> <span class='assign token'>=</span> <span class='sid identifier id'>sid</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/-/</span><span class='rparen token'>)</span>
+      <span class='sidlist identifier id'>sidlist</span><span class='dot token'>.</span><span class='concat identifier id'>concat</span><span class='lparen token'>(</span><span class='lparen token'>(</span><span class='start identifier id'>start</span><span class='dot2 op'>..</span><span class='last identifier id'>last</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_a identifier id'>to_a</span><span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='sidlist identifier id'>sidlist</span> <span class='lshft op'>&lt;&lt;</span> <span class='sid identifier id'>sid</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+
+  <span class='real_sids identifier id'>real_sids</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='sidlist identifier id'>sidlist</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='sid identifier id'>sid</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='asong identifier id'>asong</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='sid identifier id'>sid</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='eq op'>==</span> <span class='nil nil kw'>nil</span>
+      <span class='p identifier id'>p</span> <span class='dstring node'>&quot;Song #{sid} not found&quot;</span>
+      <span class='next next kw'>next</span>
+    <span class='end end kw'>end</span>
+    <span class='asong identifier id'>asong</span><span class='dot token'>.</span><span class='change_rec identifier id'>change_rec</span><span class='lparen token'>(</span><span class='cmdset identifier id'>cmdset</span><span class='rparen token'>)</span>
+    <span class='real_sids identifier id'>real_sids</span> <span class='lshft op'>&lt;&lt;</span> <span class='asong identifier id'>asong</span><span class='dot token'>.</span><span class='id identifier id'>id</span>
+  <span class='end end kw'>end</span>
+  <span class='real_sids identifier id'>real_sids</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_for_file-class_method">
+  
+    + (<tt>Object</tt>) <strong>create_for_file</strong>(kfo) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Update or create song data record entry. If record is there, it just mark
+the state as active. Otherwise, a new record is created. By initialize the
+state and scanning+mark active all files, deleted files could be detected.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 229</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='create_for_file identifier id'>create_for_file</span><span class='lparen token'>(</span><span class='kfo identifier id'>kfo</span><span class='rparen token'>)</span>
+  <span class='path identifier id'>path</span>  <span class='assign token'>=</span> <span class='kfo identifier id'>kfo</span><span class='dot token'>.</span><span class='sfile identifier id'>sfile</span>
+  <span class='cfile identifier id'>cfile</span> <span class='assign token'>=</span> <span class='KarFile constant id'>KarFile</span><span class='dot token'>.</span><span class='capitalize identifier id'>capitalize</span><span class='lparen token'>(</span><span class='kfo identifier id'>kfo</span><span class='dot token'>.</span><span class='cname identifier id'>cname</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='rec identifier id'>rec</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:first</span><span class='comma token'>,</span> <span class='symbol val'>:conditions=</span><span class='gt op'>&gt;</span><span class='lbrack token'>[</span><span class='string val'>&quot;path=?&quot;</span><span class='comma token'>,</span> <span class='path identifier id'>path</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='state identifier id'>state</span> <span class='assign token'>=</span> <span class='string val'>'Y'</span>
+    <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+  <span class='else else kw'>else</span>
+    <span class='song identifier id'>song</span><span class='comma token'>,</span> <span class='artist identifier id'>artist</span><span class='comma token'>,</span> <span class='xtra identifier id'>xtra</span> <span class='assign token'>=</span> <span class='cfile identifier id'>cfile</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/\s*-\s*/</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='xtra identifier id'>xtra</span>
+      <span class='xtra identifier id'>xtra</span> <span class='assign token'>=</span> <span class='xtra identifier id'>xtra</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/\..*$/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+    <span class='rec identifier id'>rec</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:path</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='path identifier id'>path</span><span class='comma token'>,</span>
+      <span class='symbol val'>:size</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span> <span class='div op'>/</span> <span class='integer val'>1000000</span><span class='comma token'>,</span>
+      <span class='symbol val'>:cfile</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='cfile identifier id'>cfile</span><span class='comma token'>,</span>
+      <span class='symbol val'>:song</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='song identifier id'>song</span><span class='comma token'>,</span>
+      <span class='symbol val'>:artist</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='artist identifier id'>artist</span><span class='comma token'>,</span>
+      <span class='symbol val'>:mtime</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='mtime identifier id'>mtime</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+      <span class='symbol val'>:playcount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>0</span><span class='comma token'>,</span>
+      <span class='symbol val'>:lastplayed</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>0</span><span class='comma token'>,</span>
+      <span class='symbol val'>:state</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'Y'</span><span class='rparen token'>)</span>
+    <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+  <span class='end end kw'>end</span>
+  <span class='comment val'># Check if there is duplicate song/artist entry.  We want to delete</span>
+  <span class='comment val'># all of these manually later on.</span>
+  <span class='nrecs identifier id'>nrecs</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='symbol val'>:conditions=</span><span class='gt op'>&gt;</span><span class='lbrack token'>[</span><span class='string val'>&quot;song=? and artist=? and state='Y'&quot;</span><span class='comma token'>,</span>
+      <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='song identifier id'>song</span><span class='comma token'>,</span> <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='artist identifier id'>artist</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='nrecs identifier id'>nrecs</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='gt op'>&gt;</span> <span class='integer val'>1</span>
+    <span class='p identifier id'>p</span> <span class='dstring node'>&quot;#{rec.song} - #{rec.artist} is duplicated&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="ext_search-class_method">
+  
+    + (<tt>Object</tt>) <strong>ext_search</strong>(ptn) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Extended search. Look into lyrics also
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 192</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='ext_search identifier id'>ext_search</span><span class='lparen token'>(</span><span class='ptn identifier id'>ptn</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='ptn identifier id'>ptn</span> <span class='match op'>=~</span> <span class='regexp val'>/^author=/</span>
+    <span class='records identifier id'>records</span>    <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+    <span class='author identifier id'>author</span>     <span class='assign token'>=</span> <span class='$' back_ref id'>$'</span>
+    <span class='conditions identifier id'>conditions</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;author like '%#{author}%'&quot;</span>
+    <span class='Lyric constant id'>Lyric</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='symbol val'>:conditions=</span><span class='gt op'>&gt;</span><span class='conditions identifier id'>conditions</span><span class='comma token'>,</span> <span class='symbol val'>:include=</span><span class='gt op'>&gt;</span><span class='lbrack token'>[</span><span class='symbol val'>:songs=</span><span class='gt op'>&gt;</span><span class='symbol val'>:lyric</span><span class='rbrack token'>]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='r identifier id'>r</span><span class='bitor op'>|</span>
+      <span class='if if kw'>if</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='songs identifier id'>songs</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
+        <span class='records identifier id'>records</span><span class='dot token'>.</span><span class='concat identifier id'>concat</span><span class='lparen token'>(</span><span class='r identifier id'>r</span><span class='dot token'>.</span><span class='songs identifier id'>songs</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='else else kw'>else</span>
+    <span class='records identifier id'>records</span> <span class='assign token'>=</span> <span class='search identifier id'>search</span><span class='lparen token'>(</span><span class='ptn identifier id'>ptn</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='records identifier id'>records</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="gen_m3u-class_method">
+  
+    + (<tt>Object</tt>) <strong>gen_m3u</strong>(outfile, songs) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 260</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='gen_m3u identifier id'>gen_m3u</span><span class='lparen token'>(</span><span class='outfile identifier id'>outfile</span><span class='comma token'>,</span> <span class='songs identifier id'>songs</span><span class='rparen token'>)</span>
+  <span class='outfid identifier id'>outfid</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='outfile identifier id'>outfile</span><span class='comma token'>,</span> <span class='string val'>&quot;w&quot;</span><span class='rparen token'>)</span>
+  <span class='outfid identifier id'>outfid</span><span class='dot token'>.</span><span class='puts identifier id'>puts</span> <span class='string val'>&quot;#EXTM3U&quot;</span>
+  <span class='songs identifier id'>songs</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='r identifier id'>r</span><span class='bitor op'>|</span>
+    <span class='duration identifier id'>duration</span> <span class='assign token'>=</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='duration identifier id'>duration</span>
+    <span class='outfid identifier id'>outfid</span><span class='dot token'>.</span><span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;#EXTINF:#{duration},#{r.artist} - #{r.sid} #{r.song} - #{r.artist}&quot;</span>
+    <span class='outfid identifier id'>outfid</span><span class='dot token'>.</span><span class='puts identifier id'>puts</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='path identifier id'>path</span>
+  <span class='end end kw'>end</span>
+  <span class='p identifier id'>p</span> <span class='dstring node'>&quot;#{songs.size} songs in playlist&quot;</span>
+  <span class='outfid identifier id'>outfid</span><span class='dot token'>.</span><span class='close identifier id'>close</span>
+  <span class='outfile identifier id'>outfile</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="print-class_method">
+  
+    + (<tt>Object</tt>) <strong>print</strong>(ptn) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <hr size="3"></hr>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 209</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='print identifier id'>print</span><span class='lparen token'>(</span><span class='ptn identifier id'>ptn</span><span class='rparen token'>)</span>
+  <span class='qspec identifier id'>qspec</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='symbol val'>:order</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;song,artist&quot;</span><span class='rbrace token'>}</span>
+  <span class='if if kw'>if</span> <span class='ptn identifier id'>ptn</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='ptn identifier id'>ptn</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span>
+    <span class='qspec identifier id'>qspec</span><span class='lbrack token'>[</span><span class='symbol val'>:conditions</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='string val'>&quot;song like ? or artist like ? and state='Y'&quot;</span><span class='comma token'>,</span>
+                          <span class='dstring node'>&quot;%#{ptn}%&quot;</span><span class='comma token'>,</span> <span class='dstring node'>&quot;%#{ptn}%&quot;</span><span class='rbrack token'>]</span>
+  <span class='else else kw'>else</span>
+    <span class='qspec identifier id'>qspec</span><span class='lbrack token'>[</span><span class='symbol val'>:conditions</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;state='Y'&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='qspec identifier id'>qspec</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='arow identifier id'>arow</span><span class='bitor op'>|</span>
+    <span class='lyrics identifier id'>lyrics</span> <span class='assign token'>=</span> <span class='arow identifier id'>arow</span><span class='dot token'>.</span><span class='lyrics identifier id'>lyrics</span> <span class='orop op'>||</span> <span class='string val'>&quot;...&quot;</span>
+    <span class='puts identifier id'>puts</span> <span class='string val'>&quot;%05d: %-38.38s\t%s&quot;</span> <span class='mod op'>%</span> <span class='lbrack token'>[</span><span class='arow identifier id'>arow</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{arow.song}/#{arow.artist}&quot;</span><span class='comma token'>,</span>
+      <span class='lyrics identifier id'>lyrics</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='comma token'>,</span><span class='integer val'>60</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span>
+  <span class='end end kw'>end</span>
+  <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="re_encode-class_method">
+  
+    + (<tt>Object</tt>) <strong>re_encode</strong>(sids, options = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 319</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='re_encode identifier id'>re_encode</span><span class='lparen token'>(</span><span class='sids identifier id'>sids</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='sids identifier id'>sids</span><span class='dot token'>.</span><span class='class identifier id'>class</span> <span class='neq op'>!=</span> <span class='Array constant id'>Array</span>
+    <span class='sids identifier id'>sids</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='sids identifier id'>sids</span><span class='rbrack token'>]</span>
+  <span class='end end kw'>end</span>
+  <span class='sids identifier id'>sids</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='asid identifier id'>asid</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='song identifier id'>song</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find_by_id identifier id'>find_by_id</span><span class='lparen token'>(</span><span class='asid identifier id'>asid</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='neq op'>!=</span> <span class='nil nil kw'>nil</span>
+      <span class='song identifier id'>song</span><span class='dot token'>.</span><span class='re_encode identifier id'>re_encode</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="search-class_method">
+  
+    + (<tt>Object</tt>) <strong>search</strong>(ptns) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 149</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='search identifier id'>search</span><span class='lparen token'>(</span><span class='ptns identifier id'>ptns</span><span class='rparen token'>)</span>
+  <span class='wset identifier id'>wset</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='ptns identifier id'>ptns</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/\s*,\s*/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='clause identifier id'>clause</span><span class='bitor op'>|</span>
+    <span class='case case kw'>case</span> <span class='clause identifier id'>clause</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^ksel=/</span>
+      <span class='val identifier id'>val</span> <span class='assign token'>=</span> <span class='$' back_ref id'>$'</span>
+      <span class='if if kw'>if</span> <span class='val identifier id'>val</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span>
+        <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;ksel is null&quot;</span>
+      <span class='else else kw'>else</span>
+        <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;ksel like '%#{$val}%'&quot;</span>
+      <span class='end end kw'>end</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^(rate|rt)([=&lt;&gt;])/</span>
+      <span class='val identifier id'>val</span> <span class='assign token'>=</span> <span class='$' back_ref id'>$'</span>
+      <span class='if if kw'>if</span> <span class='val identifier id'>val</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span>
+        <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;rate is null&quot;</span>
+      <span class='else else kw'>else</span>
+        <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;rate #{$2} #{$'}&quot;</span>
+      <span class='end end kw'>end</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^tag=/</span>
+      <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;tag like '%#{$'}%'&quot;</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^artist=/</span>
+      <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;artist like '%#{$'}%'&quot;</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^alphabet=/</span>
+      <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;song like '#{$'}%'&quot;</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^song=/</span>
+      <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;song like '%#{$'}%'&quot;</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^pc([=&gt;&lt;])/</span>
+      <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;playcount #{$1} #{$'}&quot;</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^(dur|duration)([=&gt;&lt;])/</span>
+      <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;duration #{$2} #{$'}&quot;</span>
+    <span class='when when kw'>when</span> <span class='regexp val'>/^(size)([=&gt;&lt;])/</span>
+      <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;size #{$2} #{$'}&quot;</span>
+    <span class='else else kw'>else</span>
+      <span class='wset identifier id'>wset</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot;(cfile like '%#{clause}%') or (tag like '%#{clause}%')&quot;</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='conditions identifier id'>conditions</span> <span class='assign token'>=</span> <span class='string val'>&quot;(&quot;</span> <span class='plus op'>+</span> <span class='wset identifier id'>wset</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>') and ('</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>&quot;) and state='Y'&quot;</span>
+  <span class='p identifier id'>p</span> <span class='conditions identifier id'>conditions</span>
+  <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='symbol val'>:conditions=</span><span class='gt op'>&gt;</span><span class='conditions identifier id'>conditions</span><span class='comma token'>,</span>
+            <span class='symbol val'>:order=</span><span class='gt op'>&gt;</span><span class='string val'>'song,artist'</span><span class='comma token'>,</span> <span class='symbol val'>:limit=</span><span class='gt op'>&gt;</span><span class='integer val'>2000</span><span class='comma token'>,</span> <span class='symbol val'>:include=</span><span class='gt op'>&gt;</span><span class='lbrack token'>[</span><span class='symbol val'>:lyric</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="translit-class_method">
+  
+    + (<tt>Object</tt>) <strong>translit</strong>(str) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='translit identifier id'>translit</span><span class='lparen token'>(</span><span class='str identifier id'>str</span><span class='rparen token'>)</span>
+  <span class='require identifier id'>require</span> <span class='string val'>'iconv'</span>
+
+  <span class='begin begin kw'>begin</span>
+    <span class='Iconv constant id'>Iconv</span><span class='dot token'>.</span><span class='iconv identifier id'>iconv</span><span class='lparen token'>(</span><span class='string val'>'ASCII//IGNORE//TRANSLIT'</span><span class='comma token'>,</span> <span class='string val'>'UTF-8'</span><span class='comma token'>,</span> <span class='str identifier id'>str</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='rescue rescue kw'>rescue</span> <span class='Iconv constant id'>Iconv</span><span class='colon2 op'>::</span><span class='IllegalSequence constant id'>IllegalSequence</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='errmsg identifier id'>errmsg</span>
+    <span class='aword identifier id'>aword</span><span class='dot token'>.</span><span class='gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/[^&amp;a-z._0-9 -]/i</span><span class='comma token'>,</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='tr identifier id'>tr</span><span class='lparen token'>(</span><span class='string val'>&quot;.&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="unique_songs-class_method">
+  
+    + (<tt>Object</tt>) <strong>unique_songs</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+109
+110
+111
+112</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 109</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='unique_songs identifier id'>unique_songs</span>
+  <span class='sql identifier id'>sql</span> <span class='assign token'>=</span> <span class='string val'>&quot;select distinct song from songs where state != 'N' order by song&quot;</span>
+  <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find_by_sql identifier id'>find_by_sql</span><span class='lparen token'>(</span><span class='sql identifier id'>sql</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="change_rec-instance_method">
+  
+    - (<tt>Object</tt>) <strong>change_rec</strong>(options) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 58</span>
+
+<span class='def def kw'>def</span> <span class='change_rec identifier id'>change_rec</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='k identifier id'>k</span><span class='comma token'>,</span> <span class='v identifier id'>v</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='v identifier id'>v</span> <span class='match op'>=~</span> <span class='regexp val'>/^\s+/</span>
+      <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='value identifier id'>value</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='lbrack token'>[</span><span class='k identifier id'>k</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='neq op'>!=</span> <span class='nil nil kw'>nil</span>
+        <span class='v identifier id'>v</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{value}, #{v}&quot;</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+    <span class='if if kw'>if</span> <span class='k identifier id'>k</span> <span class='eq op'>==</span> <span class='symbol val'>:lyid</span>
+      <span class='self self kw'>self</span><span class='dot token'>.</span><span class='lyric identifier id'>lyric</span> <span class='assign token'>=</span> <span class='Lyric constant id'>Lyric</span><span class='dot token'>.</span><span class='find_by_id identifier id'>find_by_id</span><span class='lparen token'>(</span><span class='v identifier id'>v</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='k identifier id'>k</span> <span class='assign token'>=</span> <span class='symbol val'>:rate</span> <span class='if if_mod kw'>if</span> <span class='lparen token'>(</span><span class='k identifier id'>k</span> <span class='eq op'>==</span> <span class='symbol val'>:rt</span><span class='rparen token'>)</span>
+      <span class='self self kw'>self</span><span class='lbrack token'>[</span><span class='k identifier id'>k</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='v identifier id'>v</span>
+      <span class='if if kw'>if</span> <span class='k identifier id'>k</span> <span class='eq op'>==</span> <span class='symbol val'>:song</span>
+        <span class='self self kw'>self</span><span class='dot token'>.</span><span class='cfile identifier id'>cfile</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='capitalize identifier id'>capitalize</span><span class='lparen token'>(</span><span class='v identifier id'>v</span><span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='p identifier id'>p</span> <span class='self self kw'>self</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="normalize-instance_method">
+  
+    - (<tt>Object</tt>) <strong>normalize</strong>(omode) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 10</span>
+
+<span class='def def kw'>def</span> <span class='normalize identifier id'>normalize</span><span class='lparen token'>(</span><span class='omode identifier id'>omode</span><span class='rparen token'>)</span>
+  <span class='ksel identifier id'>ksel</span> <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='ksel identifier id'>ksel</span> <span class='orop op'>||</span> <span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/^.*\./</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+  <span class='case case kw'>case</span> <span class='ksel identifier id'>ksel</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='comma token'>,</span><span class='integer val'>1</span><span class='rbrack token'>]</span>
+  <span class='when when kw'>when</span> <span class='string val'>'F'</span><span class='comma token'>,</span> <span class='string val'>'S'</span>
+    <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>'switch_audio'</span>
+  <span class='when when kw'>when</span> <span class='string val'>'L'</span>
+    <span class='if if kw'>if</span> <span class='omode identifier id'>omode</span> <span class='eq op'>==</span> <span class='symbol val'>:voice</span>
+      <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>&quot;balance 2&quot;</span>
+    <span class='else else kw'>else</span>
+      <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>&quot;balance -2&quot;</span>
+    <span class='end end kw'>end</span>
+  <span class='when when kw'>when</span> <span class='string val'>'R'</span>
+    <span class='if if kw'>if</span> <span class='omode identifier id'>omode</span> <span class='eq op'>==</span> <span class='symbol val'>:karaoke</span>
+      <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>'balance 2'</span>
+    <span class='else else kw'>else</span>
+      <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>'balance -2'</span>
+    <span class='end end kw'>end</span>
+  <span class='else else kw'>else</span>
+    <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>'switch_audio'</span>
+  <span class='end end kw'>end</span>
+
+  <span class='case case kw'>case</span> <span class='ksel identifier id'>ksel</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='comma token'>,</span><span class='integer val'>1</span><span class='rbrack token'>]</span>
+  <span class='when when kw'>when</span> <span class='string val'>'W'</span>
+    <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>'switch_ratio 1.6667'</span>
+  <span class='when when kw'>when</span> <span class='string val'>'N'</span>
+    <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>'switch_ratio 1.3333'</span>
+  <span class='end end kw'>end</span>
+
+  <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>&quot;volume 50 1&quot;</span>
+  <span class='Player constant id'>Player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>&quot;get_time_length&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="re_encode-instance_method">
+  
+    - (<tt>Object</tt>) <strong>re_encode</strong>(options = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 273</span>
+
+<span class='def def kw'>def</span> <span class='re_encode identifier id'>re_encode</span><span class='lparen token'>(</span><span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='require identifier id'>require</span> <span class='string val'>'fileutils'</span>
+
+  <span class='brate identifier id'>brate</span>   <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:brate</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='integer val'>3000</span>
+  <span class='width identifier id'>width</span>   <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:width</span><span class='rbrack token'>]</span> <span class='orop op'>||</span>  <span class='integer val'>720</span>
+  <span class='height identifier id'>height</span>  <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:height</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='integer val'>480</span>
+  <span class='out_file identifier id'>out_file</span>   <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='path identifier id'>path</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/\.[^\.]+$/</span><span class='comma token'>,</span> <span class='string val'>'.mkv'</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='out_file identifier id'>out_file</span> <span class='eq op'>==</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='path identifier id'>path</span>
+    <span class='p identifier id'>p</span> <span class='string val'>&quot;Cannot re_encode to same extension&quot;</span>
+    <span class='return return kw'>return</span> <span class='false false kw'>false</span>
+  <span class='end end kw'>end</span>
+
+  <span class='tmpf identifier id'>tmpf</span>     <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='path identifier id'>path</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>&quot;/test.mkv&quot;</span>
+  <span class='out_file identifier id'>out_file</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='path identifier id'>path</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/\.[^\.]+$/</span><span class='comma token'>,</span> <span class='string val'>'.mkv'</span><span class='rparen token'>)</span>
+  <span class='achan identifier id'>achan</span>    <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='ksel identifier id'>ksel</span> <span class='eq op'>==</span> <span class='string val'>'F'</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='string val'>&quot;2,1&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;1,2&quot;</span>
+  <span class='cmd identifier id'>cmd</span>      <span class='assign token'>=</span> <span class='dstring node'>&quot;HandBrakeCLI -i \&quot;#{self.path}\&quot; -o \&quot;#{tmpf}\&quot; -2 -T \
+              -b #{brate} -O -T -B 192 -a #{achan} -R 48 --mixdown stereo \
+              --width 720 --height 480&quot;</span>
+  <span class='p identifier id'>p</span> <span class='dstring node'>&quot;Writing to #{tmpf}&quot;</span>
+  <span class='unless unless kw'>unless</span> <span class='system identifier id'>system</span> <span class='cmd identifier id'>cmd</span>
+    <span class='return return kw'>return</span> <span class='false false kw'>false</span>
+  <span class='end end kw'>end</span>
+  <span class='if if kw'>if</span> <span class='test identifier id'>test</span><span class='lparen token'>(</span><span class='integer val'>?f</span><span class='comma token'>,</span> <span class='tmpf identifier id'>tmpf</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='osize identifier id'>osize</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='lparen token'>(</span><span class='tmpf identifier id'>tmpf</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='gt op'>&gt;</span> <span class='lparen token'>(</span><span class='isize identifier id'>isize</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='path identifier id'>path</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+      <span class='p identifier id'>p</span> <span class='dstring node'>&quot;Warning.  output(#{osize}) larger than input(#{isize})&quot;</span>
+      <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='remove identifier id'>remove</span><span class='lparen token'>(</span><span class='tmpf identifier id'>tmpf</span><span class='comma token'>,</span> <span class='symbol val'>:verbose=</span><span class='gt op'>&gt;</span><span class='true true kw'>true</span><span class='rparen token'>)</span>
+      <span class='return return kw'>return</span> <span class='false false kw'>false</span>
+    <span class='end end kw'>end</span>
+    <span class='p identifier id'>p</span> <span class='dstring node'>&quot;Filesize reduced from #{isize/1000000} to #{osize/1000000}&quot;</span>
+    <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='move identifier id'>move</span><span class='lparen token'>(</span><span class='tmpf identifier id'>tmpf</span><span class='comma token'>,</span> <span class='out_file identifier id'>out_file</span><span class='comma token'>,</span> <span class='symbol val'>:verbose=</span><span class='gt op'>&gt;</span><span class='true true kw'>true</span><span class='rparen token'>)</span>
+    <span class='old_file identifier id'>old_file</span>  <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='path identifier id'>path</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='path identifier id'>path</span> <span class='assign token'>=</span> <span class='out_file identifier id'>out_file</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='lparen token'>(</span><span class='out_file identifier id'>out_file</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='integer val'>999_999</span><span class='rparen token'>)</span><span class='div op'>/</span><span class='integer val'>100_0000</span>
+    <span class='if if kw'>if</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='ksel identifier id'>ksel</span> <span class='eq op'>==</span> <span class='string val'>'F'</span>
+      <span class='self self kw'>self</span><span class='dot token'>.</span><span class='ksel identifier id'>ksel</span> <span class='assign token'>=</span> <span class='string val'>'S'</span>
+    <span class='end end kw'>end</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='mtime identifier id'>mtime</span> <span class='assign token'>=</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+    <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='remove identifier id'>remove</span><span class='lparen token'>(</span><span class='old_file identifier id'>old_file</span><span class='comma token'>,</span> <span class='symbol val'>:verbose=</span><span class='gt op'>&gt;</span><span class='true true kw'>true</span><span class='rparen token'>)</span>
+    <span class='return return kw'>return</span> <span class='true true kw'>true</span>
+  <span class='else else kw'>else</span>
+    <span class='p identifier id'>p</span> <span class='string val'>&quot;Error converting self.path&quot;</span>
+    <span class='return return kw'>return</span> <span class='false false kw'>false</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="sid-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sid</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/song.rb', line 6</span>
+
+<span class='def def kw'>def</span> <span class='sid identifier id'>sid</span>
+  <span class='string val'>&quot;%05d:%03d%-2.2s&quot;</span> <span class='mod op'>%</span> <span class='lbrack token'>[</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='id identifier id'>id</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='ksel identifier id'>ksel</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Sun Nov 21 22:26:14 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.6.1 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

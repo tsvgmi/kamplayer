@@ -1,0 +1,8 @@
+.DS_Store
+README
+bin/katool
+etc/kamplayer.env
+etc/kamplayerenv.rb
+lib/mpshell.rb
+lib/mpsio.rb
+test.dmp

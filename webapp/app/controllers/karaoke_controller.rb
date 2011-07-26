@@ -64,7 +64,7 @@ class KaraokeController < ApplicationController
       session[:admin] = !session[:admin]
       return redirect_to :action=>:search
     when 'clap'
-      sfiles = Dir.glob("sound/*.wav")
+      sfiles = Dir.glob("#{RAILS_ROOT}/sound/*.wav")
       if (fcount = sfiles.size) > 0
         sfile = sfiles[rand(fcount)]
         system "afplay --volume 8 #{sfile} &"

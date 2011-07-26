@@ -1,0 +1,3148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: MPShell</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (M)</a> &raquo; 
+    
+    
+    <span class="title">MPShell</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: MPShell
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">MPShell</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">mpshell.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="MaxInitListSize-constant" class="">MaxInitListSize =
+          
+        </dt>
+        <dd><pre class="code"><span class='integer val'>3000</span>
+</pre></dd>
+      
+        <dt id="Abbrev-constant" class="">Abbrev =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace token'>{</span>
+  <span class='string val'>'?'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'help'</span><span class='comma token'>,</span>
+  <span class='string val'>'+'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'add'</span><span class='comma token'>,</span>
+  <span class='string val'>'++'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'listnew'</span><span class='comma token'>,</span>
+  <span class='string val'>'-'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'disable'</span><span class='comma token'>,</span>
+  <span class='string val'>'c'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'chan'</span><span class='comma token'>,</span>
+  <span class='string val'>'d'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'trace'</span><span class='comma token'>,</span>
+  <span class='string val'>'f'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'full'</span><span class='comma token'>,</span>
+  <span class='string val'>'h'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'help'</span><span class='comma token'>,</span>
+  <span class='string val'>'i'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'song_info'</span><span class='comma token'>,</span>
+  <span class='string val'>'k'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'pmode'</span><span class='comma token'>,</span>
+  <span class='string val'>'l'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'list'</span><span class='comma token'>,</span>
+  <span class='string val'>'n'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'next_song'</span><span class='comma token'>,</span>
+  <span class='string val'>'p'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'prev_song'</span><span class='comma token'>,</span>
+  <span class='string val'>'r'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'rewind'</span><span class='comma token'>,</span>
+  <span class='string val'>'s'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'seek'</span><span class='comma token'>,</span>
+  <span class='string val'>'t'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'track'</span><span class='comma token'>,</span>
+  <span class='string val'>'v'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'voice'</span><span class='comma token'>,</span>
+  <span class='string val'>'V'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'volume'</span><span class='comma token'>,</span>
+  <span class='string val'>'w'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'wide'</span><span class='comma token'>,</span>
+  <span class='string val'>'x'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'quit'</span><span class='comma token'>,</span>
+<span class='rbrace token'>}</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_duration-class_method" title="add_duration (class method)">+ (Object) <strong>add_duration</strong>(limit = 10) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pmonitor-class_method" title="pmonitor (class method)">+ (Object) <strong>pmonitor</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Run player monitor mode.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run-class_method" title="run (class method)">+ (Object) <strong>run</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_artists-instance_method" title="#_artists (instance method)">- (Object) <strong>_artists</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_pmonitor-instance_method" title="#_pmonitor (instance method)">- (Object) <strong>_pmonitor</strong>(standalone = false) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_records-instance_method" title="#_records (instance method)">- (Object) <strong>_records</strong>(input) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_reload-instance_method" title="#_reload (instance method)">- (Object) <strong>_reload</strong>(force = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_rl_init-instance_method" title="#_rl_init (instance method)">- (Object) <strong>_rl_init</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_run-instance_method" title="#_run (instance method)">- (Object) <strong>_run</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Main run loop.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_run_a_line-instance_method" title="#_run_a_line (instance method)">- (Object) <strong>_run_a_line</strong>(cmd, oper) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_search-instance_method" title="#_search (instance method)">- (Object) <strong>_search</strong>(ptn, matchset = []) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#_traceon-instance_method" title="#_traceon (instance method)">- (Object) <strong>_traceon</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add-instance_method" title="#add (instance method)">- (Object) <strong>add</strong>(*list) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#chan-instance_method" title="#chan (instance method)">- (Object) <strong>chan</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#debug-instance_method" title="#debug (instance method)">- (Object) <strong>debug</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delfile-instance_method" title="#delfile (instance method)">- (Object) <strong>delfile</strong>(input) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#disable-instance_method" title="#disable (instance method)">- (Object) <strong>disable</strong>(*ranges) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#full-instance_method" title="#full (instance method)">- (Object) <strong>full</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#help-instance_method" title="#help (instance method)">- (Object) <strong>help</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (MPShell) <strong>initialize</strong>(options) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of MPShell.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#list-instance_method" title="#list (instance method)">- (Object) <strong>list</strong>(ptn = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#listnew-instance_method" title="#listnew (instance method)">- (Object) <strong>listnew</strong>(*list) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mplay-instance_method" title="#mplay (instance method)">- (Object) <strong>mplay</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Run the current song in MPlayer GUI - for checking.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#next_song-instance_method" title="#next_song (instance method)">- (Object) <strong>next_song</strong>(pos = nil, start_at = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ns-instance_method" title="#ns (instance method)">- (Object) <strong>ns</strong>(pos = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Test vector.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#playlist-instance_method" title="#playlist (instance method)">- (Object) <strong>playlist</strong>(*list) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pmode-instance_method" title="#pmode (instance method)">- (Object) <strong>pmode</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#prev_song-instance_method" title="#prev_song (instance method)">- (Object) <strong>prev_song</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#qset-instance_method" title="#qset (instance method)">- (Object) <strong>qset</strong>(newrate, tag = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Temp macro for new file.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rewind-instance_method" title="#rewind (instance method)">- (Object) <strong>rewind</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#scan-instance_method" title="#scan (instance method)">- (Object) <strong>scan</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#search-instance_method" title="#search (instance method)">- (Object) <strong>search</strong>(data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#seek-instance_method" title="#seek (instance method)">- (Object) <strong>seek</strong>(*data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#song_change-instance_method" title="#song_change (instance method)">- (Object) <strong>song_change</strong>(sids, cmds) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+sids: #,#,#,&#8230;
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#song_info-instance_method" title="#song_info (instance method)">- (Object) <strong>song_info</strong>(*data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start-instance_method" title="#start (instance method)">- (Object) <strong>start</strong>(oper = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Called from menu only.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trace-instance_method" title="#trace (instance method)">- (Object) <strong>trace</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#track-instance_method" title="#track (instance method)">- (Object) <strong>track</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#vlc-instance_method" title="#vlc (instance method)">- (Object) <strong>vlc</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Run the playlist in VLC (for checking).
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#voice-instance_method" title="#voice (instance method)">- (Object) <strong>voice</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#volume-instance_method" title="#volume (instance method)">- (Object) <strong>volume</strong>(data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wide-instance_method" title="#wide (instance method)">- (Object) <strong>wide</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="MPShell (class)">MPShell</a></span></tt>) <strong>initialize</strong>(options) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of MPShell
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 490</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='@playlist ivar id'>@playlist</span> <span class='assign token'>=</span> <span class='PlayListCore constant id'>PlayListCore</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;mpshell&quot;</span><span class='rparen token'>)</span>
+  <span class='@options ivar id'>@options</span>  <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='clone identifier id'>clone</span>
+  <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:keep</span><span class='rbrack token'>]</span>
+    <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='truncate identifier id'>truncate</span><span class='lparen token'>(</span><span class='MaxInitListSize constant id'>MaxInitListSize</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='reset identifier id'>reset</span>
+  <span class='end end kw'>end</span>
+  <span class='@player ivar id'>@player</span>    <span class='assign token'>=</span> <span class='MPlayer constant id'>MPlayer</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='@playlist ivar id'>@playlist</span><span class='comma token'>,</span> <span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='@matchset ivar id'>@matchset</span>  <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='@scan_mode ivar id'>@scan_mode</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+  <span class='@cursong ivar id'>@cursong</span>   <span class='assign token'>=</span> <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='cursong identifier id'>cursong</span>
+  <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:karaoke</span><span class='rbrack token'>]</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='pmode identifier id'>pmode</span> <span class='assign token'>=</span> <span class='symbol val'>:karaoke</span>
+  <span class='end end kw'>end</span>
+  <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:verbose</span><span class='rbrack token'>]</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='trace identifier id'>trace</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+  <span class='end end kw'>end</span>
+  <span class='@loadat ivar id'>@loadat</span> <span class='assign token'>=</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="add_duration-class_method">
+  
+    + (<tt>Object</tt>) <strong>add_duration</strong>(limit = 10) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1084
+1085
+1086
+1087
+1088
+1089
+1090
+1091
+1092
+1093
+1094
+1095
+1096
+1097
+1098
+1099
+1100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 1084</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='add_duration identifier id'>add_duration</span><span class='lparen token'>(</span><span class='limit identifier id'>limit</span> <span class='assign token'>=</span> <span class='integer val'>10</span><span class='rparen token'>)</span>
+  <span class='DbAccess constant id'>DbAccess</span><span class='dot token'>.</span><span class='instance identifier id'>instance</span>
+  <span class='limit identifier id'>limit</span> <span class='assign token'>=</span> <span class='limit identifier id'>limit</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+  <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='symbol val'>:conditions=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;duration&lt;=60&quot;</span><span class='comma token'>,</span>
+      <span class='symbol val'>:order=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;path&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:limit=</span><span class='gt op'>&gt;</span><span class='limit identifier id'>limit</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='rec identifier id'>rec</span><span class='bitor op'>|</span>
+    <span class='next next kw'>next</span> <span class='unless unless_mod kw'>unless</span> <span class='test identifier id'>test</span><span class='lparen token'>(</span><span class='integer val'>?f</span><span class='comma token'>,</span> <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+    <span class='cmd identifier id'>cmd</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;mplayer -identify -frames 1 -xineramascreen 1 -nosound -nograbpointer '#{rec.path}' 2&gt;&amp;1&quot;</span>
+    <span class='result identifier id'>result</span> <span class='assign token'>=</span> <span class='dxstring node'>`#{cmd}`</span>
+    <span class='output identifier id'>output</span> <span class='assign token'>=</span> <span class='result identifier id'>result</span><span class='dot token'>.</span><span class='grep identifier id'>grep</span><span class='lparen token'>(</span><span class='regexp val'>/ID_LENGTH/</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+    <span class='if if kw'>if</span> <span class='output identifier id'>output</span>
+      <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='duration identifier id'>duration</span> <span class='assign token'>=</span> <span class='output identifier id'>output</span><span class='dot token'>.</span><span class='chomp identifier id'>chomp</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/^.*=/</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+      <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+      <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='info identifier id'>info</span> <span class='dstring node'>&quot;Set #{rec.song}/#{rec.artist} to #{rec.duration}&quot;</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="pmonitor-class_method">
+  
+    + (<tt>Object</tt>) <strong>pmonitor</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Run player monitor mode
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1050
+1051
+1052
+1053</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 1050</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='pmonitor identifier id'>pmonitor</span>
+  <span class='DbAccess constant id'>DbAccess</span><span class='dot token'>.</span><span class='instance identifier id'>instance</span>
+  <span class='MPShell constant id'>MPShell</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='getOption identifier id'>getOption</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='_pmonitor identifier id'>_pmonitor</span><span class='lparen token'>(</span><span class='true true kw'>true</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="run-class_method">
+  
+    + (<tt>Object</tt>) <strong>run</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1055
+1056
+1057
+1058
+1059
+1060
+1061
+1062
+1063
+1064
+1065
+1066
+1067
+1068
+1069
+1070
+1071
+1072
+1073
+1074
+1075
+1076
+1077
+1078
+1079
+1080
+1081
+1082</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 1055</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='run identifier id'>run</span>
+  <span class='DbAccess constant id'>DbAccess</span><span class='dot token'>.</span><span class='instance identifier id'>instance</span>
+  <span class='MPlayerRC constant id'>MPlayerRC</span><span class='dot token'>.</span><span class='setup identifier id'>setup</span>
+
+  <span class='comment val'># Override or preset config?</span>
+  <span class='cf_file identifier id'>cf_file</span> <span class='assign token'>=</span> <span class='getOption identifier id'>getOption</span><span class='lparen token'>(</span><span class='symbol val'>:config</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='dstring node'>&quot;#{ENV['HOME']}/.mpshellrc&quot;</span>
+  <span class='if if kw'>if</span> <span class='test identifier id'>test</span><span class='lparen token'>(</span><span class='integer val'>?f</span><span class='comma token'>,</span> <span class='cf_file identifier id'>cf_file</span><span class='rparen token'>)</span>
+    <span class='MPShell constant id'>MPShell</span><span class='dot token'>.</span><span class='setOptions identifier id'>setOptions</span><span class='lparen token'>(</span><span class='YAML constant id'>YAML</span><span class='dot token'>.</span><span class='load identifier id'>load</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='lparen token'>(</span><span class='cf_file identifier id'>cf_file</span><span class='rparen token'>)</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+
+  <span class='ashell identifier id'>ashell</span>   <span class='assign token'>=</span> <span class='MPShell constant id'>MPShell</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='getOption identifier id'>getOption</span><span class='rparen token'>)</span>
+  <span class='mprocess identifier id'>mprocess</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+  <span class='unless unless kw'>unless</span> <span class='getOption identifier id'>getOption</span><span class='lparen token'>(</span><span class='symbol val'>:nomonitor</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='getOption identifier id'>getOption</span><span class='lparen token'>(</span><span class='symbol val'>:readline</span><span class='rparen token'>)</span>
+      <span class='MPlayer constant id'>MPlayer</span><span class='dot token'>.</span><span class='start_monitor identifier id'>start_monitor</span>
+      <span class='mprocess identifier id'>mprocess</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+    <span class='else else kw'>else</span>
+      <span class='Thread constant id'>Thread</span><span class='dot token'>.</span><span class='abort_on_exception identifier id'>abort_on_exception</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+      <span class='Thread constant id'>Thread</span><span class='dot token'>.</span><span class='new identifier id'>new</span> <span class='lbrace token'>{</span>
+        <span class='ashell identifier id'>ashell</span><span class='dot token'>.</span><span class='_pmonitor identifier id'>_pmonitor</span>
+      <span class='rbrace token'>}</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='ashell identifier id'>ashell</span><span class='dot token'>.</span><span class='_run identifier id'>_run</span>
+  <span class='if if kw'>if</span> <span class='mprocess identifier id'>mprocess</span>
+    <span class='MPlayer constant id'>MPlayer</span><span class='dot token'>.</span><span class='stop_monitor identifier id'>stop_monitor</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="_artists-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_artists</strong>(*args) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 1024</span>
+
+<span class='def def kw'>def</span> <span class='_artists identifier id'>_artists</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='symbol val'>:select=</span><span class='gt op'>&gt;</span><span class='string val'>'*, count(*) as count'</span><span class='comma token'>,</span>
+      <span class='symbol val'>:group=</span><span class='gt op'>&gt;</span><span class='string val'>'artist'</span><span class='comma token'>,</span> <span class='symbol val'>:order=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;artist&quot;</span><span class='comma token'>,</span>
+      <span class='symbol val'>:conditions=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;state='Y'&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='r identifier id'>r</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='count identifier id'>count</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span> <span class='geq op'>&gt;=</span> <span class='integer val'>10</span>
+      <span class='puts identifier id'>puts</span> <span class='string val'>&quot;%-30s %3s&quot;</span> <span class='mod op'>%</span> <span class='lbrack token'>[</span><span class='r identifier id'>r</span><span class='dot token'>.</span><span class='artist identifier id'>artist</span><span class='comma token'>,</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='count identifier id'>count</span><span class='rbrack token'>]</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="_pmonitor-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_pmonitor</strong>(standalone = false) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+1019
+1020
+1021
+1022</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 977</span>
+
+<span class='def def kw'>def</span> <span class='_pmonitor identifier id'>_pmonitor</span><span class='lparen token'>(</span><span class='standalone identifier id'>standalone</span> <span class='assign token'>=</span> <span class='false false kw'>false</span><span class='rparen token'>)</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='rc identifier id'>rc</span><span class='dot token'>.</span><span class='monitor_start identifier id'>monitor_start</span>
+  <span class='ftime identifier id'>ftime</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+  <span class='sample_time identifier id'>sample_time</span> <span class='assign token'>=</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:sample</span><span class='rbrack token'>]</span>
+  <span class='mthread identifier id'>mthread</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='while while kw'>while</span> <span class='true true kw'>true</span>
+    <span class='comment val'># Get the next file</span>
+    <span class='curfile identifier id'>curfile</span> <span class='assign token'>=</span> <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='monitor_curfile identifier id'>monitor_curfile</span>
+
+    <span class='comment val'># Refresh the playlist - file changed.  This is to pickup any</span>
+    <span class='comment val'># changes from the foreground shell and sync it with this thread.</span>
+    <span class='if if kw'>if</span> <span class='standalone identifier id'>standalone</span>
+      <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='refresh identifier id'>refresh</span>
+    <span class='end end kw'>end</span>
+    <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='set_play_file identifier id'>set_play_file</span><span class='lparen token'>(</span><span class='curfile identifier id'>curfile</span><span class='rparen token'>)</span>
+    <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='incr_playcount identifier id'>incr_playcount</span>
+
+    <span class='song_info identifier id'>song_info</span>
+    <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:verbose</span><span class='rbrack token'>]</span>
+      <span class='p identifier id'>p</span> <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='info identifier id'>info</span>
+    <span class='end end kw'>end</span>
+
+    <span class='msg identifier id'>msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{@cursong.sid} #{@cursong.song} - #{@cursong.artist}&quot;</span>
+    <span class='sleep identifier id'>sleep</span> <span class='integer val'>5</span>
+    <span class='comment val'># Put up an OSD message on the player</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='osd identifier id'>osd</span><span class='lparen token'>(</span><span class='msg identifier id'>msg</span><span class='rparen token'>)</span>
+
+    <span class='comment val'># Switch track or channel based on play mode</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='sound_normalize identifier id'>sound_normalize</span><span class='lparen token'>(</span><span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='ksel identifier id'>ksel</span><span class='rparen token'>)</span>
+    <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='info identifier id'>info</span><span class='lparen token'>(</span><span class='msg identifier id'>msg</span><span class='rparen token'>)</span>
+
+    <span class='comment val'># Sample mode, we skip to next one after a sample time.</span>
+    <span class='if if kw'>if</span> <span class='sample_time identifier id'>sample_time</span>
+      <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>&quot;seek 45 2&quot;</span>
+      <span class='if if kw'>if</span> <span class='mthread identifier id'>mthread</span>
+        <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='warn identifier id'>warn</span> <span class='string val'>&quot;Kill pending update thread ...&quot;</span>
+        <span class='Thread constant id'>Thread</span><span class='dot token'>.</span><span class='kill identifier id'>kill</span> <span class='mthread identifier id'>mthread</span>
+        <span class='mthread identifier id'>mthread</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+      <span class='end end kw'>end</span>
+      <span class='mthread identifier id'>mthread</span> <span class='assign token'>=</span> <span class='Thread constant id'>Thread</span><span class='dot token'>.</span><span class='new identifier id'>new</span> <span class='lbrace token'>{</span>
+        <span class='sleep identifier id'>sleep</span> <span class='sample_time identifier id'>sample_time</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+        <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='string val'>&quot;pt_step 1&quot;</span><span class='rparen token'>)</span>
+      <span class='rbrace token'>}</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="_records-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_records</strong>(input) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+895
+896
+897
+898
+899
+900
+901
+902
+903</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 895</span>
+
+<span class='def def kw'>def</span> <span class='_records identifier id'>_records</span><span class='lparen token'>(</span><span class='input identifier id'>input</span><span class='rparen token'>)</span>
+  <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>','</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='anentry identifier id'>anentry</span><span class='bitor op'>|</span>
+    <span class='number identifier id'>number</span> <span class='assign token'>=</span> <span class='anentry identifier id'>anentry</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+    <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='number identifier id'>number</span> <span class='lt op'>&lt;</span> <span class='@matchset ivar id'>@matchset</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='rparen token'>)</span>
+      <span class='number identifier id'>number</span> <span class='assign token'>=</span> <span class='@matchset ivar id'>@matchset</span><span class='lbrack token'>[</span><span class='number identifier id'>number</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='id identifier id'>id</span>
+    <span class='end end kw'>end</span>
+    <span class='number identifier id'>number</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="_reload-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_reload</strong>(force = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 947</span>
+
+<span class='def def kw'>def</span> <span class='_reload identifier id'>_reload</span><span class='lparen token'>(</span><span class='force identifier id'>force</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='fset identifier id'>fset</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='dstring node'>&quot;#{ENV['HOME']}/bin/mtool/rename.rb&quot;</span><span class='comma token'>,</span> <span class='__FILE__ __file__ kw'>__FILE__</span><span class='rbrack token'>]</span>
+  <span class='if if kw'>if</span> <span class='notop op'>!</span><span class='force identifier id'>force</span>
+    <span class='if if kw'>if</span> <span class='@loadat ivar id'>@loadat</span>
+      <span class='fset identifier id'>fset</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='ascript identifier id'>ascript</span><span class='bitor op'>|</span>
+        <span class='if if kw'>if</span> <span class='@loadat ivar id'>@loadat</span> <span class='lt op'>&lt;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='mtime identifier id'>mtime</span><span class='lparen token'>(</span><span class='ascript identifier id'>ascript</span><span class='rparen token'>)</span>
+          <span class='force identifier id'>force</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+          <span class='break break kw'>break</span>
+        <span class='end end kw'>end</span>
+      <span class='end end kw'>end</span>
+    <span class='else else kw'>else</span>
+      <span class='force identifier id'>force</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+
+  <span class='if if kw'>if</span> <span class='force identifier id'>force</span>
+    <span class='begin begin kw'>begin</span>
+      <span class='fset identifier id'>fset</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='ascript identifier id'>ascript</span><span class='bitor op'>|</span>
+        <span class='load identifier id'>load</span> <span class='ascript identifier id'>ascript</span>
+      <span class='end end kw'>end</span>
+      <span class='@loadat ivar id'>@loadat</span> <span class='assign token'>=</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='now identifier id'>now</span>
+    <span class='rescue rescue kw'>rescue</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='errmsg identifier id'>errmsg</span>
+      <span class='p identifier id'>p</span> <span class='errmsg identifier id'>errmsg</span>
+    <span class='end end kw'>end</span>
+    <span class='true true kw'>true</span>
+  <span class='else else kw'>else</span>
+    <span class='false false kw'>false</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="_rl_init-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_rl_init</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 554</span>
+
+<span class='def def kw'>def</span> <span class='_rl_init identifier id'>_rl_init</span>
+  <span class='require identifier id'>require</span> <span class='string val'>'readline'</span>
+
+  <span class='cmdlist identifier id'>cmdlist</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span>
+    <span class='string val'>'stop'</span>
+  <span class='rbrack token'>]</span>
+  <span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='public_methods identifier id'>public_methods</span> <span class='minus op'>-</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='superclass identifier id'>superclass</span><span class='dot token'>.</span><span class='instance_methods identifier id'>instance_methods</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='amethod identifier id'>amethod</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='amethod identifier id'>amethod</span> <span class='match op'>=~</span> <span class='regexp val'>/^[a-z][a-z0-9_]*$/</span>
+      <span class='cmdlist identifier id'>cmdlist</span> <span class='lshft op'>&lt;&lt;</span> <span class='amethod identifier id'>amethod</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='cmdlist identifier id'>cmdlist</span> <span class='assign token'>=</span> <span class='cmdlist identifier id'>cmdlist</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span>
+  <span class='comp identifier id'>comp</span> <span class='assign token'>=</span> <span class='proc identifier id'>proc</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='s identifier id'>s</span><span class='bitor op'>|</span> <span class='cmdlist identifier id'>cmdlist</span><span class='dot token'>.</span><span class='grep identifier id'>grep</span><span class='lparen token'>(</span><span class='dregexp node'>/^#{s}/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='f identifier id'>f</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;#{f} &quot;</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span>
+  <span class='Readline constant id'>Readline</span><span class='dot token'>.</span><span class='completion_append_character identifier id'>completion_append_character</span> <span class='assign token'>=</span> <span class='string val'>&quot;:&quot;</span>
+  <span class='Readline constant id'>Readline</span><span class='dot token'>.</span><span class='completion_proc identifier id'>completion_proc</span> <span class='assign token'>=</span> <span class='comp identifier id'>comp</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="_run-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_run</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Main run loop. Start with _ to hide from shell
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 572</span>
+
+<span class='def def kw'>def</span> <span class='_run identifier id'>_run</span>
+  <span class='MPlayerRC constant id'>MPlayerRC</span><span class='dot token'>.</span><span class='start identifier id'>start</span><span class='lparen token'>(</span><span class='@options ivar id'>@options</span><span class='rparen token'>)</span>
+  <span class='sleep identifier id'>sleep</span><span class='lparen token'>(</span><span class='integer val'>3</span><span class='rparen token'>)</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='run_init identifier id'>run_init</span>
+  <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:readline</span><span class='rbrack token'>]</span>
+    <span class='_rl_init identifier id'>_rl_init</span>
+  <span class='end end kw'>end</span>
+
+  <span class='while while kw'>while</span> <span class='true true kw'>true</span>
+    <span class='comment val'>#@cursong.refresh</span>
+    <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:nomonitor</span><span class='rbrack token'>]</span>
+      <span class='song_info identifier id'>song_info</span>
+    <span class='end end kw'>end</span>
+    <span class='puts identifier id'>puts</span> <span class='string val'>&quot;n(Next) p(Prev) f(ullscreen) h(help) v(oice) w(ide) quit\n&quot;</span>
+    <span class='if if kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:readline</span><span class='rbrack token'>]</span>
+      <span class='input identifier id'>input</span> <span class='assign token'>=</span> <span class='Readline constant id'>Readline</span><span class='colon2 op'>::</span><span class='readline identifier id'>readline</span><span class='lparen token'>(</span><span class='string val'>&quot;&gt; &quot;</span><span class='comma token'>,</span> <span class='true true kw'>true</span><span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='print identifier id'>print</span> <span class='string val'>&quot;&gt; &quot;</span>
+      <span class='STDOUT constant id'>STDOUT</span><span class='dot token'>.</span><span class='flush identifier id'>flush</span>
+      <span class='input identifier id'>input</span> <span class='assign token'>=</span> <span class='STDIN constant id'>STDIN</span><span class='dot token'>.</span><span class='gets identifier id'>gets</span>
+    <span class='end end kw'>end</span>
+    <span class='break break kw'>break</span> <span class='unless unless_mod kw'>unless</span> <span class='input identifier id'>input</span>
+    <span class='done identifier id'>done</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+    <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/;/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='acommand identifier id'>acommand</span><span class='bitor op'>|</span>
+      <span class='cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='oper identifier id'>oper</span> <span class='assign token'>=</span> <span class='acommand identifier id'>acommand</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/^[-\+\/][\+]?/</span><span class='comma token'>,</span> <span class='string val'>'\&amp; '</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>' '</span><span class='comma token'>,</span> <span class='integer val'>2</span><span class='rparen token'>)</span>
+      <span class='begin begin kw'>begin</span>
+        <span class='unless unless kw'>unless</span> <span class='_run_a_line identifier id'>_run_a_line</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='oper identifier id'>oper</span><span class='rparen token'>)</span>
+          <span class='done identifier id'>done</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+          <span class='break break kw'>break</span>
+        <span class='end end kw'>end</span>
+      <span class='rescue rescue kw'>rescue</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='errmsg identifier id'>errmsg</span>
+        <span class='p identifier id'>p</span> <span class='errmsg identifier id'>errmsg</span>
+        <span class='puts identifier id'>puts</span> <span class='errmsg identifier id'>errmsg</span><span class='dot token'>.</span><span class='backtrace identifier id'>backtrace</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+    <span class='break break kw'>break</span> <span class='if if_mod kw'>if</span> <span class='done identifier id'>done</span>
+    <span class='_reload identifier id'>_reload</span>
+  <span class='end end kw'>end</span>
+
+  <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='truncate identifier id'>truncate</span><span class='lparen token'>(</span><span class='MaxInitListSize constant id'>MaxInitListSize</span><span class='rparen token'>)</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='stop identifier id'>stop</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="_run_a_line-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_run_a_line</strong>(cmd, oper) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 618</span>
+
+<span class='def def kw'>def</span> <span class='_run_a_line identifier id'>_run_a_line</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='oper identifier id'>oper</span><span class='rparen token'>)</span>
+  <span class='case case kw'>case</span> <span class='cmd identifier id'>cmd</span>
+  <span class='when when kw'>when</span> <span class='string val'>'exit'</span><span class='comma token'>,</span> <span class='string val'>'stop'</span><span class='comma token'>,</span> <span class='string val'>'quit'</span>
+    <span class='return return kw'>return</span> <span class='false false kw'>false</span>
+  <span class='when when kw'>when</span> <span class='regexp val'>/^[0-9\.][0-9,]*$/</span>
+    <span class='if if kw'>if</span> <span class='oper identifier id'>oper</span>
+      <span class='song_change identifier id'>song_change</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='oper identifier id'>oper</span><span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='song_jump identifier id'>song_jump</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='when when kw'>when</span> <span class='string val'>'/'</span>
+    <span class='search identifier id'>search</span><span class='lparen token'>(</span><span class='oper identifier id'>oper</span><span class='rparen token'>)</span>
+  <span class='when when kw'>when</span> <span class='regexp val'>/=/</span>
+    <span class='song_change identifier id'>song_change</span><span class='lparen token'>(</span><span class='string val'>'.'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{cmd} #{oper}&quot;</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='if if kw'>if</span> <span class='cmd identifier id'>cmd</span>
+      <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='ncmd identifier id'>ncmd</span> <span class='assign token'>=</span> <span class='Abbrev constant id'>Abbrev</span><span class='lbrack token'>[</span><span class='cmd identifier id'>cmd</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+        <span class='cmd identifier id'>cmd</span> <span class='assign token'>=</span> <span class='ncmd identifier id'>ncmd</span>
+      <span class='end end kw'>end</span>
+      <span class='oper identifier id'>oper</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;&quot;</span>
+      <span class='if if kw'>if</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='rparen token'>)</span>
+        <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='oper identifier id'>oper</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='rparen token'>)</span>
+      <span class='elsif elsif kw'>elsif</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='rparen token'>)</span>
+        <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='oper identifier id'>oper</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='rparen token'>)</span>
+      <span class='else else kw'>else</span>
+        <span class='if if kw'>if</span> <span class='cmd identifier id'>cmd</span> <span class='nmatch op'>!~</span> <span class='regexp val'>/^q/</span>
+          <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='info identifier id'>info</span> <span class='dstring node'>&quot;Sending #{cmd} #{oper}&quot;</span>
+          <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{cmd} #{oper}&quot;</span><span class='comma token'>,</span> <span class='integer val'>2</span><span class='rparen token'>)</span>
+        <span class='else else kw'>else</span>
+          <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='info identifier id'>info</span> <span class='string val'>&quot;Can't send q to player&quot;</span>
+        <span class='end end kw'>end</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="_search-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_search</strong>(ptn, matchset = []) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 873</span>
+
+<span class='def def kw'>def</span> <span class='_search identifier id'>_search</span><span class='lparen token'>(</span><span class='ptn identifier id'>ptn</span><span class='comma token'>,</span> <span class='matchset identifier id'>matchset</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='mset identifier id'>mset</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='if if kw'>if</span> <span class='ptn identifier id'>ptn</span> <span class='match op'>=~</span> <span class='regexp val'>/^[0-9][-0-9,]*$/</span>
+    <span class='ptn identifier id'>ptn</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>','</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='anentry identifier id'>anentry</span><span class='bitor op'>|</span>
+      <span class='number identifier id'>number</span> <span class='assign token'>=</span> <span class='anentry identifier id'>anentry</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span>
+      <span class='comment val'># Use local search set</span>
+      <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='number identifier id'>number</span> <span class='lt op'>&lt;</span> <span class='matchset identifier id'>matchset</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='rparen token'>)</span>
+        <span class='number identifier id'>number</span> <span class='assign token'>=</span> <span class='matchset identifier id'>matchset</span><span class='lbrack token'>[</span><span class='number identifier id'>number</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='id identifier id'>id</span>
+      <span class='end end kw'>end</span>
+      <span class='song identifier id'>song</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find_by_id identifier id'>find_by_id</span><span class='lparen token'>(</span><span class='number identifier id'>number</span><span class='rparen token'>)</span>
+      <span class='if if kw'>if</span> <span class='song identifier id'>song</span>
+        <span class='mset identifier id'>mset</span> <span class='lshft op'>&lt;&lt;</span> <span class='song identifier id'>song</span>
+      <span class='else else kw'>else</span>
+        <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='error identifier id'>error</span> <span class='dstring node'>&quot;Cannot find song ##{number}&quot;</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+  <span class='else else kw'>else</span>
+    <span class='mset identifier id'>mset</span><span class='dot token'>.</span><span class='concat identifier id'>concat</span><span class='lparen token'>(</span><span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='search identifier id'>search</span><span class='lparen token'>(</span><span class='ptn identifier id'>ptn</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='mset identifier id'>mset</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="_traceon-instance_method">
+  
+    - (<tt>Object</tt>) <strong>_traceon</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 934</span>
+
+<span class='def def kw'>def</span> <span class='_traceon identifier id'>_traceon</span>
+  <span class='set_trace_func identifier id'>set_trace_func</span> <span class='proc identifier id'>proc</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='event identifier id'>event</span><span class='comma token'>,</span> <span class='file identifier id'>file</span><span class='comma token'>,</span> <span class='line identifier id'>line</span><span class='comma token'>,</span> <span class='tid identifier id'>tid</span><span class='comma token'>,</span> <span class='binding identifier id'>binding</span><span class='comma token'>,</span> <span class='classname identifier id'>classname</span><span class='bitor op'>|</span>
+    <span class='doprint identifier id'>doprint</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+    <span class='case case kw'>case</span> <span class='event identifier id'>event</span>
+    <span class='when when kw'>when</span> <span class='string val'>'call'</span><span class='comma token'>,</span> <span class='string val'>'return'</span>
+      <span class='doprint identifier id'>doprint</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+    <span class='end end kw'>end</span>
+    <span class='if if kw'>if</span> <span class='doprint identifier id'>doprint</span>
+      <span class='printf identifier id'>printf</span> <span class='string val'>&quot;%8s %12s:%03d %10s %8s\n&quot;</span><span class='comma token'>,</span> <span class='event identifier id'>event</span><span class='comma token'>,</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='basename identifier id'>basename</span><span class='lparen token'>(</span><span class='file identifier id'>file</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='line identifier id'>line</span><span class='comma token'>,</span> <span class='tid identifier id'>tid</span><span class='comma token'>,</span> <span class='classname identifier id'>classname</span>
+    <span class='end end kw'>end</span>
+  <span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="add-instance_method">
+  
+    - (<tt>Object</tt>) <strong>add</strong>(*list) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+718
+719
+720
+721
+722
+723
+724</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 718</span>
+
+<span class='def def kw'>def</span> <span class='add identifier id'>add</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='list identifier id'>list</span><span class='rparen token'>)</span>
+  <span class='mset identifier id'>mset</span> <span class='assign token'>=</span> <span class='_search identifier id'>_search</span><span class='lparen token'>(</span><span class='list identifier id'>list</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>' '</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@matchset ivar id'>@matchset</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='mset identifier id'>mset</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
+    <span class='mset identifier id'>mset</span> <span class='assign token'>=</span> <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='add_songs identifier id'>add_songs</span><span class='lparen token'>(</span><span class='mset identifier id'>mset</span><span class='rparen token'>)</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='add_songs identifier id'>add_songs</span><span class='lparen token'>(</span><span class='mset identifier id'>mset</span><span class='comma token'>,</span> <span class='false false kw'>false</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="chan-instance_method">
+  
+    - (<tt>Object</tt>) <strong>chan</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+809
+810
+811
+812</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 809</span>
+
+<span class='def def kw'>def</span> <span class='chan identifier id'>chan</span>
+  <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='info identifier id'>info</span> <span class='string val'>&quot;Switch channel&quot;</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='switch_channel identifier id'>switch_channel</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="debug-instance_method">
+  
+    - (<tt>Object</tt>) <strong>debug</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+828
+829
+830</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 828</span>
+
+<span class='def def kw'>def</span> <span class='debug identifier id'>debug</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='toggle_trace identifier id'>toggle_trace</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="delfile-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delfile</strong>(input) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 766</span>
+
+<span class='def def kw'>def</span> <span class='delfile identifier id'>delfile</span><span class='lparen token'>(</span><span class='input identifier id'>input</span><span class='rparen token'>)</span>
+  <span class='_records identifier id'>_records</span><span class='lparen token'>(</span><span class='input identifier id'>input</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='sid identifier id'>sid</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='arec identifier id'>arec</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find_by_id identifier id'>find_by_id</span><span class='lparen token'>(</span><span class='sid identifier id'>sid</span><span class='rparen token'>)</span>
+      <span class='begin begin kw'>begin</span>
+        <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='remove identifier id'>remove</span><span class='lparen token'>(</span><span class='arec identifier id'>arec</span><span class='dot token'>.</span><span class='path identifier id'>path</span><span class='comma token'>,</span> <span class='symbol val'>:verbose=</span><span class='gt op'>&gt;</span><span class='true true kw'>true</span><span class='rparen token'>)</span>
+      <span class='rescue rescue kw'>rescue</span> <span class='Errno constant id'>Errno</span><span class='colon2 op'>::</span><span class='ENOENT constant id'>ENOENT</span>
+      <span class='end end kw'>end</span>
+      <span class='arec identifier id'>arec</span><span class='dot token'>.</span><span class='state identifier id'>state</span> <span class='assign token'>=</span> <span class='string val'>'N'</span>
+      <span class='arec identifier id'>arec</span><span class='dot token'>.</span><span class='save_wait identifier id'>save_wait</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='if if kw'>if</span> <span class='@mpattern ivar id'>@mpattern</span>
+    <span class='@matchset ivar id'>@matchset</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='search identifier id'>search</span><span class='lparen token'>(</span><span class='@mpattern ivar id'>@mpattern</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="disable-instance_method">
+  
+    - (<tt>Object</tt>) <strong>disable</strong>(*ranges) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+928
+929
+930
+931
+932</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 928</span>
+
+<span class='def def kw'>def</span> <span class='disable identifier id'>disable</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='ranges identifier id'>ranges</span><span class='rparen token'>)</span>
+  <span class='CmdLine constant id'>CmdLine</span><span class='dot token'>.</span><span class='parse_range identifier id'>parse_range</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='ranges identifier id'>ranges</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='idx identifier id'>idx</span><span class='bitor op'>|</span>
+    <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='disable_song identifier id'>disable_song</span><span class='lparen token'>(</span><span class='idx identifier id'>idx</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="full-instance_method">
+  
+    - (<tt>Object</tt>) <strong>full</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+861
+862
+863</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 861</span>
+
+<span class='def def kw'>def</span> <span class='full identifier id'>full</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>&quot;vo_fullscreen&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="help-instance_method">
+  
+    - (<tt>Object</tt>) <strong>help</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+689
+690
+691</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 689</span>
+
+<span class='def def kw'>def</span> <span class='help identifier id'>help</span>
+  <span class='puts identifier id'>puts</span> <span class='string val'>&quot;#:      Jump to track #\n/spec:  Search for spec\n+ ptn:  Add ptn to playlist\n++ ptn: Reset playlist to ptn\nc:      Toggle channel (left/right)\nd:      Toggle debug mode\nf:      Toggle fullscreen\ni:      Show info\nk:      Toggle karaoke mode\nl:      Show playlist\nn [#]:  Next or jump to track #\np:      Previous track\nt:      Switch to next track\nv:      Toggle voice (track or channel)\nV:      Set volume\nstart:  start mplayer (if it quit)\nstop:   stop mplayer (quit/exit)\n\n# Change current rec\nfield=value[,field=value...]\n\n# Change other rec\nrec1[,rec2,...] field=value[,field=value,...]\n&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="list-instance_method">
+  
+    - (<tt>Object</tt>) <strong>list</strong>(ptn = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+735
+736
+737
+738</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 735</span>
+
+<span class='def def kw'>def</span> <span class='list identifier id'>list</span><span class='lparen token'>(</span><span class='ptn identifier id'>ptn</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='refresh identifier id'>refresh</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='show_playlist identifier id'>show_playlist</span><span class='lparen token'>(</span><span class='ptn identifier id'>ptn</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="listnew-instance_method">
+  
+    - (<tt>Object</tt>) <strong>listnew</strong>(*list) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+726
+727
+728
+729
+730
+731
+732
+733</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 726</span>
+
+<span class='def def kw'>def</span> <span class='listnew identifier id'>listnew</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='list identifier id'>list</span><span class='rparen token'>)</span>
+  <span class='mset identifier id'>mset</span> <span class='assign token'>=</span> <span class='_search identifier id'>_search</span><span class='lparen token'>(</span><span class='list identifier id'>list</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>' '</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@matchset ivar id'>@matchset</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='mset identifier id'>mset</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
+    <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='reset identifier id'>reset</span>
+    <span class='mset identifier id'>mset</span> <span class='assign token'>=</span> <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='add_songs identifier id'>add_songs</span><span class='lparen token'>(</span><span class='mset identifier id'>mset</span><span class='rparen token'>)</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='add_songs identifier id'>add_songs</span><span class='lparen token'>(</span><span class='mset identifier id'>mset</span><span class='comma token'>,</span> <span class='true true kw'>true</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="mplay-instance_method">
+  
+    - (<tt>Object</tt>) <strong>mplay</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Run the current song in MPlayer GUI - for checking
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1045
+1046
+1047</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 1045</span>
+
+<span class='def def kw'>def</span> <span class='mplay identifier id'>mplay</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='Pf constant id'>Pf</span><span class='dot token'>.</span><span class='system identifier id'>system</span><span class='lparen token'>(</span><span class='dstring node'>&quot;open -a 'MPlayer OSX Extended' '#{@cursong.path}'&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="next_song-instance_method">
+  
+    - (<tt>Object</tt>) <strong>next_song</strong>(pos = nil, start_at = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 911</span>
+
+<span class='def def kw'>def</span> <span class='next_song identifier id'>next_song</span><span class='lparen token'>(</span><span class='pos identifier id'>pos</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='start_at identifier id'>start_at</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='pos identifier id'>pos</span>
+    <span class='if if kw'>if</span> <span class='pos identifier id'>pos</span> <span class='match op'>=~</span> <span class='regexp val'>/^[-+]/</span>
+      <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='song_step identifier id'>song_step</span><span class='lparen token'>(</span><span class='integer val'>1</span><span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='song_jump identifier id'>song_jump</span><span class='lparen token'>(</span><span class='pos identifier id'>pos</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='else else kw'>else</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='song_step identifier id'>song_step</span><span class='lparen token'>(</span><span class='integer val'>1</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='seek identifier id'>seek</span><span class='lparen token'>(</span><span class='start_at identifier id'>start_at</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='start_at identifier id'>start_at</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="ns-instance_method">
+  
+    - (<tt>Object</tt>) <strong>ns</strong>(pos = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Test vector
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+906
+907
+908
+909</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 906</span>
+
+<span class='def def kw'>def</span> <span class='ns identifier id'>ns</span><span class='lparen token'>(</span><span class='pos identifier id'>pos</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='next_song identifier id'>next_song</span><span class='lparen token'>(</span><span class='pos identifier id'>pos</span><span class='rparen token'>)</span>
+  <span class='seek identifier id'>seek</span><span class='lparen token'>(</span><span class='integer val'>60</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="playlist-instance_method">
+  
+    - (<tt>Object</tt>) <strong>playlist</strong>(*list) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 740</span>
+
+<span class='def def kw'>def</span> <span class='playlist identifier id'>playlist</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='list identifier id'>list</span><span class='rparen token'>)</span>
+  <span class='case case kw'>case</span> <span class='list identifier id'>list</span><span class='dot token'>.</span><span class='size identifier id'>size</span>
+  <span class='when when kw'>when</span> <span class='integer val'>0</span>
+    <span class='PlayList constant id'>PlayList</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='symbol val'>:order=</span><span class='gt op'>&gt;</span><span class='string val'>'name'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='rec identifier id'>rec</span><span class='bitor op'>|</span>
+      <span class='puts identifier id'>puts</span> <span class='string val'>&quot;%-20s: %3d&quot;</span> <span class='mod op'>%</span> <span class='lbrack token'>[</span><span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='pl_songs identifier id'>pl_songs</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='rbrack token'>]</span>
+    <span class='end end kw'>end</span>
+  <span class='comment val'># Specify a new playlist.  We need to restart the player</span>
+  <span class='when when kw'>when</span> <span class='integer val'>1</span>
+    <span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='list identifier id'>list</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+    <span class='if if kw'>if</span> <span class='name identifier id'>name</span> <span class='eq op'>==</span> <span class='string val'>'%pack'</span>
+      <span class='PlayList constant id'>PlayList</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='comma token'>,</span> <span class='symbol val'>:order=</span><span class='gt op'>&gt;</span><span class='string val'>'name'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='rec identifier id'>rec</span><span class='bitor op'>|</span>
+        <span class='puts identifier id'>puts</span> <span class='string val'>&quot;%-20s: %3d&quot;</span> <span class='mod op'>%</span> <span class='lbrack token'>[</span><span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='rec identifier id'>rec</span><span class='dot token'>.</span><span class='pl_songs identifier id'>pl_songs</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='rbrack token'>]</span>
+      <span class='end end kw'>end</span>
+      <span class='PlSong constant id'>PlSong</span><span class='dot token'>.</span><span class='delete_all identifier id'>delete_all</span><span class='lparen token'>(</span>
+        <span class='dstring node'>&quot;play_list_id=#{@playlist.dbrec.id} and state!=0&quot;</span><span class='rparen token'>)</span>
+      <span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='name identifier id'>name</span>
+    <span class='end end kw'>end</span>
+    <span class='@playlist ivar id'>@playlist</span>        <span class='assign token'>=</span> <span class='PlayListCore constant id'>PlayListCore</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='playlist identifier id'>playlist</span> <span class='assign token'>=</span> <span class='@playlist ivar id'>@playlist</span>
+    <span class='@cursong ivar id'>@cursong</span>         <span class='assign token'>=</span> <span class='CurrentSong constant id'>CurrentSong</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='@playlist ivar id'>@playlist</span><span class='rparen token'>)</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='run_init identifier id'>run_init</span>
+  <span class='else else kw'>else</span>
+    <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='error identifier id'>error</span> <span class='string val'>&quot;Unknown input&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="pmode-instance_method">
+  
+    - (<tt>Object</tt>) <strong>pmode</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+832
+833
+834</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 832</span>
+
+<span class='def def kw'>def</span> <span class='pmode identifier id'>pmode</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='toggle_pmode identifier id'>toggle_pmode</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="prev_song-instance_method">
+  
+    - (<tt>Object</tt>) <strong>prev_song</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+924
+925
+926</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 924</span>
+
+<span class='def def kw'>def</span> <span class='prev_song identifier id'>prev_song</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='song_step identifier id'>song_step</span><span class='lparen token'>(</span><span class='integer val'>-1</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="qset-instance_method">
+  
+    - (<tt>Object</tt>) <strong>qset</strong>(newrate, tag = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Temp macro for new file
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+656
+657
+658
+659
+660
+661
+662
+663
+664</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 656</span>
+
+<span class='def def kw'>def</span> <span class='qset identifier id'>qset</span><span class='lparen token'>(</span><span class='newrate identifier id'>newrate</span><span class='comma token'>,</span> <span class='tag identifier id'>tag</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='song_change identifier id'>song_change</span><span class='lparen token'>(</span><span class='string val'>&quot;.&quot;</span><span class='comma token'>,</span> <span class='dstring node'>&quot;rt=#{newrate}&quot;</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='tag identifier id'>tag</span>
+    <span class='song_change identifier id'>song_change</span><span class='lparen token'>(</span><span class='string val'>&quot;.&quot;</span><span class='comma token'>,</span> <span class='dstring node'>&quot;tag=#{tag}&quot;</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='next_song identifier id'>next_song</span>
+  <span class='sleep identifier id'>sleep</span><span class='lparen token'>(</span><span class='integer val'>2</span><span class='rparen token'>)</span>
+  <span class='seek identifier id'>seek</span><span class='lparen token'>(</span><span class='string val'>&quot;60&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="rewind-instance_method">
+  
+    - (<tt>Object</tt>) <strong>rewind</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+844
+845
+846</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 844</span>
+
+<span class='def def kw'>def</span> <span class='rewind identifier id'>rewind</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>&quot;seek 1 2&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="scan-instance_method">
+  
+    - (<tt>Object</tt>) <strong>scan</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+840
+841
+842</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 840</span>
+
+<span class='def def kw'>def</span> <span class='scan identifier id'>scan</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='toggle_scan identifier id'>toggle_scan</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="search-instance_method">
+  
+    - (<tt>Object</tt>) <strong>search</strong>(data) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+865
+866
+867
+868
+869
+870
+871</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 865</span>
+
+<span class='def def kw'>def</span> <span class='search identifier id'>search</span><span class='lparen token'>(</span><span class='data identifier id'>data</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='data identifier id'>data</span>
+    <span class='@mpattern ivar id'>@mpattern</span> <span class='assign token'>=</span> <span class='data identifier id'>data</span>
+    <span class='@matchset ivar id'>@matchset</span> <span class='assign token'>=</span> <span class='_search identifier id'>_search</span><span class='lparen token'>(</span><span class='@mpattern ivar id'>@mpattern</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='fmt_text identifier id'>fmt_text</span><span class='lparen token'>(</span><span class='@matchset ivar id'>@matchset</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="seek-instance_method">
+  
+    - (<tt>Object</tt>) <strong>seek</strong>(*data) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+848
+849
+850
+851</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 848</span>
+
+<span class='def def kw'>def</span> <span class='seek identifier id'>seek</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='data identifier id'>data</span><span class='rparen token'>)</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='dstring node'>&quot;seek #{data.join(' ')}&quot;</span>
+  <span class='comment val'>#@player.send &quot;seek #{data} 1&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="song_change-instance_method">
+  
+    - (<tt>Object</tt>) <strong>song_change</strong>(sids, cmds) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+sids: #,#,#,&#8230; cmds: field=val,field=val,&#8230;
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 784</span>
+
+<span class='def def kw'>def</span> <span class='song_change identifier id'>song_change</span><span class='lparen token'>(</span><span class='sids identifier id'>sids</span><span class='comma token'>,</span> <span class='cmds identifier id'>cmds</span><span class='rparen token'>)</span>
+  <span class='cmdset identifier id'>cmdset</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='cmds identifier id'>cmds</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/,/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='acmd identifier id'>acmd</span><span class='bitor op'>|</span>
+    <span class='var identifier id'>var</span><span class='comma token'>,</span> <span class='val identifier id'>val</span> <span class='assign token'>=</span> <span class='acmd identifier id'>acmd</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/\s*=\s*/</span><span class='rparen token'>)</span>
+    <span class='if if kw'>if</span> <span class='val identifier id'>val</span>
+      <span class='cmdset identifier id'>cmdset</span> <span class='lshft op'>&lt;&lt;</span> <span class='lbrack token'>[</span><span class='var identifier id'>var</span><span class='dot token'>.</span><span class='intern identifier id'>intern</span><span class='comma token'>,</span> <span class='val identifier id'>val</span><span class='rbrack token'>]</span>
+    <span class='else else kw'>else</span>
+      <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='error identifier id'>error</span> <span class='string val'>&quot;Change must use var=val&quot;</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+
+  <span class='sids identifier id'>sids</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/,/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='sid identifier id'>sid</span><span class='bitor op'>|</span>
+    <span class='if if kw'>if</span> <span class='sid identifier id'>sid</span> <span class='eq op'>==</span> <span class='string val'>'.'</span>
+      <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='refresh identifier id'>refresh</span>
+      <span class='asong identifier id'>asong</span> <span class='assign token'>=</span> <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='info identifier id'>info</span>
+    <span class='else else kw'>else</span>
+      <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='asong identifier id'>asong</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find_by_id identifier id'>find_by_id</span><span class='lparen token'>(</span><span class='sid identifier id'>sid</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='eq op'>==</span> <span class='nil nil kw'>nil</span>
+        <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='error identifier id'>error</span> <span class='dstring node'>&quot;Song #{sid} not found&quot;</span>
+        <span class='next next kw'>next</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
+    <span class='asong identifier id'>asong</span><span class='dot token'>.</span><span class='change_rec identifier id'>change_rec</span><span class='lparen token'>(</span><span class='cmdset identifier id'>cmdset</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="song_info-instance_method">
+  
+    - (<tt>Object</tt>) <strong>song_info</strong>(*data) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 523</span>
+
+<span class='def def kw'>def</span> <span class='song_info identifier id'>song_info</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='data identifier id'>data</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='data identifier id'>data</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+    <span class='dbrec identifier id'>dbrec</span>    <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='find_by_id identifier id'>find_by_id</span><span class='lparen token'>(</span><span class='data identifier id'>data</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rparen token'>)</span>
+    <span class='position identifier id'>position</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='else else kw'>else</span>
+    <span class='dbrec identifier id'>dbrec</span>    <span class='assign token'>=</span> <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='info identifier id'>info</span>
+    <span class='position identifier id'>position</span> <span class='assign token'>=</span> <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='position identifier id'>position</span>
+  <span class='end end kw'>end</span>
+  <span class='slist identifier id'>slist</span>  <span class='assign token'>=</span> <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='data identifier id'>data</span>
+  <span class='unless unless kw'>unless</span> <span class='dbrec identifier id'>dbrec</span>
+    <span class='return return kw'>return</span>
+  <span class='end end kw'>end</span>
+  <span class='lastplayed identifier id'>lastplayed</span> <span class='assign token'>=</span> <span class='Time constant id'>Time</span><span class='dot token'>.</span><span class='at identifier id'>at</span><span class='lparen token'>(</span><span class='dbrec identifier id'>dbrec</span><span class='dot token'>.</span><span class='lastplayed identifier id'>lastplayed</span> <span class='orop op'>||</span> <span class='integer val'>0</span><span class='rparen token'>)</span>
+  <span class='stars identifier id'>stars</span>  <span class='assign token'>=</span> <span class='string val'>&quot;**********&quot;</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='comma token'>,</span><span class='dbrec identifier id'>dbrec</span><span class='dot token'>.</span><span class='rate identifier id'>rate</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='rbrack token'>]</span>
+  <span class='puts identifier id'>puts</span> <span class='string val'>&quot;+======================================================================\n| SID:    \#{dbrec.sid} \#{position}/\#{slist.size-1} RT:\#{stars} PC:\#{dbrec.playcount} LP:\#{lastplayed.strftime('%D')}\n| Song:   \#{dbrec.song} - \#{dbrec.artist}\n| Lyrics: \#{dbrec.lyrics}\n| Tag:    \#{dbrec.tag}\n| Cfile:  \#{dbrec.cfile}\n| PM:\#{@player.pmode} TRC:\#{@player.trace} PC:\#{dbrec.playcount} LP:\#{lastplayed.strftime('%D')}\n+======================================================================\n&quot;</span>
+  <span class='unless unless kw'>unless</span> <span class='data identifier id'>data</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+    <span class='msg identifier id'>msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{dbrec.sid} #{dbrec.song} - #{dbrec.artist}&quot;</span>
+    <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='osd identifier id'>osd</span><span class='lparen token'>(</span><span class='msg identifier id'>msg</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="start-instance_method">
+  
+    - (<tt>Object</tt>) <strong>start</strong>(oper = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Called from menu only
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 512</span>
+
+<span class='def def kw'>def</span> <span class='start identifier id'>start</span><span class='lparen token'>(</span><span class='oper identifier id'>oper</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='oper identifier id'>oper</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;&quot;</span>
+  <span class='oper identifier id'>oper</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='assign identifier id'>assign</span><span class='bitor op'>|</span>
+    <span class='var identifier id'>var</span><span class='comma token'>,</span> <span class='val identifier id'>val</span> <span class='assign token'>=</span> <span class='assign identifier id'>assign</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/=/</span><span class='rparen token'>)</span>
+    <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='var identifier id'>var</span><span class='dot token'>.</span><span class='intern identifier id'>intern</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='val identifier id'>val</span>
+  <span class='end end kw'>end</span>
+  <span class='MPlayerRC constant id'>MPlayerRC</span><span class='dot token'>.</span><span class='start identifier id'>start</span><span class='lparen token'>(</span><span class='@options ivar id'>@options</span><span class='rparen token'>)</span>
+  <span class='sleep identifier id'>sleep</span><span class='lparen token'>(</span><span class='integer val'>3</span><span class='rparen token'>)</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='run_init identifier id'>run_init</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="trace-instance_method">
+  
+    - (<tt>Object</tt>) <strong>trace</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+836
+837
+838</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 836</span>
+
+<span class='def def kw'>def</span> <span class='trace identifier id'>trace</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='trace identifier id'>trace</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="track-instance_method">
+  
+    - (<tt>Object</tt>) <strong>track</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+814
+815
+816
+817
+818</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 814</span>
+
+<span class='def def kw'>def</span> <span class='track identifier id'>track</span>
+  <span class='Plog constant id'>Plog</span><span class='dot token'>.</span><span class='info identifier id'>info</span> <span class='string val'>&quot;Switch track&quot;</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='string val'>&quot;switch_audio&quot;</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='dstring node'>&quot;volume #{@volume} 1&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="vlc-instance_method">
+  
+    - (<tt>Object</tt>) <strong>vlc</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Run the playlist in VLC (for checking)
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 1035</span>
+
+<span class='def def kw'>def</span> <span class='vlc identifier id'>vlc</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
+    <span class='m3ufile identifier id'>m3ufile</span> <span class='assign token'>=</span> <span class='@playlist ivar id'>@playlist</span><span class='dot token'>.</span><span class='gen_m3u identifier id'>gen_m3u</span>
+  <span class='else else kw'>else</span>
+    <span class='m3ufile identifier id'>m3ufile</span> <span class='assign token'>=</span> <span class='Song constant id'>Song</span><span class='dot token'>.</span><span class='gen_m3u identifier id'>gen_m3u</span><span class='lparen token'>(</span><span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='artist identifier id'>artist</span><span class='comma token'>,</span> <span class='lbrack token'>[</span><span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='info identifier id'>info</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='Pf constant id'>Pf</span><span class='dot token'>.</span><span class='system identifier id'>system</span><span class='lparen token'>(</span><span class='dstring node'>&quot;open -a vlc '#{m3ufile}'&quot;</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="voice-instance_method">
+  
+    - (<tt>Object</tt>) <strong>voice</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+820
+821
+822
+823
+824
+825
+826</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 820</span>
+
+<span class='def def kw'>def</span> <span class='voice identifier id'>voice</span>
+  <span class='if if kw'>if</span> <span class='@cursong ivar id'>@cursong</span><span class='dot token'>.</span><span class='ksel identifier id'>ksel</span> <span class='nmatch op'>!~</span> <span class='regexp val'>/[FS]/</span>
+    <span class='chan identifier id'>chan</span>
+  <span class='else else kw'>else</span>
+    <span class='track identifier id'>track</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="volume-instance_method">
+  
+    - (<tt>Object</tt>) <strong>volume</strong>(data) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+853
+854
+855</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 853</span>
+
+<span class='def def kw'>def</span> <span class='volume identifier id'>volume</span><span class='lparen token'>(</span><span class='data identifier id'>data</span><span class='rparen token'>)</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='send identifier id'>send</span> <span class='dstring node'>&quot;volume #{data} 1&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="wide-instance_method">
+  
+    - (<tt>Object</tt>) <strong>wide</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+857
+858
+859</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 857</span>
+
+<span class='def def kw'>def</span> <span class='wide identifier id'>wide</span>
+  <span class='@player ivar id'>@player</span><span class='dot token'>.</span><span class='switch_aspect identifier id'>switch_aspect</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Sat Nov 13 19:11:24 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.6.1 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,33 @@
+#settings.panel{:title => "Settings"}
+  %h2 Playback
+  %fieldset
+    .row
+      %label Repeat
+      - repeat = session[:repeat] || "false"
+      - newval = repeat == "false" ? "true" : "false"
+      .toggle#repeat{:onclick => "document.settings.repeat.value='#{newval}';document.settings.submit();", :toggled=>repeat}
+        %span.thumb
+        %span.toggleOn ON
+        %span.toggleOff OFF
+    .row
+      %label Shuffle
+      - shuffle = session[:shuffle] || "false"
+      - newval = shuffle == "false" ? "true" : "false"
+      .toggle#shuffle{:onclick => "document.settings.shuffle.value='#{newval}';document.settings.submit();", :toggled=>shuffle}
+        %span.thumb
+        %span.toggleOn ON
+        %span.toggleOff OFF
+    .row
+      %label Karaoke
+      - karaoke = session[:karaoke] || "false"
+      - newval = karaoke == "false" ? "true" : "false"
+      .toggle#karaoke{:onclick => "document.settings.karaoke.value='#{newval}';document.settings.submit();", :toggled=>karaoke}
+        %span.thumb
+        %span.toggleOn ON
+        %span.toggleOff OFF
+
+  %form#settings.panel{:action => "/ikaraoke/settings", :method=>'post', :name=>'settings'}
+    %input{:type=>'hidden', :name=>'karaoke'}
+    %input{:type=>'hidden', :name=>'shuffle'}
+    %input{:type=>'hidden', :name=>'repeat'}
+

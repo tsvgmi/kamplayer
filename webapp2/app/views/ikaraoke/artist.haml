@@ -1,0 +1,8 @@
+%ul#songs{:title=>'Songs'}
+  - ofc = ''
+  - @artists.each_with_index do |artist, index|
+    - fc = artist[0,1]
+    - if fc != ofc
+      - ofc = fc
+      %li.group= fc
+    %li= link_to(artist, :action=>:search, :artist=>artist)

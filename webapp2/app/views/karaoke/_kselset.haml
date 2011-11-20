@@ -1,0 +1,7 @@
+-# There is a dependency of naming here
+- spid  = "ks_#{kselset.id}"
+- ['F', 'S', 'L', 'R'].each do |ksel|
+  - if kselset.ksel && (kselset.ksel =~ /#{ksel}/)
+    %span<>= raw("<b>#{ksel}</b>")
+  - else
+    %span<>= link_to(ksel, {:action=>:kselset, :id=>kselset.id, :value=>ksel}, :remote=>true, :update=>spid)

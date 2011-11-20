@@ -1,0 +1,17 @@
+- song = isong
+- cache(:song=>"song_#{song.id}") do
+  - author = song.lyric ? song.lyric.author : ""
+  - sid = "#{song.id}#{song.ksel}"
+
+  %td.playnow= button_link_to(song.song, {:action=>:command, :id=>:item, :item=>song.id}, {:title=>"Play #{song.song}"})
+
+  %td= button_link_to(song.artist, {:action=>:search, :ptn=>"artist=#{song.artist}"}, :target=>'search')
+
+  - spid = "rt_#{song.id}"
+  %td{:id=>spid}
+    = render(:partial=>'rating', :object=>song)
+
+  - ksid = "ks_#{song.id}"
+  %td{:id=>ksid}
+    = render(:partial=>'kselset', :object=>song)
+

@@ -162,7 +162,11 @@ case $oper in
     if [ "$runweb" ]; then
       F_system $EM_MYPROG webapp || exit
     fi
-    F_rbexec mpshell -c $ropt run
+    echo $GEM_HOME
+    echo $RUBYOPT
+    ruby ~/kamplayer/lib/mpshell.rb -c $ropt run
+    type mpshell.rb
+    #F_rbexec mpshell -c $ropt run
     ;;
 
   #@Des: Independent monitor of mpshell output to control mplayer operation

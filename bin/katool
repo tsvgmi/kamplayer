@@ -160,16 +160,13 @@ case $oper in
     # This is my db and i/o location
     cd ~/KA || exit 1
     if [ "$runweb" ]; then
-      F_system $EM_MYPROG webapp || exit
+      F_system $EM_MYPROG webapp2 || exit
     fi
-    echo $GEM_HOME
-    echo $RUBYOPT
-    ruby ~/kamplayer/lib/mpshell.rb -c $ropt run
-    type mpshell.rb
-    #F_rbexec mpshell -c $ropt run
+    F_rbexec mpshell.rb -c $ropt run
+    #F_rbexec ~/kamplayer/lib/mpshell.rb -c $ropt run
     ;;
 
-  #@Des: Independent monitor of mpshell output to control mplayer operation
+#@Des: Independent monitor of mpshell output to control mplayer operation
 #=begin
 # This is normally run by mpshell directly.  However, in mpshell it is
 # difficult to debug (background thread), so this operation is used for
@@ -199,17 +196,34 @@ case $oper in
     F_rbrun rename $@
     ;;
 
+  # Run the web server. Should not need to be called directly
   webapp)
-    cd ${EM_APP_DIR}/webapp || exit 1
+    env=production aport=3000 dopen= dostop=
+    while getopts :e:op:s i; do
+      case $i in
+      e) env=$OPTARG ;;
+      o) doopen=yes ;;
+      p) aport=$OPTARG ;;
+      s) dostop=yes ;;
+      *) F_usageOper $oper ;;
+      esac
+    done
+    let j=$OPTIND-1; shift $j; OPTIND=0
+    cd ${EM_APP_DIR}/webapp2 || exit 1
     http_proxy=
-    aport=3000
-    F_system script/server start -d -p $aport
-    sleep 3
-    open -a "Google Chrome" http://localhost:$aport/karaoke/
+    if [ "$dostop" ]; then
+      F_exec passenger stop -p $aport $@
+    fi
+    F_system passenger start -dp $aport -e $env $@
+    if [ "$dopen" ]; then
+      sleep 3
+      open -a "Google Chrome" http://localhost:$aport/karaoke/
+    fi
     ;;
 
+  # Monitor the webapp log
   mon-weblog)
-    cd ${EM_APP_DIR}/webapp || exit 1
+    cd ${EM_APP_DIR}/webapp2 || exit 1
     F_system tail -f log/*log &
     ;;
 

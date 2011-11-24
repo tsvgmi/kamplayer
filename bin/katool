@@ -160,7 +160,7 @@ case $oper in
     # This is my db and i/o location
     cd ~/KA || exit 1
     if [ "$runweb" ]; then
-      F_system $EM_MYPROG webapp2 || exit
+      F_system $EM_MYPROG webapp || exit
     fi
     F_rbexec mpshell.rb -c $ropt run
     #F_rbexec ~/kamplayer/lib/mpshell.rb -c $ropt run

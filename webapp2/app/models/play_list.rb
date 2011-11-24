@@ -89,7 +89,7 @@ class PlayList < ActiveRecord::Base
     if (newpos >= 0) && (newpos < songs.size)
       realstep = newpos - self.curplay
       self.curplay = newpos
-      Player.send "pt_step #{realstep}"
+      Player.send "pausing_keep_force pt_step #{realstep}"
       self.save
     else
       p "Oops: newpos out of range: #{newpos}, #{songs.size}"

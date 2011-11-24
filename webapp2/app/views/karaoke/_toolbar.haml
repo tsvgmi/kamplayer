@@ -9,7 +9,7 @@
   %li= link_to('Pause', {:action=>:command, :id=>'pause'}, :remote=>true)
   %li= link_to('Next', :action=>:command, :id=>'next')
   %li= link_to('Voice', {:action=>:command, :id=>'voice'}, :remote=>true)
-  %li= link_to('Karaoke', :url=>{:action=>:command, :id=>'karaoke'}, :remote=>true)
+  %li= link_to('Karaoke', {:action=>:command, :id=>'karaoke'}, :remote=>true)
   %li= link_to('Reload', {:action=>:command, :id=>'reload'}, :remote==>true)
   %li= link_to('Admin', {:action=>:command, :id=>'admin'}, :target=>'search')
   %li= link_to('Clear', {:action=>:command, :id=>'clear'}, {:confirm=>'Clear list.  Are you sure?'})

@@ -329,7 +329,8 @@ class MPlayerRC
 
   def monitor_for
     # Loop and wait till event is detected.
-    lcnt = 0
+    lcnt   = 0
+    scount = 0
     while true
       while line = @rchan.gets
         if yield(line, lcnt)
@@ -338,6 +339,11 @@ class MPlayerRC
         lcnt += 1
       end
       sleep 1
+      scount += 1
+      if scount >= 5
+        send "get"
+        scount = 0
+      end
     end
     false
   end
@@ -502,6 +508,11 @@ class MPlayer
     @playlist.fmt_text(mset)
   end
 
+  def switch_audio(mode = "")
+    send "pausing_keep_force switch_audio #{mode}"
+    send 'seek -5 0'
+  end
+
   def sound_normalize(ksel = nil, omode = nil)
     unless ksel
       @cursong.refresh
@@ -511,18 +522,18 @@ class MPlayer
     case ksel[0,1]
     when 'F'
       if @pmode == :sound
-        send 'switch_audio'
+        switch_audio
       else
         if omode && (omode == :sound)
-          send 'switch_audio'
+          switch_audio
         end
       end
     when 'S'
       if @pmode == :karaoke
-        send 'switch_audio'
+        switch_audio 2
       else
         if omode && (omode == :karaoke)
-          send 'switch_audio'
+          send switch_audio
         end
       end
     when 'L'
@@ -657,6 +668,15 @@ class MPlayer
         duration = $'.sub(/\..*$/, '')
         #p "**** #{@lastfile}: #{duration}"
         @cursong.set_duration(duration)
+      when /ANS_PERCENT_POSITION=/
+        pcent = $'.strip.to_i
+        if pcent >= 98
+          sfiles = Dir.glob("/Users/thienvuong/kamplayer/webapp2/public/sound/*.wav")
+          if (fcount = sfiles.size) > 0
+            sfile = sfiles[rand(fcount)]
+            system "afplay --volume 8 #{sfile} &"
+          end
+        end
       when /MPlayer interrupted by signal/
         Plog.warn $line
         stopped = true
@@ -1005,7 +1025,7 @@ EOF
 
   def track
     Plog.info "Switch track"
-    @player.send "switch_audio"
+    @player.switch_audio
     @player.send "volume #{@volume} 1"
   end
 
@@ -1201,7 +1221,7 @@ EOF
       end
 
       msg = "#{@cursong.sid} #{@cursong.song} - #{@cursong.artist}"
-      sleep 5
+      sleep 3
       # Put up an OSD message on the player
       @player.osd(msg)
 
@@ -1219,7 +1239,7 @@ EOF
         end
         mthread = Thread.new {
           sleep sample_time.to_i
-          @player.send("pt_step 1")
+          @player.send("pausing_keep_force pt_step 1")
         }
       end
     end

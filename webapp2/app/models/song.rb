@@ -11,7 +11,7 @@ class Song < ActiveRecord::Base
     ksel = (self.ksel || "").sub(/^.*\./, '')
     case ksel[0,1]
     when 'F', 'S'
-      Player.send 'switch_audio'
+      Player.switch_audio
     when 'L'
       if omode == :voice
         Player.send "balance 2"
@@ -25,7 +25,7 @@ class Song < ActiveRecord::Base
         Player.send 'balance -2'
       end
     else
-      Player.send 'switch_audio'
+      Player.switch_audio
     end
 
     if false

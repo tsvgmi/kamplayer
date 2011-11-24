@@ -33,6 +33,7 @@ class IkaraokeController < ApplicationController
 
   def command
     cid = params[:id]
+    raise 222
     playlist   = PlayList.find_by_name('mpshell', :include=>[:songs])
     ajx_return = "NG"
     case cid

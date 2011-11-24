@@ -63,4 +63,9 @@ class Player
     get_player.send(command)
   end
 
+  def self.switch_audio
+    get_player.send("switch_audio")
+    get_player.send("seek -15 0")
+  end
+
 end

@@ -20,7 +20,6 @@ class KaraokeController < ApplicationController
     render :layout=>'ikaraoke'
   end
 
-
   def search
     alphabet = params[:alphabet] || ""
     artist   = params[:artist]   || ""
@@ -64,10 +63,10 @@ class KaraokeController < ApplicationController
       session[:admin] = !session[:admin]
       return redirect_to :action=>:search
     when 'clap'
-      sfiles = Dir.glob("#{RAILS_ROOT}/sound/*.wav")
+      sfiles = Dir.glob("#{Rails.public_path}/sound/*.wav")
       if (fcount = sfiles.size) > 0
         sfile = sfiles[rand(fcount)]
-        system "afplay --volume 8 #{sfile} &"
+        system "afplay --volume 12 #{sfile} &"
       end
     when 'create_lyric'
       item = params[:item]

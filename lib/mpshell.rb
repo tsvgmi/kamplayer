@@ -8,7 +8,7 @@
 require File.dirname(__FILE__) + "/../../etc/toolenv"
 require 'fileutils'
 require 'mtool/core'
-require 'mtool/rename'
+require 'rename'
 require 'yaml'
 
 class CurrentSong
@@ -282,7 +282,8 @@ class MPlayerRC
   MINPUT     = "mp.input"
   MOUTPUT    = "mp.output"
 
-  attr_reader :rchan, :wchan
+  attr_reader :rchan    # Reader channel from slave (get output)
+  attr_reader :wchan    # Writer channel to slave (send command)
 
   def initialize(options = {})
     @options = options
@@ -295,6 +296,9 @@ class MPlayerRC
     @rchan.seek(0, 2)
   end
 
+  # Send a command to the slave and wait/process output.
+  # Slave is async so we don't know when the response come and
+  # whether the response is completed.  So have to wait.
   def send(acmd, wait = 0)
     if @trace
       Plog.info "Sending #{acmd}"
@@ -310,6 +314,8 @@ class MPlayerRC
     end
   end
 
+  # Get a response from slave until timeout second
+  private
   def get_response(timeout)
     return if @options[:sim]
     while timeout > 0
@@ -323,11 +329,16 @@ class MPlayerRC
     end
   end
 
+  public
+  # Start preparing for monitor
   def monitor_start
     @rchan.seek(0, 2)
   end
 
-  def monitor_for
+  # Monitor the slave output and callback for each line
+  # - Sleep when output is drained and retry after 1 sec
+  # - Issue get each 5 secs to get song current position
+  def monitor_for(options = {})
     # Loop and wait till event is detected.
     lcnt   = 0
     scount = 0
@@ -339,17 +350,18 @@ class MPlayerRC
         lcnt += 1
       end
       sleep 1
-      scount += 1
-      if scount >= 5
-        send "get"
-        scount = 0
+      if fptimer = options[:filepos]
+        scount += 1
+        if scount >= fptimer
+          send "get"
+          scount = 0
+        end
       end
     end
     false
   end
 
-  # Cannot start by object b/c object represent channel which cannot
-  # be opened till the process have been started.
+  # Starting the mplayer slave session
   def self.start(options)
     return if options[:sim]
     cache = options[:cache] || 8000
@@ -357,7 +369,6 @@ class MPlayerRC
     unless test(?p, MINPUT)
       Pf.system("mkfifo #{MINPUT}", 1)
     end
-    #popt = "-autosync 30 -slave -quiet -framedrop -rootwin -vf yadif -nograbpointer -vf scale -idle -double"
     popt = "-autosync 30 -slave -quiet -framedrop -rootwin -nograbpointer -idle"
     if osd = options[:osd]
       popt += " -osdlevel #{osd}"
@@ -371,10 +382,6 @@ class MPlayerRC
       popt += " -xineramascreen #{screen}"
     end
     Pf.system("mplayer -idx -cache #{cache} #{popt} -input file=#{MINPUT} >>#{MOUTPUT} 2>&1 &", 1)
-  end
-
-  def self.setup
-    File.open(MOUTPUT, "w") {}
   end
 end
 
@@ -646,40 +653,39 @@ class MPlayer
     @playlist.fmt_text(nil, start, cur_index, size.to_i)
   end
 
-  # Monitor the file being played.  When mplayer switch to new song,
-  # it will be detected here.
+  # Monitor the file being played.
+  # When mplayer switch to new song, it will be detected here.
+  # - Detect song playtime and update db
+  # - Detect end of song and play end sounds
+  # - Detect end of mplayer
   def monitor_curfile
     file    = nil
-    stopped = false
-    @rc.monitor_for do |line, lcnt|
+    @rc.monitor_for(:filepos=>5) do |line, lcnt|
       case line
       when /^Playing\s+/
         file = $'.chomp.sub(/\.$/, '')
         unless file.empty?
-          if @options[:verbose]
-            Plog.info "Detect #{File.basename(file)}"
-          end
           @lastfile = file
-          return @lastfile
+          if true
+            yield :file_changed, file
+          else
+            if @options[:verbose]
+              Plog.info "Detect #{File.basename(file)}"
+            end
+            return file
+          end
         end
       when /^Exiting\.\.\./
         Plog.warn "#{lcnt}. Mplayer exit ******"
+        yield :player_exit
       when /ANS_LENGTH=/
         duration = $'.sub(/\..*$/, '')
-        #p "**** #{@lastfile}: #{duration}"
-        @cursong.set_duration(duration)
+        yield :length, duration
       when /ANS_PERCENT_POSITION=/
-        pcent = $'.strip.to_i
-        if pcent >= 98
-          sfiles = Dir.glob("/Users/thienvuong/kamplayer/webapp2/public/sound/*.wav")
-          if (fcount = sfiles.size) > 0
-            sfile = sfiles[rand(fcount)]
-            system "afplay --volume 8 #{sfile} &"
-          end
-        end
+        yield :percent_position, $'.strip.to_i
       when /MPlayer interrupted by signal/
         Plog.warn $line
-        stopped = true
+        yield :player_exit
       end
       false
     end
@@ -735,6 +741,7 @@ class MPShell
     @player.run_init
   end
 
+  private
   def song_info(*data)
     if data[0]
       dbrec    = Song.find_by_id(data[0].to_i)
@@ -753,7 +760,6 @@ class MPShell
 +======================================================================
 | SID:    #{dbrec.sid} #{position}/#{slist.size-1} RT:#{stars} PC:#{dbrec.playcount} LP:#{lastplayed.strftime('%D')}
 | Song:   #{dbrec.song} - #{dbrec.artist}
-| Lyrics: #{dbrec.lyrics}
 | Tag:    #{dbrec.tag}
 | Cfile:  #{dbrec.cfile}
 | PM:#{@player.pmode} TRC:#{@player.trace} PC:#{dbrec.playcount} LP:#{lastplayed.strftime('%D')}
@@ -783,6 +789,10 @@ EOF
   end
 
   # Main run loop.  Start with _ to hide from shell
+  # This is the command line interface, get a command and run it
+  # It would be nice to support :readline, but :readline does not
+  # work with thread.   So ...
+  public
   def _run
     MPlayerRC.start(@options)
     sleep(3)
@@ -828,6 +838,7 @@ EOF
     @player.stop
   end
 
+  private
   def _run_a_line(cmd, oper)
     case cmd
     when 'exit', 'stop', 'quit'
@@ -1125,12 +1136,6 @@ EOF
     end
   end
 
-  # Test vector
-  def ns(pos = nil)
-    next_song(pos)
-    seek(60)
-  end
-
   def next_song(pos = nil, start_at = nil)
     if pos
       if pos =~ /^[-+]/
@@ -1197,6 +1202,7 @@ EOF
     end
   end
 
+  private
   def _pmonitor(standalone = false)
     @player.rc.monitor_start
     ftime = false
@@ -1204,47 +1210,75 @@ EOF
     mthread = nil
     while true
       # Get the next file
-      curfile = @player.monitor_curfile
+      @player.monitor_curfile do |event, data|
+      case event
+        when :percent_position
+          if data >= 98
+            sfiles = Dir.glob("/Users/thienvuong/kamplayer/webapp2/public/sound/*.wav")
+            if (fcount = sfiles.size) > 0
+              sfile = sfiles[rand(fcount)]
+              system "afplay --volume 8 #{sfile} &"
+            end
+          end
 
-      # Refresh the playlist - file changed.  This is to pickup any
-      # changes from the foreground shell and sync it with this thread.
-      if standalone
-        @playlist.refresh
-      end
-      
-      @cursong.set_play_file(curfile)
-      @cursong.incr_playcount
+        when :length
+          #p "**** #{@lastfile}: #{duration}"
+          @cursong.set_duration(duration)
 
-      song_info
-      if @options[:verbose]
-        p @cursong.info
-      end
+        when :file_changed
+          # Refresh the playlist - file changed.  This is to pickup any
+          # changes from the foreground shell and sync it with this thread.
+          curfile = data
+          if standalone
+            @playlist.refresh
+          end
+          
+          @cursong.set_play_file(curfile)
+          @cursong.incr_playcount
 
-      msg = "#{@cursong.sid} #{@cursong.song} - #{@cursong.artist}"
-      sleep 3
-      # Put up an OSD message on the player
-      @player.osd(msg)
+          song_info
+          if @options[:verbose]
+            p @cursong.info
+          end
 
-      # Switch track or channel based on play mode
-      @player.sound_normalize(@cursong.ksel)
-      Plog.info(msg)
+          msg = "#{@cursong.sid} #{@cursong.song} - #{@cursong.artist}"
+          sleep 3
+          # Put up an OSD message on the player
+          @player.osd(msg)
 
-      # Sample mode, we skip to next one after a sample time.
-      if sample_time
-        @player.send "seek 45 2"
-        if mthread
-          Plog.warn "Kill pending update thread ..."
-          Thread.kill mthread
-          mthread = nil
+          # Switch track or channel based on play mode
+          @player.sound_normalize(@cursong.ksel)
+          Plog.info(msg)
+
+          # Sample mode, we skip to next one after a sample time.
+          if sample_time
+            @player.send "seek 45 2"
+            if mthread
+              Plog.warn "Kill pending update thread ..."
+              Thread.kill mthread
+              mthread = nil
+            end
+            mthread = Thread.new {
+              sleep sample_time.to_i
+              @player.send("pausing_keep_force pt_step 1")
+            }
+          end
         end
-        mthread = Thread.new {
-          sleep sample_time.to_i
-          @player.send("pausing_keep_force pt_step 1")
-        }
       end
     end
   end
 
+  def _artists(*args)
+    Song.find(:all, :select=>'*, count(*) as count',
+        :group=>'artist', :order=>"artist",
+        :conditions=>"state='Y'").each do |r|
+      if r.count.to_i >= 10
+        puts "%-30s %3s" % [r.artist, r.count]
+      end
+    end
+  end
+
+  public
   def remote_command(cpipe = ShellFifo)
     unless test(?p, cpipe)
       Pf.system("mkfifo ./#{cpipe}")
@@ -1268,16 +1302,6 @@ EOF
     fid.close
   end
 
-  def _artists(*args)
-    Song.find(:all, :select=>'*, count(*) as count',
-        :group=>'artist', :order=>"artist",
-        :conditions=>"state='Y'").each do |r|
-      if r.count.to_i >= 10
-        puts "%-30s %3s" % [r.artist, r.count]
-      end
-    end
-  end
-
   # Run the playlist in VLC (for checking)
   def vlc(*args)
     if args.size > 0
@@ -1299,6 +1323,7 @@ EOF
     MPShell.new(getOption)._pmonitor(true)
   end
 
+  # Run a simple monitor.  Monitor mplayer and accept remote command
   def self.pmonitor2
     DbAccess.instance
     options        = getOption
@@ -1315,9 +1340,9 @@ EOF
     cmdthread.join
   end
 
+  # This is the main entry to mpshell run program.
   def self.run
     DbAccess.instance
-    MPlayerRC.setup
 
     # Override or preset config?
     cf_file = getOption(:config) || "#{ENV['HOME']}/.mpshellrc"
@@ -1349,6 +1374,8 @@ EOF
     end
   end
 
+  # Utility function to search all files and set the song duration based on
+  # mplayer info
   def self.add_duration(limit = 10)
     DbAccess.instance
     limit = limit.to_i

@@ -2,17 +2,27 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta name="Content-Type" content="text/html; charset=utf-8" />
-<title>Class: MPlayerRC</title>
-<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: MPlayerRC
+  
+    &mdash; Documentation by YARD 0.7.3
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   relpath = '';
   if (relpath != '') relpath += '/';
 </script>
-<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
 
   </head>
   <body>
@@ -33,11 +43,14 @@
 </div>
 
       <div id="search">
-  <a id="class_list_link" href="#">Class List</a>
-  <a id="method_list_link" href="#">Method List</a>
-  <a id ="file_list_link" href="#">File List</a>
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
 </div>
-
       <div class="clear"></div>
     </div>
     
@@ -81,17 +94,17 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>
-Remote controller for Mplayer via its RC interface. Use the input pipe to
-write command, and monitor output file for any status change. Start method
-should be used here to setup the matching interface.
-</p>
+    
+<p>Remote controller for Mplayer via its RC interface.  Use the input pipe to
+write command, and monitor output file for any status change.  Start method
+should be used here to setup the matching interface.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+
 </div>
   <h2>Constant Summary</h2>
   
@@ -135,9 +148,8 @@ should be used here to setup the matching interface.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute rchan.
-</p>
+    <span class="summary_desc"><div class='inline'>
+<p>Reader channel from slave (get output).</p>
 </div></span>
   
 </li>
@@ -162,15 +174,16 @@ Returns the value of attribute rchan.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Returns the value of attribute wchan.
-</p>
+    <span class="summary_desc"><div class='inline'>
+<p>Writer channel to slave (send command).</p>
 </div></span>
   
 </li>
 
     
   </ul>
+
+
 
 
   
@@ -218,10 +231,8 @@ Returns the value of attribute wchan.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Cannot start by object b/c object represent channel which cannot be opened
-till the process have been started.
-</p>
+    <span class="summary_desc"><div class='inline'>
+<p>Starting the mplayer slave session.</p>
 </div></span>
   
 </li>
@@ -235,27 +246,6 @@ till the process have been started.
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#get_response-instance_method" title="#get_response (instance method)">- (Object) <strong>get_response</strong>(timeout) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -275,9 +265,8 @@ till the process have been started.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-A new instance of MPlayerRC.
-</p>
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of MPlayerRC.</p>
 </div></span>
   
 </li>
@@ -286,7 +275,7 @@ A new instance of MPlayerRC.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#monitor_for-instance_method" title="#monitor_for (instance method)">- (Object) <strong>monitor_for</strong> </a>
+      <a href="#monitor_for-instance_method" title="#monitor_for (instance method)">- (Object) <strong>monitor_for</strong>(options = {}) </a>
     
 
     
@@ -299,7 +288,14 @@ A new instance of MPlayerRC.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Monitor the slave output and callback for each line</p>
+<ul><li>
+<p>Sleep when output is drained and retry after 1 sec</p>
+</li><li>
+<p>Issue get each 5 secs to get song current position.</p>
+</li></ul>
+</div></span>
   
 </li>
 
@@ -320,7 +316,9 @@ A new instance of MPlayerRC.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Start preparing for monitor.</p>
+</div></span>
   
 </li>
 
@@ -341,7 +339,9 @@ A new instance of MPlayerRC.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Send a command to the slave and wait/process output.</p>
+</div></span>
   
 </li>
 
@@ -361,34 +361,34 @@ A new instance of MPlayerRC.
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>
-A new instance of MPlayerRC
-</p>
+    
+<p>A new instance of MPlayerRC</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-96
-97
-98
-99
-100
-101
-102
-103
-104
-105</pre>
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 287</span>
 
 <span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='@options ivar id'>@options</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span>
@@ -423,27 +423,27 @@ A new instance of MPlayerRC
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>
-Returns the value of attribute rchan
-</p>
+    
+<p>Reader channel from slave (get output)</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-94
-95
-96</pre>
+285
+286
+287</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 285</span>
 
 <span class='def def kw'>def</span> <span class='rchan identifier id'>rchan</span>
   <span class='@rchan ivar id'>@rchan</span>
@@ -466,27 +466,27 @@ Returns the value of attribute rchan
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>
-Returns the value of attribute wchan
-</p>
+    
+<p>Writer channel to slave (send command)</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-94
-95
-96</pre>
+286
+287
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 286</span>
 
 <span class='def def kw'>def</span> <span class='wchan identifier id'>wchan</span>
   <span class='@wchan ivar id'>@wchan</span>
@@ -517,12 +517,12 @@ Returns the value of attribute wchan
       <pre class="lines">
 
 
-175
-176
-177</pre>
+376
+377
+378</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 376</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='setup identifier id'>setup</span>
   <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='MOUTPUT constant id'>MOUTPUT</span><span class='comma token'>,</span> <span class='string val'>&quot;w&quot;</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
@@ -542,43 +542,45 @@ Returns the value of attribute wchan
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>
-Cannot start by object b/c object represent channel which cannot be opened
-till the process have been started.
-</p>
+    
+<p>Starting the mplayer slave session</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173</pre>
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 353</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='start identifier id'>start</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
   <span class='return return kw'>return</span> <span class='if if_mod kw'>if</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:sim</span><span class='rbrack token'>]</span>
@@ -587,7 +589,7 @@ till the process have been started.
   <span class='unless unless kw'>unless</span> <span class='test identifier id'>test</span><span class='lparen token'>(</span><span class='integer val'>?p</span><span class='comma token'>,</span> <span class='MINPUT constant id'>MINPUT</span><span class='rparen token'>)</span>
     <span class='Pf constant id'>Pf</span><span class='dot token'>.</span><span class='system identifier id'>system</span><span class='lparen token'>(</span><span class='dstring node'>&quot;mkfifo #{MINPUT}&quot;</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='rparen token'>)</span>
   <span class='end end kw'>end</span>
-  <span class='popt identifier id'>popt</span> <span class='assign token'>=</span> <span class='string val'>&quot;-autosync 30 -slave -quiet -framedrop -rootwin -vf yadif -nograbpointer -vf scale -idle -double&quot;</span>
+  <span class='popt identifier id'>popt</span> <span class='assign token'>=</span> <span class='string val'>&quot;-autosync 30 -slave -quiet -framedrop -rootwin -nograbpointer -idle&quot;</span>
   <span class='if if kw'>if</span> <span class='osd identifier id'>osd</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:osd</span><span class='rbrack token'>]</span>
     <span class='popt identifier id'>popt</span> <span class='opasgn op'>+=</span> <span class='dstring node'>&quot; -osdlevel #{osd}&quot;</span>
   <span class='end end kw'>end</span>
@@ -596,7 +598,10 @@ till the process have been started.
   <span class='else else kw'>else</span>
     <span class='popt identifier id'>popt</span> <span class='opasgn op'>+=</span> <span class='string val'>&quot; -geometry 0:0&quot;</span>
   <span class='end end kw'>end</span>
-  <span class='Pf constant id'>Pf</span><span class='dot token'>.</span><span class='system identifier id'>system</span><span class='lparen token'>(</span><span class='dstring node'>&quot;mplayer -idx -cache #{cache} #{popt} -xineramascreen 1 -input file=#{MINPUT} &gt;&gt;#{MOUTPUT} 2&gt;&amp;1 &amp;&quot;</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='screen identifier id'>screen</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:screen</span><span class='rbrack token'>]</span>
+    <span class='popt identifier id'>popt</span> <span class='opasgn op'>+=</span> <span class='dstring node'>&quot; -xineramascreen #{screen}&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='Pf constant id'>Pf</span><span class='dot token'>.</span><span class='system identifier id'>system</span><span class='lparen token'>(</span><span class='dstring node'>&quot;mplayer -idx -cache #{cache} #{popt} -input file=#{MINPUT} &gt;&gt;#{MOUTPUT} 2&gt;&amp;1 &amp;&quot;</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -611,86 +616,64 @@ till the process have been started.
     
     
       <div class="method_details first">
-  <p class="signature first" id="get_response-instance_method">
+  <p class="signature first" id="monitor_for-instance_method">
   
-    - (<tt>Object</tt>) <strong>get_response</strong>(timeout) 
+    - (<tt>Object</tt>) <strong>monitor_for</strong>(options = {}) 
   
 
   
-</p><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 122</span>
-
-<span class='def def kw'>def</span> <span class='get_response identifier id'>get_response</span><span class='lparen token'>(</span><span class='timeout identifier id'>timeout</span><span class='rparen token'>)</span>
-  <span class='return return kw'>return</span> <span class='if if_mod kw'>if</span> <span class='@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:sim</span><span class='rbrack token'>]</span>
-  <span class='while while kw'>while</span> <span class='timeout identifier id'>timeout</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
-    <span class='while while kw'>while</span> <span class='line identifier id'>line</span> <span class='assign token'>=</span> <span class='@rchan ivar id'>@rchan</span><span class='dot token'>.</span><span class='gets identifier id'>gets</span>
-      <span class='if if kw'>if</span> <span class='@trace ivar id'>@trace</span>
-        <span class='print identifier id'>print</span> <span class='line identifier id'>line</span>
-      <span class='end end kw'>end</span>
-    <span class='end end kw'>end</span>
-    <span class='sleep identifier id'>sleep</span> <span class='integer val'>1</span>
-    <span class='timeout identifier id'>timeout</span> <span class='opasgn op'>-=</span> <span class='integer val'>1</span>
-  <span class='end end kw'>end</span>
-<span class='end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
+</p><div class="docstring">
+  <div class="discussion">
     
-      <div class="method_details ">
-  <p class="signature " id="monitor_for-instance_method">
-  
-    - (<tt>Object</tt>) <strong>monitor_for</strong> 
+<p>Monitor the slave output and callback for each line</p>
+<ul><li>
+<p>Sleep when output is drained and retry after 1 sec</p>
+</li><li>
+<p>Issue get each 5 secs to get song current position</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
   
 
-  
-</p><table class="source_code">
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152</pre>
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 340</span>
 
-<span class='def def kw'>def</span> <span class='monitor_for identifier id'>monitor_for</span>
+<span class='def def kw'>def</span> <span class='monitor_for identifier id'>monitor_for</span><span class='lparen token'>(</span><span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='comment val'># Loop and wait till event is detected.</span>
-  <span class='lcnt identifier id'>lcnt</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='lcnt identifier id'>lcnt</span>   <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='scount identifier id'>scount</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
   <span class='while while kw'>while</span> <span class='true true kw'>true</span>
     <span class='while while kw'>while</span> <span class='line identifier id'>line</span> <span class='assign token'>=</span> <span class='@rchan ivar id'>@rchan</span><span class='dot token'>.</span><span class='gets identifier id'>gets</span>
       <span class='if if kw'>if</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span><span class='line identifier id'>line</span><span class='comma token'>,</span> <span class='lcnt identifier id'>lcnt</span><span class='rparen token'>)</span>
@@ -699,6 +682,13 @@ till the process have been started.
       <span class='lcnt identifier id'>lcnt</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span>
     <span class='end end kw'>end</span>
     <span class='sleep identifier id'>sleep</span> <span class='integer val'>1</span>
+    <span class='if if kw'>if</span> <span class='fptimer identifier id'>fptimer</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:filepos</span><span class='rbrack token'>]</span>
+      <span class='scount identifier id'>scount</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span>
+      <span class='if if kw'>if</span> <span class='scount identifier id'>scount</span> <span class='geq op'>&gt;=</span> <span class='fptimer identifier id'>fptimer</span>
+        <span class='send identifier id'>send</span> <span class='string val'>&quot;get&quot;</span>
+        <span class='scount identifier id'>scount</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+      <span class='end end kw'>end</span>
+    <span class='end end kw'>end</span>
   <span class='end end kw'>end</span>
   <span class='false false kw'>false</span>
 <span class='end end kw'>end</span>
@@ -715,18 +705,29 @@ till the process have been started.
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Start preparing for monitor</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-135
-136
-137</pre>
+333
+334
+335</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 333</span>
 
 <span class='def def kw'>def</span> <span class='monitor_start identifier id'>monitor_start</span>
   <span class='@rchan ivar id'>@rchan</span><span class='dot token'>.</span><span class='seek identifier id'>seek</span><span class='lparen token'>(</span><span class='integer val'>0</span><span class='comma token'>,</span> <span class='integer val'>2</span><span class='rparen token'>)</span>
@@ -744,29 +745,42 @@ till the process have been started.
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Send a command to the slave and wait/process output. Slave is async so we
+don’t know when the response come and whether the response is completed. 
+So have to wait.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120</pre>
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mpshell.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'mpshell.rb', line 301</span>
 
 <span class='def def kw'>def</span> <span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='acmd identifier id'>acmd</span><span class='comma token'>,</span> <span class='wait identifier id'>wait</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='rparen token'>)</span>
   <span class='if if kw'>if</span> <span class='@trace ivar id'>@trace</span>
@@ -793,9 +807,9 @@ till the process have been started.
 </div>
     
     <div id="footer">
-  Generated on Sat Nov 13 19:11:23 2010 by 
+  Generated on Thu Nov 24 12:38:59 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.6.1 (ruby-1.8.7).
+  0.7.3 (ruby-1.8.7).
 </div>
 
   </body>

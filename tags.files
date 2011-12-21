@@ -3,5 +3,7 @@ README
 bin/katool
 etc/kamplayer.env
 etc/kamplayerenv.rb
+lib/lyscanner.rb
 lib/mpshell.rb
 lib/mpsio.rb
+lib/rename.rb

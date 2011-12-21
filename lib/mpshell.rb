@@ -1214,7 +1214,7 @@ EOF
       case event
         when :percent_position
           if data >= 98
-            sfiles = Dir.glob("/Users/thienvuong/kamplayer/webapp2/public/sound/*.wav")
+            sfiles = Dir.glob("#{RAILS_ROOT}/public/sound/*.wav")
             if (fcount = sfiles.size) > 0
               sfile = sfiles[rand(fcount)]
               system "afplay --volume 8 #{sfile} &"

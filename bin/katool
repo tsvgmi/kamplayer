@@ -209,7 +209,7 @@ case $oper in
       esac
     done
     let j=$OPTIND-1; shift $j; OPTIND=0
-    cd ${EM_APP_DIR}/webapp2 || exit 1
+    cd ${EM_APP_DIR}/webapp || exit 1
     http_proxy=
     if [ "$dostop" ]; then
       F_exec passenger stop -p $aport $@
@@ -223,7 +223,7 @@ case $oper in
 
   # Monitor the webapp log
   mon-weblog)
-    cd ${EM_APP_DIR}/webapp2 || exit 1
+    cd ${EM_APP_DIR}/webapp || exit 1
     F_system tail -f log/*log &
     ;;
 

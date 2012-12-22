@@ -4,7 +4,7 @@
 - iphone_menu << MenuEntry.new("Songs",     :action=>:songs)
 - iphone_menu << MenuEntry.new("Playlist",  :action=>:playlist)
 - iphone_menu << MenuEntry.new("Settings",  :action=>:settings)
-= raw(iui_list(iphone_menu))
+= iui_list(iphone_menu)
  
 %form#searchForm.panel{:action => "/ikaraoke/search", :method=>'post'}
   %h2 Music Search

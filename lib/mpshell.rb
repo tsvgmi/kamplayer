@@ -175,12 +175,12 @@ class PlayListCore
       case @fmt_type
       when 1
         times = "%2d:%02d" % [rec.duration/60, rec.duration%60]
-        prec = [rec.sid, rec.rate, rec.playcount,
+        prec = [rec.sid, rec.rate.to_i, rec.playcount,
                 Time.at(rec.lastplayed||0).strftime("%D"),
                 Time.at(rec.mtime).strftime("%D"),
                 times, rec.artist, rec.song, rec.tag]
       else
-        prec = [rec.artist, rec.rate, rec.sid, rec.song]
+        prec = [rec.artist, rec.rate.to_i, rec.sid.to_i, rec.song]
       end
       if curpos && (curpos == pos)
         fmt = "*#{afmt}"
@@ -318,6 +318,7 @@ class MPlayerRC
   private
   def get_response(timeout)
     return if @options[:sim]
+    p "WAIT..."
     while timeout > 0
       while line = @rchan.gets
         if @trace
@@ -510,6 +511,7 @@ class MPlayer
         sleep 2
         ftime = false
       end
+      STDERR.print("."); STDERR.flush
     end
     sleep 2
     @playlist.fmt_text(mset)
@@ -529,7 +531,7 @@ class MPlayer
     case ksel[0,1]
     when 'F'
       if @pmode == :sound
-        switch_audio
+        switch_audio 2
       else
         if omode && (omode == :sound)
           switch_audio
@@ -537,10 +539,10 @@ class MPlayer
       end
     when 'S'
       if @pmode == :karaoke
-        switch_audio 2
+        switch_audio
       else
         if omode && (omode == :karaoke)
-          send switch_audio
+          switch_audio
         end
       end
     when 'L'
@@ -838,7 +840,8 @@ EOF
     @player.stop
   end
 
-  private
+  # Can't make this private.  Then self does not respond to the
+  # public method anymore.  What kind of OO is this?
   def _run_a_line(cmd, oper)
     case cmd
     when 'exit', 'stop', 'quit'
@@ -986,6 +989,8 @@ EOF
     end
   end
 
+  # Delete the file associated with input list
+  # @param input [String] Comma separated list of song
   def delfile(input)
     _records(input).each do |sid|
       if arec = Song.find_by_id(sid)
@@ -1202,7 +1207,7 @@ EOF
     end
   end
 
-  private
+  public
   def _pmonitor(standalone = false)
     @player.rc.monitor_start
     ftime = false
@@ -1214,14 +1219,15 @@ EOF
       case event
         when :percent_position
           if data >= 98
-            sfiles = Dir.glob("#{RAILS_ROOT}/public/sound/*.wav")
+            sfiles = Dir.glob("/Users/thienvuong/kamplayer/webapp/public/sound/*.wav")
             if (fcount = sfiles.size) > 0
               sfile = sfiles[rand(fcount)]
-              system "afplay --volume 8 #{sfile} &"
+              system "afplay --volume 1 #{sfile} &"
             end
           end
 
         when :length
+          duration = data
           #p "**** #{@lastfile}: #{duration}"
           @cursong.set_duration(duration)
 
@@ -1399,6 +1405,7 @@ if ((__FILE__ == $0) && !defined?($mpshell_run))
   $mpshell_run = true
   MPShell.handleCli(
     ['--cache',     '-C', 1],   # Set kbytes to cache for video data
+    ['--driver',    '-D', 1],
     ['--screen',    '-e', 1],   # Set screen number
     ['--fs',        '-f', 0],   # Set full screen
     ['--keep',      '-k', 0],   # Use playlist from last play
@@ -1410,6 +1417,7 @@ if ((__FILE__ == $0) && !defined?($mpshell_run))
     ['--readline',  '-r', 0],
     ['--sample',    '-s', 1],
     ['--sim',       '-S', 0],
+    ['--trace',     '-t', 0],
     ['--volume',    '-V', 1],
     ['--verbose',   '-v', 0]
   )

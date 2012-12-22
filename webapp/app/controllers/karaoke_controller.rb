@@ -382,12 +382,6 @@ class KaraokeController < ApplicationController
     redirect_to :action=>:admin
   end
   
-  def psend
-    cmd = params[:cmd]
-    Player.send cmd
-    render :text=>"OK"
-  end
-
   # Test method
   def create_lyric
     item = params[:id]

@@ -1,4 +1,9 @@
-PATH=$PATH:/Users/thienvuong/kamplayer/bin
+required gems:
+* passenger
+* bundler
+
+PATH=$PATH:/Users/tvuong/kamplayer/bin
+export RUBYOPT=rubygems
 
 # For main screen
 katool mpshell -kfw -o3

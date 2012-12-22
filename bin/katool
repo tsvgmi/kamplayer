@@ -52,18 +52,19 @@ case $oper in
   re-encode)
     ifile=$1
     bfile=${ifile##*/}
-    F_logProgress "Convert $ifile to $ofile"
     fext=$(echo ${ifile##*.} | tr 'A-Z' 'a-z')
     case $fext in
     mpg)
       ofile=${bfile%.*}.mp4
       set -- $(ls -s "$ifile")
       let msize="($1/2+999)/1000"
+      F_logProgress "Convert $ifile to $ofile"
       HandBrakeCLI -i "$ifile" -o "tmp-$ofile" --size ${msize}M \
         --optimize --arate 48 --mixdown stereo
       ;;
     *)
       ofile=${bfile%.*}.mkv
+      F_logProgress "Convert $ifile to $ofile"
       HandBrakeCLI -i "$ifile" -o "tmp-$ofile" -2 -T -b $brate \
                   -O -T -B 192 -a 1,2 -R 48 --mixdown stereo \
                   --width 720 --height 480
@@ -147,14 +148,14 @@ case $oper in
         F_logProgress "Using last run options: $*"
       fi
     fi
-    while getopts :C:de:fkKmo:p:rs:Svw i; do
+    while getopts :C:D:de:fkKmo:rs:Stvw i; do
       case $i in
-      d)        export EM_RDEBUG=yes ;;
-      [Ceops])  ropt="$ropt -$i $OPTARG" ;;
-      [fkKmSv]) ropt="$ropt -$i" ;;
-      r)        ropt="$ropt -$i" rlmode=yes ;;
-      w)        runweb=yes ;;
-      *)        F_usageOper $oper ;;
+      d)         export EM_RDEBUG=yes ;;
+      [CDeos])   ropt="$ropt -$i $OPTARG" ;;
+      [fkKmStv]) ropt="$ropt -$i" ;;
+      r)         ropt="$ropt -$i" rlmode=yes ;;
+      w)         runweb=yes ;;
+      *)         F_usageOper $oper ;;
       esac
     done
     # This is my db and i/o location
@@ -162,8 +163,11 @@ case $oper in
     if [ "$runweb" ]; then
       F_system $EM_MYPROG webapp || exit
     fi
-    F_rbexec mpshell.rb -c $ropt run
-    #F_rbexec ~/kamplayer/lib/mpshell.rb -c $ropt run
+    if false; then
+      F_rbexec mpshell -c $ropt run
+    else
+      F_rbexec katool -c $ropt run
+    fi
     ;;
 
 #@Des: Independent monitor of mpshell output to control mplayer operation
@@ -173,10 +177,9 @@ case $oper in
 # running it stand alone for debug.
 #=end
   mpmonitor)
-    usedb= ropt= version2=
-    while getopts :2dkKsv i; do
+    usedb= ropt=
+    while getopts :dkKsv i; do
       case $i in
-      2)      version2=yes ;;
       d)      export EM_RDEBUG=yes ;;
       [kKsv]) ropt="$ropt -$i" ;;
       *) F_usageOper $oper ;;
@@ -184,11 +187,7 @@ case $oper in
     done
     cd ~/KA || exit 1
     F_pkill ruby.*pmonitor
-    if [ "$version2" ]; then
-      F_rbexec mpshell -c $ropt pmonitor2
-    else
-      F_rbexec mpshell -c $ropt pmonitor
-    fi
+    F_rbexec mpshell -c $ropt pmonitor
     ;;
 
   #@Des: Wrapper for rename.rb

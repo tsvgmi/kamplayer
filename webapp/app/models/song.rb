@@ -186,6 +186,7 @@ class Song < ActiveRecord::Base
       end
     end
     conditions = "(" + wset.join(') and (') + ") and state='Y'"
+    conditions = "(" + wset.join(') and (') + ")"
     p conditions
     Song.find(:all, :conditions=>conditions,
               :order=>'song,artist', :limit=>2000, :include=>[:lyric])
